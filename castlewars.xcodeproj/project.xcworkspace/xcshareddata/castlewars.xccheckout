@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>84D255CA-D9DB-4FAD-8A0D-116A3852C930</string>
+	<key>IDESourceControlProjectName</key>
+	<string>castlewars</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1F4614CF-8FD7-4D2C-832D-6BA2F44363F2</key>
+		<string>https://github.com/Seraphin35/CastleWars</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>castlewars.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1F4614CF-8FD7-4D2C-832D-6BA2F44363F2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Seraphin35/CastleWars</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1F4614CF-8FD7-4D2C-832D-6BA2F44363F2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1F4614CF-8FD7-4D2C-832D-6BA2F44363F2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CastleWars</string>
+		</dict>
+	</array>
+</dict>
+</plist>

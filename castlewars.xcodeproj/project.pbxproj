@@ -202,7 +202,7 @@
 		AC47EADF1AB15BB500A9EC59 /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EADE1AB15BB500A9EC59 /* CCTableViewCell.cpp */; };
 		AC47EAE31AB15BB500A9EC59 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAE21AB15BB500A9EC59 /* HttpClient.cpp */; };
 		AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */; };
-		AC47EAEF1AB15BB500A9EC59 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* HelloWorldScene.cpp */; };
+		AC47EAEF1AB15BB500A9EC59 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* Game.cpp */; };
 		AC47EAF71AB1680300A9EC59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAF51AB1680300A9EC59 /* Player.cpp */; };
 /* End PBXBuildFile section */
 
@@ -636,8 +636,8 @@
 		AC47EAE81AB15BB500A9EC59 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
-		AC47EAED1AB15BB500A9EC59 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
-		AC47EAEE1AB15BB500A9EC59 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		AC47EAED1AB15BB500A9EC59 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Game.h; path = Classes/Game.h; sourceTree = "<group>"; };
+		AC47EAEE1AB15BB500A9EC59 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = Classes/Game.cpp; sourceTree = "<group>"; };
 		AC47EAF51AB1680300A9EC59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		AC47EAF61AB1680300A9EC59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1523,8 +1523,8 @@
 			children = (
 				AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */,
 				AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */,
-				AC47EAED1AB15BB500A9EC59 /* HelloWorldScene.h */,
-				AC47EAEE1AB15BB500A9EC59 /* HelloWorldScene.cpp */,
+				AC47EAED1AB15BB500A9EC59 /* Game.h */,
+				AC47EAEE1AB15BB500A9EC59 /* Game.cpp */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
 				AC47EAF61AB1680300A9EC59 /* Player.h */,
 				840543261AB7FD7D00233F8C /* Card.cpp */,
@@ -1717,7 +1717,7 @@
 				AC47E87E1AB15BB300A9EC59 /* main.m in Sources */,
 				AC47EADF1AB15BB500A9EC59 /* CCTableViewCell.cpp in Sources */,
 				AC47E8CD1AB15BB300A9EC59 /* CCGeometry.cpp in Sources */,
-				AC47EAEF1AB15BB500A9EC59 /* HelloWorldScene.cpp in Sources */,
+				AC47EAEF1AB15BB500A9EC59 /* Game.cpp in Sources */,
 				AC47E9551AB15BB400A9EC59 /* CCParticleBatchNode.cpp in Sources */,
 				AC47EA4C1AB15BB500A9EC59 /* CocosDenshion.m in Sources */,
 				AC47E9041AB15BB400A9EC59 /* aabb.c in Sources */,
