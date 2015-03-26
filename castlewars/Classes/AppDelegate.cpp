@@ -9,7 +9,7 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
-#include "Game.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
