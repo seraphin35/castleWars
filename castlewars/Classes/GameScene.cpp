@@ -67,13 +67,13 @@ bool Game::init()
     this->addChild(pLabel, 1);
     
     // add "Game" splash screen"
-    CCSprite* pSprite = CCSprite::create("Game/BackgroundMenu.png");
+    CCSprite* pSprite = CCSprite::create("BackgroundMenu.png");
     
     // position the sprite on the center of the screen
     turnButton->setPosition(ccp(size.width / 2, size.height / 2));
     
     // add the sprite as a child to this layer
-    // this->addChild(turnButton, 0);
+    this->addChild(pSprite, 0);
     
     this->schedule(schedule_selector(Game::update));
     
