@@ -19,7 +19,6 @@
 		AC47E8601AB15BB300A9EC59 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E85F1AB15BB300A9EC59 /* CloseNormal.png */; };
 		AC47E8621AB15BB300A9EC59 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E8611AB15BB300A9EC59 /* CloseSelected.png */; };
 		AC47E8641AB15BB300A9EC59 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E8631AB15BB300A9EC59 /* Default.png */; };
-		AC47E8661AB15BB300A9EC59 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E8651AB15BB300A9EC59 /* HelloWorld.png */; };
 		AC47E8681AB15BB300A9EC59 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E8671AB15BB300A9EC59 /* Icon-72.png */; };
 		AC47E86A1AB15BB300A9EC59 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E8691AB15BB300A9EC59 /* Icon-Small-50.png */; };
 		AC47E86C1AB15BB300A9EC59 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = AC47E86B1AB15BB300A9EC59 /* Icon-Small.png */; };
@@ -204,6 +203,36 @@
 		AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */; };
 		AC47EAEF1AB15BB500A9EC59 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */; };
 		AC47EAF71AB1680300A9EC59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAF51AB1680300A9EC59 /* Player.cpp */; };
+		AC82BCAC1ACA64940022CA18 /* Wizards Magic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */; };
+		AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */; };
+		AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */; };
+		AC82BCC61ACA64B10022CA18 /* bowmin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */; };
+		AC82BCC71ACA64B10022CA18 /* clubin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB11ACA64B10022CA18 /* clubin_goblin.png */; };
+		AC82BCC81ACA64B10022CA18 /* emerald_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB21ACA64B10022CA18 /* emerald_wand.png */; };
+		AC82BCC91ACA64B10022CA18 /* flyin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB31ACA64B10022CA18 /* flyin_goblin.png */; };
+		AC82BCCA1ACA64B10022CA18 /* friendship.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB41ACA64B10022CA18 /* friendship.png */; };
+		AC82BCCB1ACA64B10022CA18 /* harmonic_orc.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB51ACA64B10022CA18 /* harmonic_orc.png */; };
+		AC82BCCC1ACA64B10022CA18 /* insecure_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB61ACA64B10022CA18 /* insecure_wall.png */; };
+		AC82BCCD1ACA64B10022CA18 /* instant_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB71ACA64B10022CA18 /* instant_wall.png */; };
+		AC82BCCE1ACA64B10022CA18 /* magic_miners.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB81ACA64B10022CA18 /* magic_miners.png */; };
+		AC82BCCF1ACA64B10022CA18 /* mana_disease.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB91ACA64B10022CA18 /* mana_disease.png */; };
+		AC82BCD01ACA64B10022CA18 /* mana_stompers.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */; };
+		AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */; };
+		AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */; };
+		AC82BCD31ACA64B10022CA18 /* protection_ward.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBD1ACA64B10022CA18 /* protection_ward.png */; };
+		AC82BCD41ACA64B10022CA18 /* recycled_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */; };
+		AC82BCD51ACA64B10022CA18 /* rock_slasher.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */; };
+		AC82BCD61ACA64B10022CA18 /* ruby_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCC01ACA64B10022CA18 /* ruby_wand.png */; };
+		AC82BCD71ACA64B10022CA18 /* sheepish_rabbit.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCC11ACA64B10022CA18 /* sheepish_rabbit.png */; };
+		AC82BCD81ACA64B10022CA18 /* stone_giant.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCC21ACA64B10022CA18 /* stone_giant.png */; };
+		AC82BCD91ACA64B10022CA18 /* strip_mining.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCC31ACA64B10022CA18 /* strip_mining.png */; };
+		AC82BCE41ACA67B90022CA18 /* BackgroundGame.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCDD1ACA67B90022CA18 /* BackgroundGame.png */; };
+		AC82BCE51ACA67B90022CA18 /* BackgroundMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCDE1ACA67B90022CA18 /* BackgroundMenu.png */; };
+		AC82BCE61ACA67B90022CA18 /* BackgroundStats.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCDF1ACA67B90022CA18 /* BackgroundStats.png */; };
+		AC82BCE71ACA67B90022CA18 /* ButtonMultiplayer.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCE01ACA67B90022CA18 /* ButtonMultiplayer.png */; };
+		AC82BCE81ACA67B90022CA18 /* ButtonOnePlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCE11ACA67B90022CA18 /* ButtonOnePlayer.png */; };
+		AC82BCE91ACA67B90022CA18 /* ButtonStats.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCE21ACA67B90022CA18 /* ButtonStats.png */; };
+		AC82BCEA1ACA67B90022CA18 /* TemplateLittleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCE31ACA67B90022CA18 /* TemplateLittleButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,7 +250,6 @@
 		AC47E85F1AB15BB300A9EC59 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseNormal.png; path = Resources/CloseNormal.png; sourceTree = "<group>"; };
 		AC47E8611AB15BB300A9EC59 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseSelected.png; path = Resources/CloseSelected.png; sourceTree = "<group>"; };
 		AC47E8631AB15BB300A9EC59 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		AC47E8651AB15BB300A9EC59 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelloWorld.png; path = Resources/HelloWorld.png; sourceTree = "<group>"; };
 		AC47E8671AB15BB300A9EC59 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
 		AC47E8691AB15BB300A9EC59 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
 		AC47E86B1AB15BB300A9EC59 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
@@ -640,6 +668,36 @@
 		AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = Classes/GameScene.cpp; sourceTree = "<group>"; };
 		AC47EAF51AB1680300A9EC59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		AC47EAF61AB1680300A9EC59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Wizards Magic.ttf"; sourceTree = "<group>"; };
+		AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amethyst_wand.png; sourceTree = "<group>"; };
+		AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottled_flatulence.png; sourceTree = "<group>"; };
+		AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowmin_goblin.png; sourceTree = "<group>"; };
+		AC82BCB11ACA64B10022CA18 /* clubin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clubin_goblin.png; sourceTree = "<group>"; };
+		AC82BCB21ACA64B10022CA18 /* emerald_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emerald_wand.png; sourceTree = "<group>"; };
+		AC82BCB31ACA64B10022CA18 /* flyin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flyin_goblin.png; sourceTree = "<group>"; };
+		AC82BCB41ACA64B10022CA18 /* friendship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friendship.png; sourceTree = "<group>"; };
+		AC82BCB51ACA64B10022CA18 /* harmonic_orc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = harmonic_orc.png; sourceTree = "<group>"; };
+		AC82BCB61ACA64B10022CA18 /* insecure_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insecure_wall.png; sourceTree = "<group>"; };
+		AC82BCB71ACA64B10022CA18 /* instant_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instant_wall.png; sourceTree = "<group>"; };
+		AC82BCB81ACA64B10022CA18 /* magic_miners.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magic_miners.png; sourceTree = "<group>"; };
+		AC82BCB91ACA64B10022CA18 /* mana_disease.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mana_disease.png; sourceTree = "<group>"; };
+		AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mana_stompers.png; sourceTree = "<group>"; };
+		AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobbin_goblin.png; sourceTree = "<group>"; };
+		AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mortal_mole.png; sourceTree = "<group>"; };
+		AC82BCBD1ACA64B10022CA18 /* protection_ward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = protection_ward.png; sourceTree = "<group>"; };
+		AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recycled_rainbow.png; sourceTree = "<group>"; };
+		AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock_slasher.png; sourceTree = "<group>"; };
+		AC82BCC01ACA64B10022CA18 /* ruby_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ruby_wand.png; sourceTree = "<group>"; };
+		AC82BCC11ACA64B10022CA18 /* sheepish_rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheepish_rabbit.png; sourceTree = "<group>"; };
+		AC82BCC21ACA64B10022CA18 /* stone_giant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone_giant.png; sourceTree = "<group>"; };
+		AC82BCC31ACA64B10022CA18 /* strip_mining.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strip_mining.png; sourceTree = "<group>"; };
+		AC82BCDD1ACA67B90022CA18 /* BackgroundGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundGame.png; sourceTree = "<group>"; };
+		AC82BCDE1ACA67B90022CA18 /* BackgroundMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundMenu.png; sourceTree = "<group>"; };
+		AC82BCDF1ACA67B90022CA18 /* BackgroundStats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundStats.png; sourceTree = "<group>"; };
+		AC82BCE01ACA67B90022CA18 /* ButtonMultiplayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonMultiplayer.png; sourceTree = "<group>"; };
+		AC82BCE11ACA67B90022CA18 /* ButtonOnePlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonOnePlayer.png; sourceTree = "<group>"; };
+		AC82BCE21ACA67B90022CA18 /* ButtonStats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonStats.png; sourceTree = "<group>"; };
+		AC82BCE31ACA67B90022CA18 /* TemplateLittleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateLittleButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,10 +767,12 @@
 		AC47E85E1AB15BB300A9EC59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC82BCDC1ACA67B90022CA18 /* Game */,
+				AC82BCAD1ACA64B10022CA18 /* Cards */,
+				AC82BCAA1ACA64940022CA18 /* Font */,
 				AC47E85F1AB15BB300A9EC59 /* CloseNormal.png */,
 				AC47E8611AB15BB300A9EC59 /* CloseSelected.png */,
 				AC47E8631AB15BB300A9EC59 /* Default.png */,
-				AC47E8651AB15BB300A9EC59 /* HelloWorld.png */,
 				AC47E8671AB15BB300A9EC59 /* Icon-72.png */,
 				AC47E8691AB15BB300A9EC59 /* Icon-Small-50.png */,
 				AC47E86B1AB15BB300A9EC59 /* Icon-Small.png */,
@@ -1533,6 +1593,60 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		AC82BCAA1ACA64940022CA18 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */,
+			);
+			name = Font;
+			path = Resources/Font;
+			sourceTree = "<group>";
+		};
+		AC82BCAD1ACA64B10022CA18 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */,
+				AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */,
+				AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */,
+				AC82BCB11ACA64B10022CA18 /* clubin_goblin.png */,
+				AC82BCB21ACA64B10022CA18 /* emerald_wand.png */,
+				AC82BCB31ACA64B10022CA18 /* flyin_goblin.png */,
+				AC82BCB41ACA64B10022CA18 /* friendship.png */,
+				AC82BCB51ACA64B10022CA18 /* harmonic_orc.png */,
+				AC82BCB61ACA64B10022CA18 /* insecure_wall.png */,
+				AC82BCB71ACA64B10022CA18 /* instant_wall.png */,
+				AC82BCB81ACA64B10022CA18 /* magic_miners.png */,
+				AC82BCB91ACA64B10022CA18 /* mana_disease.png */,
+				AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */,
+				AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */,
+				AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */,
+				AC82BCBD1ACA64B10022CA18 /* protection_ward.png */,
+				AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */,
+				AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */,
+				AC82BCC01ACA64B10022CA18 /* ruby_wand.png */,
+				AC82BCC11ACA64B10022CA18 /* sheepish_rabbit.png */,
+				AC82BCC21ACA64B10022CA18 /* stone_giant.png */,
+				AC82BCC31ACA64B10022CA18 /* strip_mining.png */,
+			);
+			name = Cards;
+			path = Resources/Cards;
+			sourceTree = "<group>";
+		};
+		AC82BCDC1ACA67B90022CA18 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				AC82BCDD1ACA67B90022CA18 /* BackgroundGame.png */,
+				AC82BCDE1ACA67B90022CA18 /* BackgroundMenu.png */,
+				AC82BCDF1ACA67B90022CA18 /* BackgroundStats.png */,
+				AC82BCE01ACA67B90022CA18 /* ButtonMultiplayer.png */,
+				AC82BCE11ACA67B90022CA18 /* ButtonOnePlayer.png */,
+				AC82BCE21ACA67B90022CA18 /* ButtonStats.png */,
+				AC82BCE31ACA67B90022CA18 /* TemplateLittleButton.png */,
+			);
+			name = Game;
+			path = Resources/Game;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1583,16 +1697,45 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */,
+				AC82BCCA1ACA64B10022CA18 /* friendship.png in Resources */,
 				AC47E8701AB15BB300A9EC59 /* Icon.png in Resources */,
 				AC47E9061AB15BB400A9EC59 /* ChangeLog in Resources */,
+				AC82BCD31ACA64B10022CA18 /* protection_ward.png in Resources */,
+				AC82BCE41ACA67B90022CA18 /* BackgroundGame.png in Resources */,
+				AC82BCC91ACA64B10022CA18 /* flyin_goblin.png in Resources */,
+				AC82BCC71ACA64B10022CA18 /* clubin_goblin.png in Resources */,
+				AC82BCD51ACA64B10022CA18 /* rock_slasher.png in Resources */,
+				AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */,
 				AC47E8601AB15BB300A9EC59 /* CloseNormal.png in Resources */,
+				AC82BCCB1ACA64B10022CA18 /* harmonic_orc.png in Resources */,
+				AC82BCD61ACA64B10022CA18 /* ruby_wand.png in Resources */,
+				AC82BCE91ACA67B90022CA18 /* ButtonStats.png in Resources */,
+				AC82BCCE1ACA64B10022CA18 /* magic_miners.png in Resources */,
+				AC82BCCC1ACA64B10022CA18 /* insecure_wall.png in Resources */,
+				AC82BCEA1ACA67B90022CA18 /* TemplateLittleButton.png in Resources */,
+				AC82BCD91ACA64B10022CA18 /* strip_mining.png in Resources */,
 				AC47E86C1AB15BB300A9EC59 /* Icon-Small.png in Resources */,
+				AC82BCD81ACA64B10022CA18 /* stone_giant.png in Resources */,
 				AC47E8681AB15BB300A9EC59 /* Icon-72.png in Resources */,
-				AC47E8661AB15BB300A9EC59 /* HelloWorld.png in Resources */,
+				AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */,
+				AC82BCAC1ACA64940022CA18 /* Wizards Magic.ttf in Resources */,
+				AC82BCCD1ACA64B10022CA18 /* instant_wall.png in Resources */,
+				AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */,
+				AC82BCCF1ACA64B10022CA18 /* mana_disease.png in Resources */,
+				AC82BCE81ACA67B90022CA18 /* ButtonOnePlayer.png in Resources */,
 				AC47E86A1AB15BB300A9EC59 /* Icon-Small-50.png in Resources */,
+				AC82BCC61ACA64B10022CA18 /* bowmin_goblin.png in Resources */,
+				AC82BCD01ACA64B10022CA18 /* mana_stompers.png in Resources */,
+				AC82BCC81ACA64B10022CA18 /* emerald_wand.png in Resources */,
+				AC82BCD71ACA64B10022CA18 /* sheepish_rabbit.png in Resources */,
 				AC47E8741AB15BB300A9EC59 /* iTunesArtwork in Resources */,
+				AC82BCE51ACA67B90022CA18 /* BackgroundMenu.png in Resources */,
+				AC82BCE61ACA67B90022CA18 /* BackgroundStats.png in Resources */,
+				AC82BCE71ACA67B90022CA18 /* ButtonMultiplayer.png in Resources */,
 				AC47E86E1AB15BB300A9EC59 /* Icon-Small@2x.png in Resources */,
 				AC47E8641AB15BB300A9EC59 /* Default.png in Resources */,
+				AC82BCD41ACA64B10022CA18 /* recycled_rainbow.png in Resources */,
 				AC47E8621AB15BB300A9EC59 /* CloseSelected.png in Resources */,
 				AC47E8721AB15BB300A9EC59 /* Icon@2x.png in Resources */,
 			);
