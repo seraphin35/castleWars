@@ -10,6 +10,9 @@
 #define __castlewars__Player__
 
 #include <iostream>
+#include "Card.h"
+
+class Card;
 
 class Player
 {
@@ -18,6 +21,7 @@ private:
     int magic;
     int castle;
     int wall;
+    Card *Deck;
     
 public:
     Player() {}
