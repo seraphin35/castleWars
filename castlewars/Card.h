@@ -12,6 +12,8 @@
 #include <iostream>
 #include "Player.h"
 
+class Player;
+
 typedef bool (*ptrfunc)(Player *, Player *);
 
 class Card {
