@@ -51,7 +51,7 @@ bool Game::init()
     
     /////////////////////////////
     // 3. add your codes below...
-    
+
     // add a label shows "Hello World"
     // create and initialize a label
     CCString turnStr = *CCString::createWithFormat("%d", this->turn);
@@ -61,13 +61,14 @@ bool Game::init()
     CCSize size = CCDirector::sharedDirector()->getWinSize();
     
     // position the label on the center of the screen
-    pLabel->setPosition( ccp(size.width / 2, size.height - 20) );
+    pLabel->setPosition( ccp(size.width / 2, size.height - 100) );
     
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
     
     // add "Game" splash screen"
     CCSprite* pSprite = CCSprite::create("BackgroundMenu.png");
+    pSprite->setPosition(ccp(500, 300));
     
     // position the sprite on the center of the screen
     turnButton->setPosition(ccp(size.width / 2, size.height / 2));
