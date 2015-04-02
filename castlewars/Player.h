@@ -40,7 +40,7 @@ public:
     void setCastle(const int);
     void setWall(const int);
     
-    void newTurn();
+    void handleNewTurn();
     void shuffle();
 };
 

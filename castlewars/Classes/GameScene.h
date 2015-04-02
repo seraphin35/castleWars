@@ -7,7 +7,8 @@
 class Game : public cocos2d::CCLayer
 {
 private:
-    int turn;
+    int     turn;
+    bool    currentPlayerTurn;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -21,7 +22,9 @@ public:
     void menuCloseCallback(CCObject* pSender);
     
     void nextTurn(CCObject *pSend);
-    
+    void startNewTurn(Player *p);
+    void switchTurn(bool extra);
+
     Player *Player1;
     Player *Player2;
     

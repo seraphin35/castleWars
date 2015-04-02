@@ -38,6 +38,8 @@ bool Game::init()
     this->Player1 = new Player();
     this->Player2 = new Player();
     
+    this->currentPlayerTurn = true;
+    
     CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
                                                           "CloseNormal.png",
                                                           "CloseSelected.png",
@@ -70,14 +72,12 @@ bool Game::init()
     this->addChild(pLabel, 1);
     
     // add "Game" splash screen"
-    CCSprite* pSprite = CCSprite::create("BackgroundMenu.png");
-    pSprite->setPosition(ccp(500, 300));
+    CCSprite* backgroundMenu = CCSprite::create("BackgroundMenu.png");
+    backgroundMenu->setPosition(ccp(500, 300));
+    this->addChild(backgroundMenu, 0);
     
     // position the sprite on the center of the screen
     turnButton->setPosition(ccp(size.width / 2, size.height / 2));
-    
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
     
     this->schedule(schedule_selector(Game::update));
     
@@ -89,13 +89,29 @@ void Game::update(float dt)
     
 }
 
+void Game::switchTurn(bool extra)
+{
+    this->turn++;
+    if (!extra)
+    {
+        currentPlayerTurn = !currentPlayerTurn;
+    }
+    this->startNewTurn(currentPlayerTurn ? Player1 : Player2);
+}
+
+void Game::startNewTurn(Player *p) {
+    p->handleNewTurn();
+}
+
 void Game::nextTurn(CCObject *pSend)
 {
+    /*
     this->turn += 1;
     
     this->Player1->newTurn();
     this->Player2->newTurn();
     printf("%d", this->turn);
+     */
 }
 
 void Game::menuCloseCallback(CCObject* pSender)

@@ -68,7 +68,7 @@ void Player::setCrystals(const int value)
     this->crystals = value;
 }
 
-void Player::newTurn()
+void Player::handleNewTurn()
 {
     this->crystals += this->magic;
     
