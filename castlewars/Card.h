@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Player.h"
+#include "cocos2d.h"
 
 class Player;
 
@@ -21,13 +22,14 @@ class Card {
 private:
     int value;
     ptrfunc effect;
-    //image here
+    cocos2d::CCSprite* image;
 public:
-    Card(ptrfunc effect, int value);
+    Card(ptrfunc effect, int value, cocos2d::CCSprite* image);
     ~Card() {}
     
     const int getValue();
     const ptrfunc getEffect();
+    const cocos2d::CCSprite* getImage();
     //image getter here
 };
 

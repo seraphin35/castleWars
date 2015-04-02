@@ -370,28 +370,28 @@ bool amethystWand(Player *player1, Player *player2)
 std::vector<Card *> &getDeck()
 {
     std::vector<Card *> *deck = new std::vector<Card *>();
-    deck->push_back(new Card(&amethystWand, 4));
-    deck->push_back(new Card(&bottledFlatulence, 4));
-    deck->push_back(new Card(&bowminGoblin, 4));
-    deck->push_back(new Card(&clubbinGoblin, 4));
-    deck->push_back(new Card(&emeraldWand, 10));
-    deck->push_back(new Card(&flyinGoblin, 3));
-    deck->push_back(new Card(&friendship, 2));
-    deck->push_back(new Card(&harmonicOrc, 7));
-    deck->push_back(new Card(&insecureWall, 3));
-    deck->push_back(new Card(&instantWall, 2));
-    deck->push_back(new Card(&magicMiners, 4));
-    deck->push_back(new Card(&manaDisease, 0));
-    deck->push_back(new Card(&manaStomper, 11));
-    deck->push_back(new Card(&mobbinGoblin, 3));
-    deck->push_back(new Card(&mortarMole, 6));
-    deck->push_back(new Card(&protectionWard, 12));
-    deck->push_back(new Card(&recycledRainbows, 0));
-    deck->push_back(new Card(&rockSlasher, 5));
-    deck->push_back(new Card(&rubyWand, 6));
-    deck->push_back(new Card(&sheepishRabbit, 9));
-    deck->push_back(new Card(&stoneGiant, 12));
-    deck->push_back(new Card(&stripMining, 0));
+    deck->push_back(new Card(&amethystWand, 4, cocos2d::CCSprite::create("amethyst_wand.png")));
+    deck->push_back(new Card(&bottledFlatulence, 4, cocos2d::CCSprite::create("bottled_flatulence.png")));
+    deck->push_back(new Card(&bowminGoblin, 4, cocos2d::CCSprite::create("bowmin_goblin.png")));
+    deck->push_back(new Card(&clubbinGoblin, 4, cocos2d::CCSprite::create("clubin_goblin.png")));
+    deck->push_back(new Card(&emeraldWand, 10, cocos2d::CCSprite::create("emerald_wand.png")));
+    deck->push_back(new Card(&flyinGoblin, 3, cocos2d::CCSprite::create("flyin_goblin.png")));
+    deck->push_back(new Card(&friendship, 2, cocos2d::CCSprite::create("friendship.png")));
+    deck->push_back(new Card(&harmonicOrc, 7, cocos2d::CCSprite::create("harmonic_orc.png")));
+    deck->push_back(new Card(&insecureWall, 3, cocos2d::CCSprite::create("insecure_wall.png")));
+    deck->push_back(new Card(&instantWall, 2, cocos2d::CCSprite::create("instant_wall.png")));
+    deck->push_back(new Card(&magicMiners, 4, cocos2d::CCSprite::create("magic_miners.png")));
+    deck->push_back(new Card(&manaDisease, 0, cocos2d::CCSprite::create("mana_disease.png")));
+    deck->push_back(new Card(&manaStomper, 11, cocos2d::CCSprite::create("mana_stompers.png")));
+    deck->push_back(new Card(&mobbinGoblin, 3, cocos2d::CCSprite::create("mobbin_goblin.png")));
+    deck->push_back(new Card(&mortarMole, 6, cocos2d::CCSprite::create("mortal_mole.png")));
+    deck->push_back(new Card(&protectionWard, 12, cocos2d::CCSprite::create("protection_ward.png")));
+    deck->push_back(new Card(&recycledRainbows, 0, cocos2d::CCSprite::create("recycled_rainbow.png")));
+    deck->push_back(new Card(&rockSlasher, 5, cocos2d::CCSprite::create("rock_slasher.png")));
+    deck->push_back(new Card(&rubyWand, 6, cocos2d::CCSprite::create("ruby_wand.png")));
+    deck->push_back(new Card(&sheepishRabbit, 9, cocos2d::CCSprite::create("sheepish_rabbit.png")));
+    deck->push_back(new Card(&stoneGiant, 12, cocos2d::CCSprite::create("stone_giant.png")));
+    deck->push_back(new Card(&stripMining, 0, cocos2d::CCSprite::create("strip_mining.png")));
     
     return (*deck);
 }
