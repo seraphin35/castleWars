@@ -73,6 +73,8 @@ bool sheepishRabbit(Player *player1, Player *player2)
 bool rubyWand(Player *player1, Player *player2)
 {
     player1->setCastle(player1->getCastle() + 5);
+    
+    return 0;
 }
 
 bool rockSlasher(Player *player1, Player *player2)
