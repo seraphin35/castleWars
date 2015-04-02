@@ -36,4 +36,6 @@ bool bowminGoblin(Player *player1, Player *player2);
 bool bottledFlatulence(Player *player1, Player *player2);
 bool amethystWand(Player *player1, Player *player2);
 
+std::vector<Card *> &getDeck();
+
 #endif /* defined(__castlewars__StripMining__) */

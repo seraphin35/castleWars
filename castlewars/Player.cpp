@@ -8,6 +8,8 @@
 
 #include "Player.h"
 #include "Card.h"
+#include "Cards.h"
+#include <algorithm>
 
 Player::Player()
 {
@@ -16,6 +18,14 @@ Player::Player()
     this->setWall(0);
     this->setCastle(15);
     this->shuffle();
+    
+    this->Deck = getDeck();
+    std::random_shuffle(this->Deck.begin(), this->Deck.end());
+    for (int i = 0; i < 5; i++)
+    {
+        this->Hand.push_back(this->Deck.back());
+        this->Deck.pop_back();
+    }
 }
 
 const int Player::getCastle()
