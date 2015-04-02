@@ -10,6 +10,7 @@
 #define __castlewars__Player__
 
 #include <iostream>
+#include <vector>
 #include "Card.h"
 
 class Card;
@@ -21,10 +22,12 @@ private:
     int magic;
     int castle;
     int wall;
-    Card *Deck;
+    std::vector<Card*> Deck;
+    std::vector<Card*> Hand;
+    std::vector<Card*> Discard;
     
 public:
-    Player() {}
+    Player();
     ~Player() {}
     
     const int getCrystals();
@@ -38,6 +41,7 @@ public:
     void setWall(const int);
     
     void newTurn();
+    void shuffle();
 };
 
 #endif /* defined(__castlewars__Player__) */

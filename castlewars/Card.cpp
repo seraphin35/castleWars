@@ -8,6 +8,12 @@
 
 #include "Card.h"
 
+Card::Card(ptrfunc effect, int value)
+{
+    this->effect = effect;
+    this->value = value;
+}
+
 const int Card::getValue()
 {
     return this->value;

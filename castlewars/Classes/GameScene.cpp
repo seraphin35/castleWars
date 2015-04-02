@@ -35,6 +35,9 @@ bool Game::init()
     //    you may modify it.
     
     // add a "close" icon to exit the progress. it's an autorelease object
+    this->Player1 = new Player();
+    this->Player2 = new Player();
+    
     CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
                                                           "CloseNormal.png",
                                                           "CloseSelected.png",
@@ -89,6 +92,9 @@ void Game::update(float dt)
 void Game::nextTurn(CCObject *pSend)
 {
     this->turn += 1;
+    
+    this->Player1->newTurn();
+    this->Player2->newTurn();
     printf("%d", this->turn);
 }
 

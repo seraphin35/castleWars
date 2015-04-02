@@ -23,11 +23,7 @@ private:
     ptrfunc effect;
     //image here
 public:
-    Card(ptrfunc effect, int value)
-    {
-        this->effect = effect;
-        this->value = value;
-    }
+    Card(ptrfunc effect, int value);
     ~Card() {}
     
     const int getValue();

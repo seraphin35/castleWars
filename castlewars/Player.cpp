@@ -7,6 +7,21 @@
 //
 
 #include "Player.h"
+#include "Card.h"
+
+Player::Player()
+{
+    this->setMagic(1);
+    this->setCrystals(3);
+    this->setWall(0);
+    this->setCastle(15);
+    this->shuffle();
+    
+    for (int i = 0; i < 5; i++)
+    {
+        this->Deck->push_back(new Card());
+    }
+}
 
 const int Player::getCastle()
 {
@@ -51,5 +66,10 @@ void Player::setCrystals(const int value)
 void Player::newTurn()
 {
     this->crystals += this->magic;
+    
+}
+
+void Player::shuffle()
+{
     
 }

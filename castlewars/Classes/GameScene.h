@@ -2,6 +2,7 @@
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"
+#include "Player.h"
 
 class Game : public cocos2d::CCLayer
 {
@@ -20,6 +21,9 @@ public:
     void menuCloseCallback(CCObject* pSender);
     
     void nextTurn(CCObject *pSend);
+    
+    Player *Player1;
+    Player *Player2;
     
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(Game);

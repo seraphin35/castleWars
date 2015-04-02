@@ -6,6 +6,7 @@
 //
 //
 
+#include "Card.h"
 #include "Cards.h"
 
 bool stripMining(Player *player1, Player *player2)
@@ -362,4 +363,33 @@ bool amethystWand(Player *player1, Player *player2)
     player1->setCastle(player1->getCastle() + 3);
     
     return 0;
+}
+
+std::vector<Card *> &getDeck()
+{
+    std::vector<Card *> *deck = new std::vector<Card *>();
+    deck->push_back(new Card(&amethystWand, 4));
+    deck->push_back(new Card(&bottledFlatulence, 4));
+    deck->push_back(new Card(&bowminGoblin, 4));
+    deck->push_back(new Card(&clubbinGoblin, 4));
+    deck->push_back(new Card(&emeraldWand, 10));
+    deck->push_back(new Card(&flyinGoblin, 3));
+    deck->push_back(new Card(&friendship, 2));
+    deck->push_back(new Card(&harmonicOrc, 7));
+    deck->push_back(new Card(&insecureWall, 3));
+    deck->push_back(new Card(&instantWall, 2));
+    deck->push_back(new Card(&magicMiners, 4));
+    deck->push_back(new Card(&manaDisease, 0));
+    deck->push_back(new Card(&manaStomper, 11));
+    deck->push_back(new Card(&mobbinGoblin, 3));
+    deck->push_back(new Card(&mortarMole, 6));
+    deck->push_back(new Card(&protectionWard, 12));
+    deck->push_back(new Card(&recycledRainbows, 0));
+    deck->push_back(new Card(&rockSlasher, 5));
+    deck->push_back(new Card(&rubyWand, 6));
+    deck->push_back(new Card(&sheepishRabbit, 9));
+    deck->push_back(new Card(&stoneGiant, 12));
+    deck->push_back(new Card(&stripMining, 0));
+    
+    return (*deck);
 }
