@@ -58,7 +58,7 @@ bool Game::init()
     // add a label shows "Hello World"
     // create and initialize a label
     CCString turnStr = *CCString::createWithFormat("%d", this->turn);
-    CCLabelTTF* pLabel = CCLabelTTF::create(turnStr.getCString(), "Thonburi", 42);
+    CCLabelTTF* pLabel = CCLabelTTF::create(turnStr.getCString(), "Thonburi", 42, CCSizeMake(245, 32), kCCTextAlignmentCenter);
     
     // ask director the window size
     CCSize size = CCDirector::sharedDirector()->getWinSize();

@@ -13,6 +13,9 @@
 #include "Card.h"
 #include "Player.h"
 
+void damageAll(Player *player, int damage);
+void damageCastle(Player *player, int damage);
+
 bool stripMining(Player *player1, Player *player2);
 bool stoneGiant(Player *player1, Player *player2);
 bool sheepishRabbit(Player *player1, Player *player2);

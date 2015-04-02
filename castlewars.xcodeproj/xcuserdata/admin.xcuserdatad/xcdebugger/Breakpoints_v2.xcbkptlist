@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
             endingLineNumber = "13"
-            landmarkName = "Card::getValue()"
+            landmarkName = "Card::Card(ptrfunc effect, int value, cocos2d::CCSprite* image)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "castlewars/Card.h"
-            timestampString = "448266213.11712"
+            timestampString = "449649277.464987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "castlewars/Card.h"
-            timestampString = "448266216.53283"
+            timestampString = "449649277.464987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
             landmarkName = "class Card"
             landmarkType = "3">
          </BreakpointContent>
