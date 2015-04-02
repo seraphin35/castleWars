@@ -16,11 +16,6 @@ Player::Player()
     this->setWall(0);
     this->setCastle(15);
     this->shuffle();
-    
-    for (int i = 0; i < 5; i++)
-    {
-        this->Deck->push_back(new Card());
-    }
 }
 
 const int Player::getCastle()

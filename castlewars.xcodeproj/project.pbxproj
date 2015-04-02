@@ -203,7 +203,6 @@
 		AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */; };
 		AC47EAEF1AB15BB500A9EC59 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */; };
 		AC47EAF71AB1680300A9EC59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAF51AB1680300A9EC59 /* Player.cpp */; };
-		AC82BCAC1ACA64940022CA18 /* Wizards Magic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */; };
 		AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */; };
 		AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */; };
 		AC82BCC61ACA64B10022CA18 /* bowmin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */; };
@@ -668,7 +667,6 @@
 		AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = Classes/GameScene.cpp; sourceTree = "<group>"; };
 		AC47EAF51AB1680300A9EC59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		AC47EAF61AB1680300A9EC59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Wizards Magic.ttf"; sourceTree = "<group>"; };
 		AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amethyst_wand.png; sourceTree = "<group>"; };
 		AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottled_flatulence.png; sourceTree = "<group>"; };
 		AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowmin_goblin.png; sourceTree = "<group>"; };
@@ -1596,7 +1594,6 @@
 		AC82BCAA1ACA64940022CA18 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				AC82BCAB1ACA64940022CA18 /* Wizards Magic.ttf */,
 			);
 			name = Font;
 			path = Resources/Font;
@@ -1719,7 +1716,6 @@
 				AC82BCD81ACA64B10022CA18 /* stone_giant.png in Resources */,
 				AC47E8681AB15BB300A9EC59 /* Icon-72.png in Resources */,
 				AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */,
-				AC82BCAC1ACA64940022CA18 /* Wizards Magic.ttf in Resources */,
 				AC82BCCD1ACA64B10022CA18 /* instant_wall.png in Resources */,
 				AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */,
 				AC82BCCF1ACA64B10022CA18 /* mana_disease.png in Resources */,
