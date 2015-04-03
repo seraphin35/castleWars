@@ -77,10 +77,12 @@ bool MainMenu::init()
     this->multiPlayerTitle->setPosition( ccp(screenSize.width / 4 * 3 - 50,
                                             screenSize.height / 2 + 150) );
     
-    // add all elements as a child to this layer
-    this->addChild(onePlayerButton, 1);
-    this->addChild(multiPlayerButton, 1);
-
+    // create menu, it's an autorelease object
+    this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton, NULL);
+    menu->setPosition( CCPointZero );
+    this->addChild(menu, 1);
+    
+    // add titles elements as a child to this layer
     this->addChild(onePlayerTitle, 2);
     this->addChild(multiPlayerTitle, 2);
     

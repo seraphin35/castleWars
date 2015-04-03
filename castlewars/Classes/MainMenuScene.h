@@ -11,7 +11,7 @@ using namespace cocos2d;
 class MainMenu : public cocos2d::CCLayer
 {
 private:
-//    CCMenu*             menu;
+    CCMenu*             menu;
 
     CCMenuItemImage*    onePlayerButton;
     CCMenuItemImage*    multiPlayerButton;
