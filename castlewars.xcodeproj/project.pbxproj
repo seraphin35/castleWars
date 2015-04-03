@@ -10,6 +10,7 @@
 		840543281AB7FD7D00233F8C /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840543261AB7FD7D00233F8C /* Card.cpp */; };
 		840824E91ACD0FB300E875C8 /* Cards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840824E71ACD0FB300E875C8 /* Cards.cpp */; };
 		840824EB1ACD178C00E875C8 /* MagicFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 840824EA1ACD178C00E875C8 /* MagicFont.ttf */; };
+		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC47E84E1AB15BB300A9EC59 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */; };
 		AC47E8501AB15BB300A9EC59 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */; };
 		AC47E8521AB15BB300A9EC59 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E8511AB15BB300A9EC59 /* OpenAL.framework */; };
@@ -203,7 +204,7 @@
 		AC47EADF1AB15BB500A9EC59 /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EADE1AB15BB500A9EC59 /* CCTableViewCell.cpp */; };
 		AC47EAE31AB15BB500A9EC59 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAE21AB15BB500A9EC59 /* HttpClient.cpp */; };
 		AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */; };
-		AC47EAEF1AB15BB500A9EC59 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */; };
+		AC47EAEF1AB15BB500A9EC59 /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */; };
 		AC47EAF71AB1680300A9EC59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAF51AB1680300A9EC59 /* Player.cpp */; };
 		AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */; };
 		AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */; };
@@ -242,6 +243,8 @@
 		840824E71ACD0FB300E875C8 /* Cards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cards.cpp; sourceTree = "<group>"; };
 		840824E81ACD0FB300E875C8 /* Cards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cards.h; sourceTree = "<group>"; };
 		840824EA1ACD178C00E875C8 /* MagicFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicFont.ttf; sourceTree = "<group>"; };
+		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
+		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		AC47E84A1AB15BB300A9EC59 /* castlewars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = castlewars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -668,8 +671,8 @@
 		AC47EAE81AB15BB500A9EC59 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
-		AC47EAED1AB15BB500A9EC59 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = Classes/GameScene.h; sourceTree = "<group>"; };
-		AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = Classes/GameScene.cpp; sourceTree = "<group>"; };
+		AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainMenuScene.h; path = Classes/MainMenuScene.h; sourceTree = "<group>"; };
+		AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainMenuScene.cpp; path = Classes/MainMenuScene.cpp; sourceTree = "<group>"; };
 		AC47EAF51AB1680300A9EC59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		AC47EAF61AB1680300A9EC59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amethyst_wand.png; sourceTree = "<group>"; };
@@ -1584,16 +1587,18 @@
 		AC47EAE91AB15BB500A9EC59 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */,
 				AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */,
-				AC47EAED1AB15BB500A9EC59 /* GameScene.h */,
-				AC47EAEE1AB15BB500A9EC59 /* GameScene.cpp */,
-				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
-				840824E71ACD0FB300E875C8 /* Cards.cpp */,
-				840824E81ACD0FB300E875C8 /* Cards.h */,
-				AC47EAF61AB1680300A9EC59 /* Player.h */,
+				AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */,
 				840543261AB7FD7D00233F8C /* Card.cpp */,
 				840543271AB7FD7D00233F8C /* Card.h */,
+				840824E71ACD0FB300E875C8 /* Cards.cpp */,
+				840824E81ACD0FB300E875C8 /* Cards.h */,
+				AC32E07E1ACE8381002D77DE /* GameScene.cpp */,
+				AC32E07F1ACE8381002D77DE /* GameScene.h */,
+				AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */,
+				AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */,
+				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
+				AC47EAF61AB1680300A9EC59 /* Player.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1757,6 +1762,7 @@
 				AC47EA3C1AB15BB500A9EC59 /* CCTouchHandler.cpp in Sources */,
 				AC47E9371AB15BB400A9EC59 /* CCScene.cpp in Sources */,
 				AC47EA2B1AB15BB400A9EC59 /* CCTMXObjectGroup.cpp in Sources */,
+				AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */,
 				AC47E9141AB15BB400A9EC59 /* plane.c in Sources */,
 				AC47E8AB1AB15BB300A9EC59 /* CCAtlasNode.cpp in Sources */,
 				AC47EA111AB15BB400A9EC59 /* CCTextFieldTTF.cpp in Sources */,
@@ -1866,7 +1872,7 @@
 				AC47E87E1AB15BB300A9EC59 /* main.m in Sources */,
 				AC47EADF1AB15BB500A9EC59 /* CCTableViewCell.cpp in Sources */,
 				AC47E8CD1AB15BB300A9EC59 /* CCGeometry.cpp in Sources */,
-				AC47EAEF1AB15BB500A9EC59 /* GameScene.cpp in Sources */,
+				AC47EAEF1AB15BB500A9EC59 /* MainMenuScene.cpp in Sources */,
 				AC47E9551AB15BB400A9EC59 /* CCParticleBatchNode.cpp in Sources */,
 				AC47EA4C1AB15BB500A9EC59 /* CocosDenshion.m in Sources */,
 				AC47E9041AB15BB400A9EC59 /* aabb.c in Sources */,
