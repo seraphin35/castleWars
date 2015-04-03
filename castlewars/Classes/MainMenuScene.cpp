@@ -34,27 +34,27 @@ bool MainMenu::init()
     bgMenu->setScaleY(screenSize.height / bgMenu->getContentSize().height);
     bgMenu->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
     this->addChild(bgMenu, 0);
-
-    CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
-                                                          "CloseNormal.png",
-                                                          "CloseSelected.png",
-                                                          this,
-                                                          menu_selector(MainMenu::menuCloseCallback)
-                                                          );
-    pCloseItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 30, 50) );
     
     // create and initialize buttons
     this->onePlayerButton = CCMenuItemImage::create("ButtonOnePlayer.png",
                                                     "ButtonOnePlayer.png",
                                                     this,
-                                                    menu_selector(MainMenu::menuCloseCallback)
+                                                    menu_selector(MainMenu::onePlayerMode)
                                                     );
     this->multiPlayerButton = CCMenuItemImage::create("ButtonMultiplayer.png",
                                                       "ButtonMultiplayer.png",
                                                       this,
-                                                      menu_selector(MainMenu::menuCloseCallback)
+                                                      menu_selector(MainMenu::multiplayerMode)
                                                       );
     
+    this->quitButton = CCMenuItemImage::create("CloseNormal.png",
+                                               "CloseSelected.png",
+                                               this,
+                                               menu_selector(MainMenu::menuCloseCallback)
+                                               );
+
+    quitButton->setPosition( ccp(screenSize.width - 30, 50) );
+
     // create and initialize titles for buttons
     this->onePlayerTitle = CCLabelTTF::create("One Player", "MagicFont", 30,
                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
@@ -78,10 +78,11 @@ bool MainMenu::init()
                                             screenSize.height / 2 + 150) );
     
     // create menu, it's an autorelease object
-    this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton, NULL);
+    this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton,
+                                this->quitButton, NULL);
     menu->setPosition( CCPointZero );
     this->addChild(menu, 1);
-    
+
     // add titles elements as a child to this layer
     this->addChild(onePlayerTitle, 2);
     this->addChild(multiPlayerTitle, 2);
@@ -92,6 +93,16 @@ bool MainMenu::init()
 }
 
 void MainMenu::update(float dt)
+{
+    
+}
+
+void MainMenu::onePlayerMode(CCObject* pSender)
+{
+    
+}
+
+void MainMenu::multiplayerMode(CCObject* pSender)
 {
     
 }

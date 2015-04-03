@@ -15,6 +15,7 @@ private:
 
     CCMenuItemImage*    onePlayerButton;
     CCMenuItemImage*    multiPlayerButton;
+    CCMenuItemImage*    quitButton;
 
     CCLabelTTF*         onePlayerTitle;
     CCLabelTTF*         multiPlayerTitle;
@@ -27,6 +28,8 @@ public:
     static cocos2d::CCScene* scene();
 
     // a selector callback
+    void onePlayerMode(CCObject* pSender);
+    void multiplayerMode(CCObject* pSender);
     void menuCloseCallback(CCObject* pSender);
     
     // preprocessor macro for "static create()" constructor ( node() deprecated )
