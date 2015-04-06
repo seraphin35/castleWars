@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
 #include "SimpleAudioEngine.h"
+#include "CCDirector.h"
 
 CCScene* MainMenu::scene()
 {
@@ -73,10 +74,10 @@ bool MainMenu::init()
     
     // set buttons titles positions
     this->onePlayerTitle->setPosition( ccp(screenSize.width / 4 - 50,
-                                          screenSize.height / 2 + 150) );
+                                           screenSize.height / 2 + 150) );
     this->multiPlayerTitle->setPosition( ccp(screenSize.width / 4 * 3 - 50,
-                                            screenSize.height / 2 + 150) );
-    
+                                             screenSize.height / 2 + 150) );
+
     // create menu, it's an autorelease object
     this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton,
                                 this->quitButton, NULL);
@@ -94,7 +95,11 @@ bool MainMenu::init()
 
 void MainMenu::update(float dt)
 {
-    
+    printf("Game lunched");
+    // it is supposed to be that
+//    auto *gameScene = Game;
+//
+//    CCDirector::sharedDirector()->replaceScene(gameScene);
 }
 
 void MainMenu::onePlayerMode(CCObject* pSender)

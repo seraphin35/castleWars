@@ -9,6 +9,18 @@
 #include "GameScene.h"
 #include "cocos2d.h"
 
+//CCScene* Game::scene()
+//{
+//    // 'scene' is an autorelease object
+//    CCScene *scene = CCScene::create();
+//    
+//    // add layer as a child to scene
+//    scene->addChild(layer);
+//    
+//    // return the scene
+//    return scene;
+//}
+
 bool    Game::init()
 {
     // get screen size
