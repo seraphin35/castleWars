@@ -23,25 +23,26 @@ private:
 private:
     Player*     p1;
     Player*     p2;
-    
-    CCString    pMagicStr;
-    CCString    pGemsStr;
 
     CCLabelTTF* p1Magic;
     CCLabelTTF* p1Gems;
     CCLabelTTF* p1Name;
-    
-    CCString    comMagicStr;
-    CCString    comGemsStr;
+    CCLabelTTF* p1Castle;
+    CCLabelTTF* p1Wall;
 
     CCLabelTTF* p2Magic;
     CCLabelTTF* p2Gems;
     CCLabelTTF* p2Name;
+    CCLabelTTF* p2Castle;
+    CCLabelTTF* p2Wall;
 
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
+    CREATE_FUNC(Game);
+    
     virtual bool init();
     virtual void update(float);
+    static CCScene *createScene();
 
 public:
     void nextTurn(CCObject *pSend);

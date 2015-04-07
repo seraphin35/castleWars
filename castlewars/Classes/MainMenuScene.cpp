@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "SimpleAudioEngine.h"
 #include "CCDirector.h"
+#include "GameScene.h"
 
 CCScene* MainMenu::scene()
 {
@@ -95,16 +96,16 @@ bool MainMenu::init()
 
 void MainMenu::update(float dt)
 {
-    printf("Game lunched");
-    // it is supposed to be that
-//    auto *gameScene = Game;
-//
-//    CCDirector::sharedDirector()->replaceScene(gameScene);
+
 }
 
 void MainMenu::onePlayerMode(CCObject* pSender)
 {
-    
+    printf("Game lunched");
+    // it is supposed to be that
+    CCScene *gameScene = Game::createScene();
+    //
+        CCDirector::sharedDirector()->replaceScene(gameScene);
 }
 
 void MainMenu::multiplayerMode(CCObject* pSender)
