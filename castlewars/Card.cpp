@@ -8,15 +8,16 @@
 
 #include "Card.h"
 
-Card::Card(ptrfunc effect, int value, cocos2d::CCSprite* image)
+Card::Card(ptrfunc effect, int cost, cocos2d::CCSprite* image)
 {
     this->effect = effect;
-    this->value = value;
+    this->cost = cost;
+    //this->image = image;
 }
 
-const int Card::getValue()
+const int Card::getCost()
 {
-    return this->value;
+    return this->cost;
 }
 
 const ptrfunc Card::getEffect()

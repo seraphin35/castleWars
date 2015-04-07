@@ -35,6 +35,12 @@ private:
     CCLabelTTF* p2Name;
     CCLabelTTF* p2Castle;
     CCLabelTTF* p2Wall;
+    
+    CCSprite*   card1;
+    CCSprite*   card2;
+    CCSprite*   card3;
+    CCSprite*   card4;
+    CCSprite*   card5;
 
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -48,7 +54,10 @@ public:
     void nextTurn(CCObject *pSend);
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
+
     
+    void zob(CCObject *pSend);
+
 };
 
 #endif /* defined(__castlewars__GameScene__) */

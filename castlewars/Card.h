@@ -20,7 +20,9 @@ typedef bool (*ptrfunc)(Player *, Player *);
 class Card {
     
 private:
-    int value;
+    int cost;
+    Player *p1;
+    Player *p2;
     ptrfunc effect;
     cocos2d::CCSprite* image;
     
@@ -28,7 +30,7 @@ public:
     Card(ptrfunc effect, int value, cocos2d::CCSprite* image);
     ~Card() {}
     
-    const int getValue();
+    const int getCost();
     const ptrfunc getEffect();
     
     const cocos2d::CCSprite* getImage();

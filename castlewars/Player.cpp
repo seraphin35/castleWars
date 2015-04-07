@@ -16,15 +16,11 @@ Player::Player()
     this->setCrystals(3);
     this->setWall(0);
     this->setCastle(15);
-    this->shuffle();
     
     this->Deck = Card::getNewDeck();
-    std::random_shuffle(this->Deck.begin(), this->Deck.end());
-    for (int i = 0; i < 5; i++)
-    {
-        this->Hand.push_back(this->Deck.back());
-        this->Deck.pop_back();
-    }
+
+    this->shuffle();
+
 }
 
 const int Player::getCastle()
@@ -75,5 +71,10 @@ void Player::handleNewTurn()
 
 void Player::shuffle()
 {
-    
+    std::random_shuffle(this->Deck.begin(), this->Deck.end());
+    for (int i = 0; i < 5; i++)
+    {
+        this->Hand.push_back(this->Deck.back());
+        this->Deck.pop_back();
+    }
 }

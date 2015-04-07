@@ -8,6 +8,7 @@
 
 #include "GameScene.h"
 #include "cocos2d.h"
+#include "Card.h"
 
 CCScene* Game::createScene()
 {
@@ -20,6 +21,12 @@ CCScene* Game::createScene()
     
     // return the scene
     return scene;
+}
+
+void Game::zob(CCObject *pSend) {
+    Card *couscous = new Card(&Card::amethystWand, 4, this->card1);
+    ptrfunc fu = couscous->getEffect();
+    fu(p1, p2);
 }
 
 bool    Game::init()
@@ -66,7 +73,17 @@ bool    Game::init()
                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
     this->p2Wall = CCLabelTTF::create(p2WallStr.getCString(), "Thonburi", 30,
                                       CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    
+
+
+    this->card1 = CCSprite::create("amethyst_wand.png");
+    Card *couscous = new Card(&Card::amethystWand, 4, card1);
+    /*
+    this->card2 = CCSprite::create("recycled_rainbow.png");
+    this->card3 = CCSprite::create("mana_disease.png");
+    this->card4 = CCSprite::create("strip_mining.png");
+    this->card5 = CCSprite::create("stone_giant.png");
+    */
+     
     // create names
     this->p1Name    = CCLabelTTF::create("Player 1", "Helvetica", 30,
                                          CCSizeMake(245, 32), kCCTextAlignmentCenter);
@@ -88,6 +105,19 @@ bool    Game::init()
     p2Castle->setPosition(ccp(screenSize.width - 50, screenSize.height - 140));
     p2Wall->setPosition(ccp(screenSize.width - 50, screenSize.height - 160));
     
+    /*
+    this->card1->setScale(.5);
+    this->card2->setScale(.5);
+    this->card3->setScale(.5);
+    this->card4->setScale(.5);
+    this->card5->setScale(.5);
+    
+    this->card1->setPosition(ccp(150, screenSize.height - 500));
+    this->card2->setPosition(ccp(300, screenSize.height - 500));
+    this->card3->setPosition(ccp(450, screenSize.height - 500));
+    this->card4->setPosition(ccp(600, screenSize.height - 500));
+    this->card5->setPosition(ccp(750, screenSize.height - 500));
+     */
     
     // initialize game values
     this->currentPlayerTurn = true;
@@ -98,11 +128,16 @@ bool    Game::init()
                                                           "CloseSelected.png",
                                                           this, menu_selector(Game::nextTurn));
     
+    CCMenuItemImage *turdButton = CCMenuItemImage::create("amethyst_wand.png",
+                                                          "recycled_rainbow.png",
+                                                          this, menu_selector(Game::zob));
+    
     // position the sprite on the center of the screen
     turnButton->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
+    turdButton->setPosition(ccp(150, screenSize.height - 500));
 
     // create menu, it's an autorelease object
-    CCMenu* pMenu = CCMenu::create(turnButton, NULL);
+    CCMenu* pMenu = CCMenu::create(turnButton, turdButton, NULL);
     pMenu->setPosition( CCPointZero );
     this->addChild(pMenu, 1);
     // add all elements to the layer
@@ -119,6 +154,16 @@ bool    Game::init()
     this->addChild(p2Name, 1);
     this->addChild(p2Castle, 1);
     this->addChild(p2Wall, 1);
+    
+    /*
+    this->addChild(card1, 1);
+    this->addChild(card2, 1);
+    this->addChild(card3, 1);
+    this->addChild(card4, 1);
+    this->addChild(card5, 1);
+     */
+    
+    
     this->schedule(schedule_selector(Game::update));
     return true;
 }
@@ -168,3 +213,4 @@ void    Game::nextTurn(CCObject *pSend)
      printf("%d", this->turn);
     */
 }
+
