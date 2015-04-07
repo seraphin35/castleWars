@@ -30,6 +30,7 @@ public:
     
     const int getValue();
     const ptrfunc getEffect();
+    
     const cocos2d::CCSprite* getImage();
     //image getter here
     
