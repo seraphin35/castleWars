@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		840543281AB7FD7D00233F8C /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840543261AB7FD7D00233F8C /* Card.cpp */; };
-		840824E91ACD0FB300E875C8 /* Cards.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840824E71ACD0FB300E875C8 /* Cards.cpp */; };
 		840824EB1ACD178C00E875C8 /* MagicFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 840824EA1ACD178C00E875C8 /* MagicFont.ttf */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC47E84E1AB15BB300A9EC59 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */; };
@@ -247,8 +246,6 @@
 /* Begin PBXFileReference section */
 		840543261AB7FD7D00233F8C /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		840543271AB7FD7D00233F8C /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
-		840824E71ACD0FB300E875C8 /* Cards.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cards.cpp; sourceTree = "<group>"; };
-		840824E81ACD0FB300E875C8 /* Cards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cards.h; sourceTree = "<group>"; };
 		840824EA1ACD178C00E875C8 /* MagicFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicFont.ttf; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -1605,8 +1602,6 @@
 				AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */,
 				840543261AB7FD7D00233F8C /* Card.cpp */,
 				840543271AB7FD7D00233F8C /* Card.h */,
-				840824E71ACD0FB300E875C8 /* Cards.cpp */,
-				840824E81ACD0FB300E875C8 /* Cards.h */,
 				AC32E07E1ACE8381002D77DE /* GameScene.cpp */,
 				AC32E07F1ACE8381002D77DE /* GameScene.h */,
 				AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */,
@@ -1858,7 +1853,6 @@
 				AC47E9FC1AB15BB400A9EC59 /* TGAlib.cpp in Sources */,
 				AC47EA311AB15BB400A9EC59 /* CCTMXXMLParser.cpp in Sources */,
 				AC47EA1B1AB15BB400A9EC59 /* CCTextureCache.cpp in Sources */,
-				840824E91ACD0FB300E875C8 /* Cards.cpp in Sources */,
 				AC47E88F1AB15BB300A9EC59 /* CCActionGrid.cpp in Sources */,
 				AC47E8BA1AB15BB300A9EC59 /* CCDrawingPrimitives.cpp in Sources */,
 				AC47E9C91AB15BB400A9EC59 /* ccShaders.cpp in Sources */,
