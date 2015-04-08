@@ -247,6 +247,7 @@
 		840543261AB7FD7D00233F8C /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		840543271AB7FD7D00233F8C /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		840824EA1ACD178C00E875C8 /* MagicFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicFont.ttf; sourceTree = "<group>"; };
+		84F9BA1E1AD4E51F0030C9C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		AC47E84A1AB15BB300A9EC59 /* castlewars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = castlewars.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -737,6 +738,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84F9BA1C1AD4E0160030C9C3 /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				AC82BCDC1ACA67B90022CA18 /* UI */,
+				AC82BCAD1ACA64B10022CA18 /* cards */,
+			);
+			name = graphics;
+			sourceTree = "<group>";
+		};
 		AC47E8411AB15BB300A9EC59 = {
 			isa = PBXGroup;
 			children = (
@@ -784,8 +794,7 @@
 		AC47E85E1AB15BB300A9EC59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AC82BCDC1ACA67B90022CA18 /* Game */,
-				AC82BCAD1ACA64B10022CA18 /* Cards */,
+				84F9BA1C1AD4E0160030C9C3 /* graphics */,
 				AC82BCAA1ACA64940022CA18 /* Font */,
 				AC47E85F1AB15BB300A9EC59 /* CloseNormal.png */,
 				AC47E8611AB15BB300A9EC59 /* CloseSelected.png */,
@@ -1608,6 +1617,7 @@
 				AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
 				AC47EAF61AB1680300A9EC59 /* Player.h */,
+				84F9BA1E1AD4E51F0030C9C3 /* Constants.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1621,7 +1631,7 @@
 			path = Resources/Font;
 			sourceTree = "<group>";
 		};
-		AC82BCAD1ACA64B10022CA18 /* Cards */ = {
+		AC82BCAD1ACA64B10022CA18 /* cards */ = {
 			isa = PBXGroup;
 			children = (
 				AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */,
@@ -1647,11 +1657,11 @@
 				AC82BCC21ACA64B10022CA18 /* stone_giant.png */,
 				AC82BCC31ACA64B10022CA18 /* strip_mining.png */,
 			);
-			name = Cards;
+			name = cards;
 			path = Resources/Cards;
 			sourceTree = "<group>";
 		};
-		AC82BCDC1ACA67B90022CA18 /* Game */ = {
+		AC82BCDC1ACA67B90022CA18 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				ACC724F51AD23D6E00A88C34 /* bannierBlue.png */,
@@ -1669,7 +1679,7 @@
 				AC82BCE21ACA67B90022CA18 /* ButtonStats.png */,
 				AC82BCE31ACA67B90022CA18 /* TemplateLittleButton.png */,
 			);
-			name = Game;
+			name = UI;
 			path = Resources/Game;
 			sourceTree = "<group>";
 		};

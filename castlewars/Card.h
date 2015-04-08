@@ -24,16 +24,16 @@ private:
     Player *p1;
     Player *p2;
     ptrfunc effect;
-    cocos2d::CCSprite* image;
+    char *image;
     
 public:
-    Card(ptrfunc effect, int value, cocos2d::CCSprite* image);
+    Card(ptrfunc effect, int value, char *image);
     ~Card() {}
     
     const int getCost();
     const ptrfunc getEffect();
     
-    const cocos2d::CCSprite* getImage();
+    const char *getImage();
     //image getter here
     
     static void damage(Player *player, int damage);
@@ -62,7 +62,7 @@ public:
     static bool bottledFlatulence(Player *player1, Player *player2);
     static bool amethystWand(Player *player1, Player *player2);
     
-    static std::vector<Card *> getNewDeck();
+    static std::vector<Card *> *getNewDeck();
 };
 
 #endif /* defined(__castlewars__File__) */

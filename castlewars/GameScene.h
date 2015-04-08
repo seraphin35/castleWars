@@ -36,12 +36,6 @@ private:
     CCLabelTTF* p2Castle;
     CCLabelTTF* p2Wall;
     
-    CCSprite*   card1;
-    CCSprite*   card2;
-    CCSprite*   card3;
-    CCSprite*   card4;
-    CCSprite*   card5;
-    
     Card*   c1;
     Card*   c2;
     Card*   c3;
@@ -54,8 +48,16 @@ public:
     
     virtual bool init();
     virtual void update(float);
-    static CCScene *createScene();
-
+    static CCScene  *createScene();
+    
+private:
+    void            createGameScene(CCSize);
+    CCMenuItemImage *createButton(const char *plain, const char *focus, int tag,
+                                      int posX, int posY, float scale,
+                                      SEL_MenuHandler callBack);
+    CCMenuItemImage *createButtonFromCard(Card *, float scale, int tag,
+                                          int posX, int posY);
+    
 public:
     void nextTurn(CCObject *pSend);
     void startNewTurn(Player *p);

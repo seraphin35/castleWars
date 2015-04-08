@@ -22,9 +22,9 @@ private:
     int magic;
     int castle;
     int wall;
-    std::vector<Card*> Deck;
-    std::vector<Card*> Hand;
-    std::vector<Card*> Discard;
+    std::vector<Card*> *Deck;
+    std::vector<Card*> *Hand;
+    std::vector<Card*> *Discard;
     
 public:
     Player();
@@ -43,7 +43,7 @@ public:
     
     void handleNewTurn();
     
-    void    draw();
+    void    draw(int);
     void    discard(int pos);
 
     void    shuffle();
