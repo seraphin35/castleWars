@@ -104,7 +104,7 @@ void MainMenu::onePlayerMode(CCObject* pSender)
     printf("Game lunched");
     CCScene *gameScene = Game::createScene();
 
-    CCDirector::sharedDirector()->replaceScene(gameScene);
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
 }
 
 void MainMenu::multiplayerMode(CCObject* pSender)
