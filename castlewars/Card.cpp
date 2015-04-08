@@ -239,7 +239,7 @@ bool Card::amethystWand(Player *player1, Player *player2)
     return false;
 }
 
-std::vector<Card *> &Card::getNewDeck()
+std::vector<Card *> Card::getNewDeck()
 {
     std::vector<Card *> *deck = new std::vector<Card *>();
     

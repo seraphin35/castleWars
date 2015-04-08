@@ -34,6 +34,7 @@ public:
     const int getMagic();
     const int getCastle();
     const int getWall();
+    Card    *getCard(int pos);
     
     void setCrystals(const int);
     void setMagic(const int);
@@ -41,7 +42,11 @@ public:
     void setWall(const int);
     
     void handleNewTurn();
-    void shuffle();
+    
+    void    draw();
+    void    discard(int pos);
+
+    void    shuffle();
 };
 
 #endif /* defined(__castlewars__Player__) */

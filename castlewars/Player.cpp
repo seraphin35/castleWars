@@ -17,10 +17,9 @@ Player::Player()
     this->setWall(0);
     this->setCastle(15);
     
-    this->Deck = Card::getNewDeck();
-
-    this->shuffle();
-
+    this->Hand = *new std::vector<Card *>;
+    this->Deck = *new std::vector<Card *>;
+    this->Discard = Card::getNewDeck();
 }
 
 const int Player::getCastle()
@@ -41,6 +40,10 @@ const int Player::getMagic()
 const int Player::getWall()
 {
     return this->wall;
+}
+
+Card    *Player::getCard(int position) {
+    return this->Hand[position];
 }
 
 void Player::setCastle(const int value)
@@ -69,12 +72,24 @@ void Player::handleNewTurn()
     
 }
 
+void Player::draw() {
+    if (this->Hand.size() >= 5) return;
+    if (this->Deck.empty()) shuffle();
+    this->Hand.push_back(this->Deck.back());
+    this->Deck.pop_back();
+}
+
+
 void Player::shuffle()
 {
-    std::random_shuffle(this->Deck.begin(), this->Deck.end());
-    for (int i = 0; i < 5; i++)
-    {
-        this->Hand.push_back(this->Deck.back());
-        this->Deck.pop_back();
+    printf("deck shuffled and restocked\n");
+    while (!this->Discard.empty()) {
+        this->Deck.push_back(this->Discard.back());
+        this->Discard.pop_back();
     }
+    std::random_shuffle(this->Deck.begin(), this->Deck.end());
 }
+
+
+
+
