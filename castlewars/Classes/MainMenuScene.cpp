@@ -102,10 +102,9 @@ void MainMenu::update(float dt)
 void MainMenu::onePlayerMode(CCObject* pSender)
 {
     printf("Game lunched");
-    // it is supposed to be that
     CCScene *gameScene = Game::createScene();
-    //
-        CCDirector::sharedDirector()->replaceScene(gameScene);
+
+    CCDirector::sharedDirector()->replaceScene(gameScene);
 }
 
 void MainMenu::multiplayerMode(CCObject* pSender)
