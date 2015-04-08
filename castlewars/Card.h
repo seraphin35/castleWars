@@ -62,7 +62,7 @@ public:
     static bool bottledFlatulence(Player *player1, Player *player2);
     static bool amethystWand(Player *player1, Player *player2);
     
-    static std::vector<Card *> &getNewDeck();
+    static std::vector<Card *> getNewDeck();
 };
 
 #endif /* defined(__castlewars__File__) */
