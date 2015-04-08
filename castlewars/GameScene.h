@@ -41,6 +41,12 @@ private:
     CCSprite*   card3;
     CCSprite*   card4;
     CCSprite*   card5;
+    
+    Card*   c1;
+    Card*   c2;
+    Card*   c3;
+    Card*   c4;
+    Card*   c5;
 
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
