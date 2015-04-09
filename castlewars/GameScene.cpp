@@ -183,7 +183,8 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
     return btn;
 }
 
-CCMenuItemImage *Game::createButtonFromCard(Card *card, float scale, int tag, int posX, int posY) {
+CCMenuItemImage *Game::createButtonFromCard(Card *card, float scale, int tag, int posX, int posY)
+{
     return createButton(card->getImage(), card->getImage(), tag,
                         posX, posY, scale, menu_selector(Game::zob));
 }
