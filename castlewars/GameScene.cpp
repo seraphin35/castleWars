@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 #include "Card.h"
 #include "SimpleAudioEngine.h"
+#include "MainMenuScene.h"
 #include <unistd.h>
 
 CCScene* Game::createScene()
@@ -25,6 +26,28 @@ CCScene* Game::createScene()
     return scene;
 }
 
+void Game::mainMenu()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    CCScene *gameScene = MainMenu::scene();
+    
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
+}
+
+void Game::gameOver(bool hasWon)
+{
+    char *message = "You lost1";
+    
+    if (hasWon)
+        message = "You won!";
+    
+    CCLabelTTF *messageLabel = CCLabelTTF::create(message, "MagicFont", 40,
+                                                  CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    messageLabel->setPosition(ccp(screenSize.height /2, screenSize.width / 2));
+    this->addChild(messageLabel, 1);
+    this->schedule(schedule_selector(Game::mainMenu), 2.0);
+}
+
 void Game::zob(CCObject *pSend) {
     ptrfunc fu;
     
@@ -35,11 +58,22 @@ void Game::zob(CCObject *pSend) {
     
     
     bool extra = fu(p1, p2);
-    sleep(1);
+    //sleep(1);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
-    this->switchTurn(extra);
+    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0)
+    {
+        gameOver(true);
+        printf("Win");
+    }
+    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30)
+    {
+        gameOver(false);
+        printf("Lose");
+    }
+    else
+        this->switchTurn(extra);
 }
 
 bool    Game::init()

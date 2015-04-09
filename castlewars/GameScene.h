@@ -71,7 +71,8 @@ public:
     void nextTurn(CCObject *pSend);
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
-
+    void gameOver(bool hasWon);
+    void mainMenu();
     
     void zob(CCObject *pSend);
 
