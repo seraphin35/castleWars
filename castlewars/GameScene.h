@@ -72,6 +72,8 @@ public:
     void switchTurn(bool extra);
     void computerTurn();
     void cleanLol(CCSprite *);
+    void gameOver(bool hasWon);
+    void mainMenu();
     
     void zob(CCObject *pSend);
 
