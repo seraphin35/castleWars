@@ -32,41 +32,30 @@ const char *Card::getImage()
 
 void Card::damageCastle(Player *player, int damage)
 {
-    int castle = player->getCastle();
-    
-    castle -= damage;
-    player->setCastle(castle);
+    player->removeCastle(damage);
 }
 
 
 void Card::damage(Player *player, int damage) {
     int wall = player->getWall();
-    
-    wall -= damage;
-    if (wall <= 0) {
-        damageCastle(player, -wall);
-    }
-    player->setWall(wall);
+    int wallDmg = (wall >= damage ? damage : wall);
+    player->removeWall(wallDmg);
+    if (damage - wallDmg > 0) player->removeCastle(damage - wallDmg);
 }
 
 bool Card::stripMining(Player *player1, Player *player2)
 {
-    int magic = player1->getMagic();
-    
-    magic -= 1;
-    if (magic < 0)
-        magic = 0;
-    player1->setMagic(magic);
-    player1->setWall(player1->getWall() + 10);
-    player1->setCrystals(player1->getCrystals() + 5);
+    player1->removeMagic(1);
+    player1->addWall(10);
+    player1->addGems(5);
     
     return false;
 }
 
 bool Card::stoneGiant(Player *player1, Player *player2)
 {
+    player1->addWall(4);
     damage(player2, 10);
-    player1->setWall(player1->getWall() + 4);
     
     return false;
 }
@@ -74,14 +63,14 @@ bool Card::stoneGiant(Player *player1, Player *player2)
 bool Card::sheepishRabbit(Player *player1, Player *player2)
 {
     damage(player2, 6);
-    player2->setCrystals(player1->getCrystals() - 3);
+    player2->removeGems(3);
     
     return false;
 }
 
 bool Card::rubyWand(Player *player1, Player *player2)
 {
-    player1->setCastle(player1->getCastle() + 5);
+    player1->addCastle(5);
     
     return false;
 }
@@ -95,17 +84,17 @@ bool Card::rockSlasher(Player *player1, Player *player2)
 
 bool Card::recycledRainbows(Player *player1, Player *player2)
 {
-    player1->setCastle(player1->getCastle() + 1);
-    player2->setCastle(player2->getCastle() + 1);
-    player1->setCrystals(player1->getCrystals() + 3);
+    player1->addCastle(1);
+    player2->addCastle(1);
+    player1->addGems(3);
     
     return false;
 }
 
 bool Card::protectionWard(Player *player1, Player *player2)
 {
-    player1->setCastle(player1->getCastle() + 8);
-    player1->setWall(player2->getWall() + 3);
+    player1->addCastle(8);
+    player1->addWall(3);
     
     return false;
 }
@@ -127,70 +116,53 @@ bool Card::mobbinGoblin(Player *player1, Player *player2)
 
 bool Card::manaStompers(Player *player1, Player *player2)
 {
-    int magic;
-    
     damage(player2, 8);
-    magic -= 1;
-    if (magic < 0)
-        magic = 0;
-    player2->setMagic(magic);
+    player2->removeMagic(1);
     
     return false;
 }
 
 bool Card::manaDisease(Player *player1, Player *player2)
 {
-    int p1Gems;
-    int p2Gems;
-    
-    p1Gems = player1->getCrystals();
-    p2Gems = player2->getCrystals();
-    p1Gems -= 8;
-    p2Gems -= 8;
-    
-    if (p1Gems < 0)
-        p1Gems = 0;
-    if (p2Gems < 0)
-        p2Gems = 0;
-    player1->setCrystals(p1Gems);
-    player2->setCrystals(p2Gems);
+    player1->removeGems(8);
+    player2->removeGems(8);
     
     return false;
 }
 
 bool Card::magicMiners(Player *player1, Player *player2)
 {
-    player1->setWall(player1->getWall() + 4);
-    player1->setMagic(player1->getMagic() + 4);
+    player1->addWall(4);
+    player1->addMagic(1);
     
     return false;
 }
 
 bool Card::instantWall(Player *player1, Player *player2)
 {
-    player1->setWall(player1->getWall() + 3);
+    player1->addWall(3);
     
     return false;
 }
 
 bool Card::insecureWall(Player *player1, Player *player2)
 {
-    player1->setWall(player1->getWall() + 4);
+    player1->addWall(4);
     
     return false;
 }
 
 bool Card::harmonicOrc(Player *player1, Player *player2)
 {
-    player1->setWall(player1->getWall() + 6);
-    player1->setCastle(player1->getCastle() + 7);
+    player1->addWall(6);
+    player1->addCastle(3);
     
     return false;
 }
 
 bool Card::friendship(Player *player1, Player *player2)
 {
-    player1->setWall(player1->getWall() + 1);
+    player1->addWall(1);
     
     return true;
 }
@@ -204,7 +176,7 @@ bool Card::flyinGoblin(Player *player1, Player *player2)
 
 bool Card::emeraldWand(Player *player1, Player *player2)
 {
-    player1->setCastle(player1->getCastle() + 8);
+    player1->addCastle(8);
     
     return false;
 }
@@ -219,8 +191,8 @@ bool Card::clubbinGoblin(Player *player1, Player *player2)
 
 bool Card::bowminGoblin(Player *player1, Player *player2)
 {
-    damageCastle(player2, 3);
     damage(player1, 1);
+    damageCastle(player2, 3);
     
     return false;
 }
@@ -234,7 +206,7 @@ bool Card::bottledFlatulence(Player *player1, Player *player2)
 
 bool Card::amethystWand(Player *player1, Player *player2)
 {
-    player1->setCastle(player1->getCastle() + 3);
+    player1->addCastle(3);
     
     return false;
 }

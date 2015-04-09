@@ -14,9 +14,11 @@
 Player::Player()
 {
     this->magic = 1;
-    this->crystals = 3;
+    this->gems = 3;
     this->wall = 0;
     this->castle = 15;
+    
+    this->won = false;
     
     for (int i = 0; i < 5; i++) this->hand[i] = NULL;
     this->Deck = new std::vector<Card *>;
@@ -28,9 +30,9 @@ const int Player::getCastle()
     return this->castle;
 }
 
-const int Player::getCrystals()
+const int Player::getGems()
 {
-    return this->crystals;
+    return this->gems;
 }
 
 const int Player::getMagic()
@@ -47,37 +49,65 @@ Card    *Player::getCard(int pos) {
     return this->hand[pos];
 }
 
-void Player::setCastle(const int value)
+void Player::addCastle(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(value > this->castle ?
-                                                                 "castleUp.wav" : "castleDown.wav");
-    this->castle = value;
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("castleUp.wav");
+    this->castle += value;
+    if (castle >= 30) this->won = true;
 }
 
-void Player::setWall(const int value)
+void Player::removeCastle(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(value > this->wall ?
-                                                                 "wallUp.wav" : "wallDown.wav");
-    this->wall = value <= 0 ? 0 : value;
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("castleDown.wav");
+    this->castle -= value;
+    if (castle <= 0) {
+        this->castle = 0;
+        this->won = true;
+    }
 }
 
-void Player::setMagic(const int value)
+void Player::addWall(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(value > this->magic ?
-                                                                 "magUp.wav" : "magDown.wav");
-    this->magic = value;
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("wallUp.wav");
+    this->wall += value;
 }
 
-void Player::setCrystals(const int value)
+void Player::removeWall(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(value > this->crystals ?
-                                                                 "gemUp.wav" : "gemDown.wav");
-    this->crystals = value;
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("wallDown.wav");
+    this->wall -= value;
+    if (this->wall < 0) this->wall = 0;
+}
+
+void Player::addMagic(const int value)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("magUp.wav");
+    this->magic += value;
+}
+
+void Player::removeMagic(const int value)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("magDown.wav");
+    this->magic -= value;
+    if (this->magic <= 0) this->magic = 1;
+}
+
+void Player::addGems(const int value)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("gemUp.wav");
+    this->gems += value;
+}
+
+void Player::removeGems(const int value)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("gemDown.wav");
+    this->gems -= value;
+    if (this->gems < 0) this->gems = 0;
 }
 
 void Player::handleNewTurn()
 {
-    this->crystals += this->magic;
+    this->gems += this->magic;
     
 }
 

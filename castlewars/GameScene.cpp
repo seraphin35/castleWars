@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 #include "Card.h"
 #include "SimpleAudioEngine.h"
+#include "MainMenuScene.h"
 #include <unistd.h>
 
 CCScene* Game::createScene()
@@ -25,6 +26,28 @@ CCScene* Game::createScene()
     return scene;
 }
 
+void Game::mainMenu()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    CCScene *gameScene = MainMenu::scene();
+    
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
+}
+
+void Game::gameOver(bool hasWon)
+{
+    char *message = "You lost1";
+    
+    if (hasWon)
+        message = "You won!";
+    
+    CCLabelTTF *messageLabel = CCLabelTTF::create(message, "MagicFont", 40,
+                                                  CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    messageLabel->setPosition(ccp(screenSize.height /2, screenSize.width / 2));
+    this->addChild(messageLabel, 1);
+    this->schedule(schedule_selector(Game::mainMenu), 2.0);
+}
+
 void Game::zob(CCObject *pSend) {
     ptrfunc fu;
     
@@ -38,7 +61,18 @@ void Game::zob(CCObject *pSend) {
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
-    this->switchTurn(extra);
+    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0)
+    {
+        gameOver(true);
+        printf("Win");
+    }
+    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30)
+    {
+        gameOver(false);
+        printf("Lose");
+    }
+    else
+        this->switchTurn(extra);
 }
 
 bool    Game::init()
@@ -92,13 +126,13 @@ void    Game::createGameScene(CCSize screenSize) {
     CCString pMagicStr  =   *CCString::createWithFormat("%d", this->p1->getMagic());
     this->p1Magic       =   CCLabelTTF::create(pMagicStr.getCString(), "MagicFont", 22,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString pGemsStr   =   *CCString::createWithFormat("%d", this->p1->getCrystals());
+    CCString pGemsStr   =   *CCString::createWithFormat("%d", this->p1->getGems());
     this->p1Gems        =   CCLabelTTF::create(pGemsStr.getCString(), "MagicFont", 20,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p2MagicStr =   *CCString::createWithFormat("%d", this->p2->getMagic());
     this->p2Magic       =   CCLabelTTF::create(p2MagicStr.getCString(), "MagicFont", 22,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString p2GemsStr  =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2GemsStr  =   *CCString::createWithFormat("%d", this->p2->getGems());
     this->p2Gems        =  CCLabelTTF::create(p2GemsStr.getCString(), "MagicFont", 20,
                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
@@ -190,7 +224,7 @@ void    Game::addCardMenuItem() {
 void    Game::switchTurn(bool extra)
 {
     this->turn++;
-    printf("%d", this->p1->getCrystals());
+    printf("%d", this->p1->getGems());
     if (!extra)
     {
         currentPlayerTurn = !currentPlayerTurn;
