@@ -230,7 +230,7 @@
 		AC82BCCF1ACA64B10022CA18 /* mana_disease.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB91ACA64B10022CA18 /* mana_disease.png */; };
 		AC82BCD01ACA64B10022CA18 /* mana_stompers.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */; };
 		AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */; };
-		AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */; };
+		AC82BCD21ACA64B10022CA18 /* mortar_mole.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBC1ACA64B10022CA18 /* mortar_mole.png */; };
 		AC82BCD31ACA64B10022CA18 /* protection_ward.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBD1ACA64B10022CA18 /* protection_ward.png */; };
 		AC82BCD41ACA64B10022CA18 /* recycled_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */; };
 		AC82BCD51ACA64B10022CA18 /* rock_slasher.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */; };
@@ -716,7 +716,7 @@
 		AC82BCB91ACA64B10022CA18 /* mana_disease.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mana_disease.png; sourceTree = "<group>"; };
 		AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mana_stompers.png; sourceTree = "<group>"; };
 		AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobbin_goblin.png; sourceTree = "<group>"; };
-		AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mortal_mole.png; sourceTree = "<group>"; };
+		AC82BCBC1ACA64B10022CA18 /* mortar_mole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mortar_mole.png; sourceTree = "<group>"; };
 		AC82BCBD1ACA64B10022CA18 /* protection_ward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = protection_ward.png; sourceTree = "<group>"; };
 		AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recycled_rainbow.png; sourceTree = "<group>"; };
 		AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock_slasher.png; sourceTree = "<group>"; };
@@ -1689,7 +1689,7 @@
 				AC82BCB91ACA64B10022CA18 /* mana_disease.png */,
 				AC82BCBA1ACA64B10022CA18 /* mana_stompers.png */,
 				AC82BCBB1ACA64B10022CA18 /* mobbin_goblin.png */,
-				AC82BCBC1ACA64B10022CA18 /* mortal_mole.png */,
+				AC82BCBC1ACA64B10022CA18 /* mortar_mole.png */,
 				AC82BCBD1ACA64B10022CA18 /* protection_ward.png */,
 				AC82BCBE1ACA64B10022CA18 /* recycled_rainbow.png */,
 				AC82BCBF1ACA64B10022CA18 /* rock_slasher.png */,
@@ -1803,7 +1803,7 @@
 				AC47E86C1AB15BB300A9EC59 /* Icon-Small.png in Resources */,
 				AC82BCD81ACA64B10022CA18 /* stone_giant.png in Resources */,
 				AC47E8681AB15BB300A9EC59 /* Icon-72.png in Resources */,
-				AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */,
+				AC82BCD21ACA64B10022CA18 /* mortar_mole.png in Resources */,
 				84F7805E1AD625E4006430A5 /* gemDown.wav in Resources */,
 				AC82BCCD1ACA64B10022CA18 /* instant_wall.png in Resources */,
 				AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */,
