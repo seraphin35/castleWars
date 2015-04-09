@@ -67,11 +67,11 @@ private:
 public:
     void popCardMenuItem(int);
     void addCardMenuItem();
-    
-    void nextTurn(CCObject *pSend);
+
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
-
+    void computerTurn();
+    void cleanLol(CCSprite *);
     
     void zob(CCObject *pSend);
 

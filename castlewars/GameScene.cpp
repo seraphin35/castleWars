@@ -35,7 +35,6 @@ void Game::zob(CCObject *pSend) {
     
     
     bool extra = fu(p1, p2);
-    sleep(1);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
@@ -151,7 +150,7 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
     return btn;
 }
 
-CCMenuItemImage *Game::createButtonFromCard(Card *card, float scale, int tag, int posX, int posY)
+CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 {
     return createButton(card->getImage(), card->getImage(), tag,
                         screenSize.width / 2 + (150 * (tag - 3)), 150, .5, menu_selector(Game::zob));
@@ -161,8 +160,8 @@ void    Game::update(float dt)
 {
     CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
     CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getCrystals());
-    CCString p2MagicStr    =   *CCString::createWithFormat("%d", this->p2->getMagic());
-    CCString p2GemsStr     =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
+    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getCrystals());
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
     CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
     CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
@@ -199,17 +198,44 @@ void    Game::switchTurn(bool extra)
     this->startNewTurn(currentPlayerTurn ? p1 : p2);
 }
 
-void    Game::startNewTurn(Player *p) {
-    p->handleNewTurn();
-}
-
-void    Game::nextTurn(CCObject *pSend)
+void    Game::startNewTurn(Player *p)
 {
-    this->switchTurn(false);
-     /*
-     this->p1->newTurn();
-     this->p2->newTurn();
-     printf("%d", this->turn);
-    */
+    p->handleNewTurn();
+    if (!currentPlayerTurn)
+    {
+        this->computerTurn();
+    }
 }
 
+void    Game::computerTurn()
+{
+    Card        *card       = p2->getCard(0);
+    CCSprite    *cardSprite = CCSprite::create(card->getImage());
+    
+    printf("card moving [%f]", cardSprite->getScaleX());
+    
+    // Move the card from the right to the center of the screen
+    cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));
+    cardSprite->setScale(0.7);
+
+    this->addChild(cardSprite, 2);
+    CCFiniteTimeAction *moveToCenter = CCMoveTo::create(2, ccp(-500, screenSize.height / 3 * 2));
+
+    cardSprite->runAction(moveToCenter);
+    
+    p2->discard(0);
+    p2->draw();
+    
+    ptrfunc fu;
+    
+    
+    fu = card->getEffect();
+    
+    
+    bool extra = fu(p2, p1);
+    switchTurn(extra);
+}
+
+void Game::cleanLol(CCSprite *s) {
+    s->removeFromParentAndCleanup(true);
+}

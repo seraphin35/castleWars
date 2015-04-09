@@ -21,8 +21,6 @@ class Card {
     
 private:
     int cost;
-    Player *p1;
-    Player *p2;
     ptrfunc effect;
     char *image;
     
