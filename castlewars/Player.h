@@ -18,10 +18,13 @@ class Card;
 class Player
 {
 private:
-    int crystals;
+    int gems;
     int magic;
     int castle;
     int wall;
+    
+    bool    won;
+    
     Card    *hand[5];
     std::vector<Card*> *Deck;
     std::vector<Card*> *Discard;
@@ -30,15 +33,19 @@ public:
     Player();
     ~Player() {}
     
-    const int getCrystals();
+    const int getGems();
     const int getMagic();
     const int getCastle();
     const int getWall();
     Card    *getCard(int pos);
-    void setCrystals(const int);
-    void setMagic(const int);
-    void setCastle(const int);
-    void setWall(const int);
+    void addGems(const int);
+    void removeGems(const int);
+    void addMagic(const int);
+    void removeMagic(const int);
+    void addCastle(const int);
+    void removeCastle(const int);
+    void addWall(const int);
+    void removeWall(const int);
     
     void handleNewTurn();
     

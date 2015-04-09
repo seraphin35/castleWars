@@ -93,13 +93,13 @@ void    Game::createGameScene(CCSize screenSize) {
     CCString pMagicStr  =   *CCString::createWithFormat("%d", this->p1->getMagic());
     this->p1Magic       =   CCLabelTTF::create(pMagicStr.getCString(), "MagicFont", 22,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString pGemsStr   =   *CCString::createWithFormat("%d", this->p1->getCrystals());
+    CCString pGemsStr   =   *CCString::createWithFormat("%d", this->p1->getGems());
     this->p1Gems        =   CCLabelTTF::create(pGemsStr.getCString(), "MagicFont", 20,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p2MagicStr =   *CCString::createWithFormat("%d", this->p2->getMagic());
     this->p2Magic       =   CCLabelTTF::create(p2MagicStr.getCString(), "MagicFont", 22,
                                                CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString p2GemsStr  =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2GemsStr  =   *CCString::createWithFormat("%d", this->p2->getGems());
     this->p2Gems        =  CCLabelTTF::create(p2GemsStr.getCString(), "MagicFont", 20,
                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
@@ -159,9 +159,9 @@ CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag) {
 void    Game::update(float dt)
 {
     CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
-    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getCrystals());
+    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
     CCString p2MagicStr    =   *CCString::createWithFormat("%d", this->p2->getMagic());
-    CCString p2GemsStr     =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2GemsStr     =   *CCString::createWithFormat("%d", this->p2->getGems());
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
     CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
     CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
@@ -190,7 +190,7 @@ void    Game::addCardMenuItem() {
 void    Game::switchTurn(bool extra)
 {
     this->turn++;
-    printf("%d", this->p1->getCrystals());
+    printf("%d", this->p1->getGems());
     if (!extra)
     {
         currentPlayerTurn = !currentPlayerTurn;
