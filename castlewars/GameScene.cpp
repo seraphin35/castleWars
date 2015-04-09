@@ -193,9 +193,9 @@ CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 void    Game::update(float dt)
 {
     CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
-    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getCrystals());
+    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
     CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
-    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getGems());
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
     CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
     CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());

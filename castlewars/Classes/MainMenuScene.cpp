@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "CCDirector.h"
 #include "GameScene.h"
+#include "SRes.h"
 
 CCScene* MainMenu::scene()
 {
@@ -18,21 +19,12 @@ CCScene* MainMenu::scene()
     return scene;
 }
 
-void    MainMenu::preloadAudio() {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallUp.wav");
-}
-
 
 // on "init" you need to initialize your instance
 bool MainMenu::init()
 {
+    SRes::getInstance().initRessources();
+    
     // 1. super init first
     if ( !CCLayer::init() )
     {
