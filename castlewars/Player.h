@@ -22,8 +22,8 @@ private:
     int magic;
     int castle;
     int wall;
+    Card    *hand[5];
     std::vector<Card*> *Deck;
-    std::vector<Card*> *Hand;
     std::vector<Card*> *Discard;
     
 public:
@@ -35,7 +35,6 @@ public:
     const int getCastle();
     const int getWall();
     Card    *getCard(int pos);
-    
     void setCrystals(const int);
     void setMagic(const int);
     void setCastle(const int);
@@ -43,7 +42,7 @@ public:
     
     void handleNewTurn();
     
-    void    draw(int);
+    int     draw();
     void    discard(int pos);
 
     void    shuffle();

@@ -36,11 +36,17 @@ private:
     CCLabelTTF* p2Castle;
     CCLabelTTF* p2Wall;
     
+    //Card    *cardsArray[5];
+    /*
     Card*   c1;
     Card*   c2;
     Card*   c3;
     Card*   c4;
     Card*   c5;
+    */
+    
+    CCMenu  *cardsMenu;
+    CCSize  screenSize;
 
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -52,13 +58,16 @@ public:
     
 private:
     void            createGameScene(CCSize);
+    
     CCMenuItemImage *createButton(const char *plain, const char *focus, int tag,
                                       int posX, int posY, float scale,
                                       SEL_MenuHandler callBack);
-    CCMenuItemImage *createButtonFromCard(Card *, float scale, int tag,
-                                          int posX, int posY);
+    CCMenuItemImage *createButtonFromCard(Card *, int tag);
     
 public:
+    void popCardMenuItem(int);
+    void addCardMenuItem();
+    
     void nextTurn(CCObject *pSend);
     void startNewTurn(Player *p);
     void switchTurn(bool extra);

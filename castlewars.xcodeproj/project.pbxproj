@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		840543281AB7FD7D00233F8C /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840543261AB7FD7D00233F8C /* Card.cpp */; };
 		840824EB1ACD178C00E875C8 /* MagicFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 840824EA1ACD178C00E875C8 /* MagicFont.ttf */; };
+		84F780511AD62009006430A5 /* mainMenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780501AD62009006430A5 /* mainMenu.mp3 */; };
+		84F780531AD620E4006430A5 /* gameBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780521AD620E4006430A5 /* gameBGM.mp3 */; };
+		84F7805C1AD625E4006430A5 /* castleDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780541AD625E4006430A5 /* castleDown.wav */; };
+		84F7805D1AD625E4006430A5 /* castleUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780551AD625E4006430A5 /* castleUp.wav */; };
+		84F7805E1AD625E4006430A5 /* gemDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780561AD625E4006430A5 /* gemDown.wav */; };
+		84F7805F1AD625E4006430A5 /* gemUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780571AD625E4006430A5 /* gemUp.wav */; };
+		84F780601AD625E4006430A5 /* magDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780581AD625E4006430A5 /* magDown.wav */; };
+		84F780611AD625E4006430A5 /* magUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780591AD625E4006430A5 /* magUp.wav */; };
+		84F780621AD625E4006430A5 /* wallDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805A1AD625E4006430A5 /* wallDown.wav */; };
+		84F780631AD625E4006430A5 /* wallUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805B1AD625E4006430A5 /* wallUp.wav */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC47E84E1AB15BB300A9EC59 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */; };
 		AC47E8501AB15BB300A9EC59 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */; };
@@ -247,6 +257,16 @@
 		840543261AB7FD7D00233F8C /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		840543271AB7FD7D00233F8C /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		840824EA1ACD178C00E875C8 /* MagicFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicFont.ttf; sourceTree = "<group>"; };
+		84F780501AD62009006430A5 /* mainMenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMenu.mp3; sourceTree = "<group>"; };
+		84F780521AD620E4006430A5 /* gameBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameBGM.mp3; sourceTree = "<group>"; };
+		84F780541AD625E4006430A5 /* castleDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = castleDown.wav; sourceTree = "<group>"; };
+		84F780551AD625E4006430A5 /* castleUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = castleUp.wav; sourceTree = "<group>"; };
+		84F780561AD625E4006430A5 /* gemDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gemDown.wav; sourceTree = "<group>"; };
+		84F780571AD625E4006430A5 /* gemUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gemUp.wav; sourceTree = "<group>"; };
+		84F780581AD625E4006430A5 /* magDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = magDown.wav; sourceTree = "<group>"; };
+		84F780591AD625E4006430A5 /* magUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = magUp.wav; sourceTree = "<group>"; };
+		84F7805A1AD625E4006430A5 /* wallDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallDown.wav; sourceTree = "<group>"; };
+		84F7805B1AD625E4006430A5 /* wallUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallUp.wav; sourceTree = "<group>"; };
 		84F9BA1E1AD4E51F0030C9C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -738,6 +758,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84F7804F1AD61FF9006430A5 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				84F780541AD625E4006430A5 /* castleDown.wav */,
+				84F780551AD625E4006430A5 /* castleUp.wav */,
+				84F780561AD625E4006430A5 /* gemDown.wav */,
+				84F780571AD625E4006430A5 /* gemUp.wav */,
+				84F780581AD625E4006430A5 /* magDown.wav */,
+				84F780591AD625E4006430A5 /* magUp.wav */,
+				84F7805A1AD625E4006430A5 /* wallDown.wav */,
+				84F7805B1AD625E4006430A5 /* wallUp.wav */,
+				84F780521AD620E4006430A5 /* gameBGM.mp3 */,
+				84F780501AD62009006430A5 /* mainMenu.mp3 */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
 		84F9BA1C1AD4E0160030C9C3 /* graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,6 +831,7 @@
 		AC47E85E1AB15BB300A9EC59 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84F7804F1AD61FF9006430A5 /* audio */,
 				84F9BA1C1AD4E0160030C9C3 /* graphics */,
 				AC82BCAA1ACA64940022CA18 /* Font */,
 				AC47E85F1AB15BB300A9EC59 /* CloseNormal.png */,
@@ -1735,6 +1773,9 @@
 			files = (
 				AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */,
 				AC82BCCA1ACA64B10022CA18 /* friendship.png in Resources */,
+				84F7805C1AD625E4006430A5 /* castleDown.wav in Resources */,
+				84F780511AD62009006430A5 /* mainMenu.mp3 in Resources */,
+				84F780601AD625E4006430A5 /* magDown.wav in Resources */,
 				AC47E8701AB15BB300A9EC59 /* Icon.png in Resources */,
 				AC47E9061AB15BB400A9EC59 /* ChangeLog in Resources */,
 				AC82BCD31ACA64B10022CA18 /* protection_ward.png in Resources */,
@@ -1747,6 +1788,7 @@
 				AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */,
 				AC47E8601AB15BB300A9EC59 /* CloseNormal.png in Resources */,
 				AC82BCCB1ACA64B10022CA18 /* harmonic_orc.png in Resources */,
+				84F780631AD625E4006430A5 /* wallUp.wav in Resources */,
 				ACC725021AD23D6E00A88C34 /* victory.png in Resources */,
 				AC82BCD61ACA64B10022CA18 /* ruby_wand.png in Resources */,
 				840824EB1ACD178C00E875C8 /* MagicFont.ttf in Resources */,
@@ -1759,20 +1801,26 @@
 				AC82BCD81ACA64B10022CA18 /* stone_giant.png in Resources */,
 				AC47E8681AB15BB300A9EC59 /* Icon-72.png in Resources */,
 				AC82BCD21ACA64B10022CA18 /* mortal_mole.png in Resources */,
+				84F7805E1AD625E4006430A5 /* gemDown.wav in Resources */,
 				AC82BCCD1ACA64B10022CA18 /* instant_wall.png in Resources */,
 				AC82BCD11ACA64B10022CA18 /* mobbin_goblin.png in Resources */,
 				AC82BCCF1ACA64B10022CA18 /* mana_disease.png in Resources */,
 				AC82BCE81ACA67B90022CA18 /* ButtonOnePlayer.png in Resources */,
+				84F780531AD620E4006430A5 /* gameBGM.mp3 in Resources */,
 				ACC724FD1AD23D6E00A88C34 /* bannierRed.png in Resources */,
 				AC47E86A1AB15BB300A9EC59 /* Icon-Small-50.png in Resources */,
 				ACC725011AD23D6E00A88C34 /* quitRedCrossButton.png in Resources */,
+				84F780621AD625E4006430A5 /* wallDown.wav in Resources */,
+				84F7805F1AD625E4006430A5 /* gemUp.wav in Resources */,
 				AC82BCC61ACA64B10022CA18 /* bowmin_goblin.png in Resources */,
 				AC82BCD01ACA64B10022CA18 /* mana_stompers.png in Resources */,
 				AC82BCC81ACA64B10022CA18 /* emerald_wand.png in Resources */,
 				ACC725001AD23D6E00A88C34 /* parchmentLeaveGame.png in Resources */,
 				AC82BCD71ACA64B10022CA18 /* sheepish_rabbit.png in Resources */,
+				84F7805D1AD625E4006430A5 /* castleUp.wav in Resources */,
 				AC47E8741AB15BB300A9EC59 /* iTunesArtwork in Resources */,
 				ACC724FC1AD23D6E00A88C34 /* bannierBlue.png in Resources */,
+				84F780611AD625E4006430A5 /* magUp.wav in Resources */,
 				AC82BCE51ACA67B90022CA18 /* BackgroundMenu.png in Resources */,
 				AC82BCE61ACA67B90022CA18 /* BackgroundStats.png in Resources */,
 				AC82BCE71ACA67B90022CA18 /* ButtonMultiplayer.png in Resources */,

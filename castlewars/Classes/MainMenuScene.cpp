@@ -18,6 +18,18 @@ CCScene* MainMenu::scene()
     return scene;
 }
 
+void    MainMenu::preloadAudio() {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleDown.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleUp.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemDown.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemUp.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magDown.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magUp.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallDown.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallUp.wav");
+}
+
+
 // on "init" you need to initialize your instance
 bool MainMenu::init()
 {
@@ -91,6 +103,8 @@ bool MainMenu::init()
     
     this->schedule(schedule_selector(MainMenu::update));
     
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("mainMenu.mp3", true);
+    
     return true;
 }
 
@@ -101,7 +115,8 @@ void MainMenu::update(float dt)
 
 void MainMenu::onePlayerMode(CCObject* pSender)
 {
-    printf("Game lunched");
+    printf("Game launched");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     CCScene *gameScene = Game::createScene();
 
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
