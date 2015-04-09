@@ -19,6 +19,7 @@
 		84F780611AD625E4006430A5 /* magUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780591AD625E4006430A5 /* magUp.wav */; };
 		84F780621AD625E4006430A5 /* wallDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805A1AD625E4006430A5 /* wallDown.wav */; };
 		84F780631AD625E4006430A5 /* wallUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805B1AD625E4006430A5 /* wallUp.wav */; };
+		AC27E7761AD65C040075A606 /* SRes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC27E7751AD65C040075A606 /* SRes.cpp */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC47E84E1AB15BB300A9EC59 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */; };
 		AC47E8501AB15BB300A9EC59 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */; };
@@ -267,7 +268,8 @@
 		84F780591AD625E4006430A5 /* magUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = magUp.wav; sourceTree = "<group>"; };
 		84F7805A1AD625E4006430A5 /* wallDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallDown.wav; sourceTree = "<group>"; };
 		84F7805B1AD625E4006430A5 /* wallUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallUp.wav; sourceTree = "<group>"; };
-		84F9BA1E1AD4E51F0030C9C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		AC27E7741AD65BFB0075A606 /* SRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRes.h; sourceTree = "<group>"; };
+		AC27E7751AD65C040075A606 /* SRes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SRes.cpp; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		AC47E84A1AB15BB300A9EC59 /* castlewars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = castlewars.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1653,9 +1655,10 @@
 				AC32E07F1ACE8381002D77DE /* GameScene.h */,
 				AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */,
 				AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */,
+				AC27E7751AD65C040075A606 /* SRes.cpp */,
+				AC27E7741AD65BFB0075A606 /* SRes.h */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
 				AC47EAF61AB1680300A9EC59 /* Player.h */,
-				84F9BA1E1AD4E51F0030C9C3 /* Constants.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1843,6 +1846,7 @@
 				AC47EA3C1AB15BB500A9EC59 /* CCTouchHandler.cpp in Sources */,
 				AC47E9371AB15BB400A9EC59 /* CCScene.cpp in Sources */,
 				AC47EA2B1AB15BB400A9EC59 /* CCTMXObjectGroup.cpp in Sources */,
+				AC27E7761AD65C040075A606 /* SRes.cpp in Sources */,
 				AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */,
 				AC47E9141AB15BB400A9EC59 /* plane.c in Sources */,
 				AC47E8AB1AB15BB300A9EC59 /* CCAtlasNode.cpp in Sources */,
