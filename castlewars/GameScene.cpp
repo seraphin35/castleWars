@@ -36,16 +36,41 @@ void Game::mainMenu()
 
 void Game::gameOver(bool hasWon)
 {
-    char *message = "You lost1";
+    CCSprite* endGame;
     
     if (hasWon)
-        message = "You won!";
+        endGame = CCSprite::create("victory.png");
+    else
+        endGame = CCSprite::create("defeat.png");
     
-    CCLabelTTF *messageLabel = CCLabelTTF::create(message, "MagicFont", 40,
-                                                  CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    messageLabel->setPosition(ccp(screenSize.height /2, screenSize.width / 2));
-    this->addChild(messageLabel, 1);
-    this->schedule(schedule_selector(Game::mainMenu), 2.0);
+    endGame->setScaleX(screenSize.width / endGame->getContentSize().width);
+    endGame->setScaleY(screenSize.height / endGame->getContentSize().height);
+    endGame->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
+    endGame->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
+    this->addChild(endGame, 2);
+
+    // display endGame informations
+    CCString    nbTurnStr   =   *CCString::createWithFormat("%d", this->turn);
+    CCLabelTTF  *nbTurn     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 24,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    nbTurn->setPosition(ccp(screenSize.width / 2 + 150, screenSize.height / 2 + 300));
+    this->addChild(nbTurn, 2);
+    
+    // Create Button to come back to menu
+    CCPoint     buttonPos = CCPoint(screenSize.width / 2, screenSize.height / 4);
+    CCMenuItemImage *returnToMenu = createButton("templateLittleButton.png",
+                                                 "templateLittleButton.png", 0,
+                                                 this->screenSize.width / 2,
+                                                 this->screenSize.height / 3, 1,
+                                                 menu_selector(Game::endButton));
+    CCLabelTTF  *returnToMenuTxt = CCLabelTTF::create("Done", "MagicFont", 24,
+                                                      CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    returnToMenu->setPosition(buttonPos);
+    returnToMenuTxt->setPosition(buttonPos);
+    
+    CCMenu  *menu   = CCMenu::create(returnToMenu, NULL);
+    this->addChild(menu, 2);
+    this->addChild(returnToMenuTxt, 2);
 }
 
 void Game::zob(CCObject *pSend) {
@@ -58,6 +83,7 @@ void Game::zob(CCObject *pSend) {
     
     
     bool extra = fu(p1, p2);
+    //sleep(1);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
@@ -91,6 +117,7 @@ bool    Game::init()
     }
 
     // initialize game values
+    turn = 0;
     this->currentPlayerTurn = true;
     
     // add a "close" icon to exit the progress. it's an autorelease object
@@ -193,9 +220,9 @@ CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 void    Game::update(float dt)
 {
     CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
-    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getCrystals());
+    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
     CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
-    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getCrystals());
+    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getGems());
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
     CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
     CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
@@ -253,23 +280,35 @@ void    Game::computerTurn()
     cardSprite->setScale(0.7);
 
     this->addChild(cardSprite, 2);
-    CCFiniteTimeAction *moveToCenter = CCMoveTo::create(2, ccp(-500, screenSize.height / 3 * 2));
 
-    cardSprite->runAction(moveToCenter);
-    
+    CCFiniteTimeAction  *moveToCenter = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
+                                                                  screenSize.height / 3 * 2));
+    CCFiniteTimeAction  *delay = CCDelayTime::create(1);
+    CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.3, ccp(screenSize.width / 2,
+                                                             screenSize.height + cardSprite->getScaleY() * 4));
+    CCFiniteTimeAction *endFun = CCCallFuncN::create(this, callfuncN_selector(Game::cleanSprite));
+    CCAction    *moveCard = CCSequence::create(moveToCenter, delay, moveToTop, endFun, NULL);
+
+    cardSprite->stopAllActions();
+    cardSprite->runAction(moveCard);
+
     p2->discard(0);
     p2->draw();
     
     ptrfunc fu;
-    
-    
+
     fu = card->getEffect();
-    
     
     bool extra = fu(p2, p1);
     switchTurn(extra);
 }
 
-void Game::cleanLol(CCSprite *s) {
-    s->removeFromParentAndCleanup(true);
+void    Game::cleanSprite(CCSprite *sprite)
+{
+    this->removeChild(sprite, true);
+}
+
+void    Game::endButton(CCObject *pSend)
+{
+    this->schedule(schedule_selector(Game::mainMenu), 0);
 }

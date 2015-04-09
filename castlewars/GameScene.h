@@ -70,9 +70,12 @@ public:
 
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
+    void gameOver(bool hasWon);
+    void mainMenu();
     void computerTurn();
-    void cleanLol(CCSprite *);
+    void cleanSprite(CCSprite *);
     
+    void endButton(CCObject *pSend);
     void zob(CCObject *pSend);
 
 };
