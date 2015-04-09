@@ -9,6 +9,8 @@
 #include "GameScene.h"
 #include "cocos2d.h"
 #include "Card.h"
+#include "SimpleAudioEngine.h"
+#include <unistd.h>
 
 CCScene* Game::createScene()
 {
@@ -29,85 +31,51 @@ void Game::zob(CCObject *pSend) {
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
     
-    switch (tag) {
-        case 1:
-            fu = this->c1->getEffect();
-            break;
-        case 2:
-            fu = this->c2->getEffect();
-            break;
-        case 3:
-            fu = this->c3->getEffect();
-            break;
-        case 4:
-            fu = this->c4->getEffect();
-            break;
-        case 5:
-            fu = this->c5->getEffect();
-            break;
-            
-        default:
-            break;
-    }
+    fu = this->p1->getCard(tag - 1)->getEffect();
     
-    fu(p1, p2);
+    
+    bool extra = fu(p1, p2);
+    sleep(1);
+    this->popCardMenuItem(tag);
+    this->addCardMenuItem();
+    
+    this->switchTurn(extra);
 }
 
 bool    Game::init()
 {
     // get screen size
-	CCSize  screenSize = CCDirector::sharedDirector()->getWinSize();
+	this->screenSize = CCDirector::sharedDirector()->getWinSize();
     
     this->p1 = new Player();
     this->p2 = new Player();
 
     this->createGameScene(screenSize);
 
-    p1->draw(5);
-    p2->draw(5);
-
-    this->c1 = p1->getCard(1);
-    //printf("%s\n", c1->getImage());
-    this->c2 = p1->getCard(2);
-    this->c3 = p1->getCard(3);
-    this->c4 = p1->getCard(4);
-    this->c5 = p1->getCard(5);
+    for (int i = 0; i < 5; i++) {
+        p1->draw();
+        p2->draw();
+    }
 
     // initialize game values
     this->currentPlayerTurn = true;
     
     // add a "close" icon to exit the progress. it's an autorelease object
-    CCMenuItemImage *turnButton = CCMenuItemImage::create("CloseNormal.png",
-                                                          "CloseSelected.png",
-                                                          this, menu_selector(Game::nextTurn));
-    CCMenuItemImage *bCard1 = createButtonFromCard(this->c1, .5, 1, screenSize.width / 2 - 300, 150);
-    /*
-    CCMenuItemImage *bCard2 = createButtonFromCard(this->c2, .5, 2, screenSize.width / 2 - 150, 150);
-    CCMenuItemImage *bCard3 = createButtonFromCard(this->c3, .5, 3, screenSize.width / 2, 150);
-    CCMenuItemImage *bCard4 = createButtonFromCard(this->c4, .5, 4, screenSize.width / 2 + 150, 150);
-    CCMenuItemImage *bCard5 = createButtonFromCard(this->c5, .5, 5, screenSize.width / 2 + 300, 150);
-     */
-  
-    CCMenuItemImage *bCard2 = createButton("amethyst_wand.png", "recycled_rainbow.png", 2,
-                                        screenSize.width / 2 - 150, 150,
-                                        .5, menu_selector(Game::zob));
-    CCMenuItemImage *bCard3 = createButton("amethyst_wand.png", "recycled_rainbow.png", 3,
-                                        screenSize.width / 2, 150,
-                                        .5, menu_selector(Game::zob));
-    CCMenuItemImage *bCard4 = createButton("amethyst_wand.png", "recycled_rainbow.png", 4,
-                                        screenSize.width / 2 + 150, 150,
-                                        .5, menu_selector(Game::zob));
-    CCMenuItemImage *bCard5 = createButton("amethyst_wand.png", "recycled_rainbow.png", 5,
-                                        screenSize.width / 2 + 300, 150,
-                                        .5, menu_selector(Game::zob));
-
+    CCMenuItemImage *bCard1 = createButtonFromCard(this->p1->getCard(0), 1);
+    CCMenuItemImage *bCard2 = createButtonFromCard(this->p1->getCard(1), 2);
+    CCMenuItemImage *bCard3 = createButtonFromCard(this->p1->getCard(2), 3);
+    CCMenuItemImage *bCard4 = createButtonFromCard(this->p1->getCard(3), 4);
+    CCMenuItemImage *bCard5 = createButtonFromCard(this->p1->getCard(4), 5);
     
     // create menu, it's an autorelease object
-    CCMenu* pMenu = CCMenu::create(turnButton, bCard5, bCard4, bCard3, bCard2, bCard1, NULL);
-    pMenu->setPosition( CCPointZero );
-    this->addChild(pMenu, 1);
+    this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1, NULL);
+    this->cardsMenu->setPosition( CCPointZero );
+    this->addChild(this->cardsMenu, 1);
 
     this->schedule(schedule_selector(Game::update));
+    
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("gameBGM.mp3", true);
+    
     return true;
 }
 
@@ -186,7 +154,7 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
 CCMenuItemImage *Game::createButtonFromCard(Card *card, float scale, int tag, int posX, int posY)
 {
     return createButton(card->getImage(), card->getImage(), tag,
-                        posX, posY, scale, menu_selector(Game::zob));
+                        screenSize.width / 2 + (150 * (tag - 3)), 150, .5, menu_selector(Game::zob));
 }
 
 void    Game::update(float dt)
@@ -208,6 +176,16 @@ void    Game::update(float dt)
     this->p2Gems->setString(p2GemsStr.getCString());
     this->p2Castle->setString(p2CastleStr.getCString());
     this->p2Wall->setString(p2WallStr.getCString());
+}
+
+void    Game::popCardMenuItem(int position) {
+    this->cardsMenu->removeChildByTag(position, true);
+    this->p1->discard(position - 1);
+}
+
+void    Game::addCardMenuItem() {
+    int pos = this->p1->draw();
+    this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
 }
 
 void    Game::switchTurn(bool extra)
