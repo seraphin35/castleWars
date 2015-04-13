@@ -12,11 +12,11 @@ class MainMenu : public cocos2d::CCLayer
 {
 private:
     CCMenu*             menu;
-
+    
     CCMenuItemImage*    onePlayerButton;
     CCMenuItemImage*    multiPlayerButton;
     CCMenuItemImage*    quitButton;
-
+    
     CCLabelTTF*         onePlayerTitle;
     CCLabelTTF*         multiPlayerTitle;
 public:
@@ -28,7 +28,7 @@ public:
     
     // there's no 'id' in cpp, so we recommend to return the class instance pointer
     static cocos2d::CCScene* scene();
-
+    
     // a selector callback
     void onePlayerMode(CCObject* pSender);
     void multiplayerMode(CCObject* pSender);

@@ -33,7 +33,7 @@ bool MainMenu::init()
     
     // get screen size
 	CCSize  screenSize = CCDirector::sharedDirector()->getWinSize();
-
+    
     // add background to Main menu
     CCSprite* bgMenu = CCSprite::create("BackgroundMenu.png");
     bgMenu->setScaleX(screenSize.width / bgMenu->getContentSize().width);
@@ -58,9 +58,9 @@ bool MainMenu::init()
                                                this,
                                                menu_selector(MainMenu::menuCloseCallback)
                                                );
-
+    
     quitButton->setPosition( ccp(screenSize.width - 30, 50) );
-
+    
     // create and initialize titles for buttons
     this->onePlayerTitle = CCLabelTTF::create("One Player", "MagicFont", 30,
                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
@@ -82,13 +82,13 @@ bool MainMenu::init()
                                            screenSize.height / 2 + 150) );
     this->multiPlayerTitle->setPosition( ccp(screenSize.width / 4 * 3 - 50,
                                              screenSize.height / 2 + 150) );
-
+    
     // create menu, it's an autorelease object
     this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton,
                                 this->quitButton, NULL);
     menu->setPosition( CCPointZero );
     this->addChild(menu, 1);
-
+    
     // add titles elements as a child to this layer
     this->addChild(onePlayerTitle, 2);
     this->addChild(multiPlayerTitle, 2);
@@ -102,7 +102,7 @@ bool MainMenu::init()
 
 void MainMenu::update(float dt)
 {
-
+    
 }
 
 void MainMenu::onePlayerMode(CCObject* pSender)
@@ -110,7 +110,7 @@ void MainMenu::onePlayerMode(CCObject* pSender)
     printf("Game launched");
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     CCScene *gameScene = Game::createScene();
-
+    
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
 }
 

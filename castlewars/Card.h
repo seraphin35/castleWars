@@ -20,9 +20,9 @@ typedef bool (*ptrfunc)(Player *, Player *);
 class Card {
     
 private:
-    int cost;
-    ptrfunc effect;
-    char *image;
+    int         cost;
+    ptrfunc     effect;
+    char        *image;
     
 public:
     Card(ptrfunc effect, int value, char *image);

@@ -21,15 +21,17 @@ private:
     bool            currentPlayerTurn;
     
 private:
+    bool         gameEnd;
+    
     Player*     p1;
     Player*     p2;
-
+    
     CCLabelTTF* p1Magic;
     CCLabelTTF* p1Gems;
     CCLabelTTF* p1Name;
     CCLabelTTF* p1Castle;
     CCLabelTTF* p1Wall;
-
+    
     CCLabelTTF* p2Magic;
     CCLabelTTF* p2Gems;
     CCLabelTTF* p2Name;
@@ -38,16 +40,20 @@ private:
     
     //Card    *cardsArray[5];
     /*
-    Card*   c1;
-    Card*   c2;
-    Card*   c3;
-    Card*   c4;
-    Card*   c5;
-    */
+     Card*   c1;
+     Card*   c2;
+     Card*   c3;
+     Card*   c4;
+     Card*   c5;
+     */
     
-    CCMenu  *cardsMenu;
-    CCSize  screenSize;
-
+    CCSprite    *bgGame;
+    CCSprite    *endGame;
+    CCMenu      *cardsMenu;
+    std::vector<CCLabelTTF *>   endValues;
+    
+    CCSize      screenSize;
+    
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     CREATE_FUNC(Game);
@@ -60,14 +66,14 @@ private:
     void            createGameScene(CCSize);
     
     CCMenuItemImage *createButton(const char *plain, const char *focus, int tag,
-                                      int posX, int posY, float scale,
-                                      SEL_MenuHandler callBack);
+                                  int posX, int posY, float scale,
+                                  SEL_MenuHandler callBack);
     CCMenuItemImage *createButtonFromCard(Card *, int tag);
     
 public:
     void popCardMenuItem(int);
     void addCardMenuItem();
-
+    
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
     void gameOver(bool hasWon);
@@ -77,7 +83,8 @@ public:
     
     void endButton(CCObject *pSend);
     void zob(CCObject *pSend);
-
+    void removeGameScene();
+    void removeEndScene();
 };
 
 #endif /* defined(__castlewars__GameScene__) */
