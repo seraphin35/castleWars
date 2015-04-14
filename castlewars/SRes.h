@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "CCSprite.h"
+#include "SimpleAudioEngine.h"
 
 class SRes
 {
@@ -22,7 +23,20 @@ public:
         return instance;
     }
     
-    enum    CardID {
+    enum    SoundID {
+        BGM_GAME,
+        BGM_MENU,
+        CASTLE_DOWN,
+        CASTLE_UP,
+        GEM_DOWN,
+        GEM_UP,
+        WALL_DOWN,
+        WALL_UP,
+        MAGIC_DOWN,
+        MAGIC_UP
+    };
+    
+    enum    ResID {
         AMETHYST_WAND = 0,
         BOTTLED_FLATULENCE = 1,
         BOWMIN_GOBLIN = 2,
@@ -44,7 +58,21 @@ public:
         SHEEPISH_RABBIT = 18,
         STONE_GIANT = 19,
         STRIP_MINING = 20,
-        MAGIC_MINERS = 21
+        MAGIC_MINERS = 21,
+        BANNER_BLUE = 22,
+        BANNER_RED = 23,
+        RETURN_BTN = 24,
+        DEFEAT_BG = 25,
+        LEAVE_BTN = 26,
+        QUIT_BTN = 27,
+        VICTORY_BG = 28,
+        GAME_BG = 29,
+        MENU_BG = 30,
+        STATS_BG = 31,
+        MULTI_BTN = 32,
+        SOLO_BTN = 33,
+        STATS_BTN = 34,
+        BTN_BG = 35
     };
     
 private:
@@ -58,11 +86,17 @@ private:
 public:
     void    initRessources();
     
-    cocos2d::CCSprite    *getSprite(CardID);
-    cocos2d::CCSprite    *getSpriteCopy(CardID);
+    cocos2d::CCSprite    *getSprite(ResID);
+    cocos2d::CCSprite    *getSpriteCopy(ResID);
+    
+    void    playSound(SoundID);
+    void    stopSound();
 
 private:
-    cocos2d::CCSprite    *sprites[22];
+    cocos2d::CCSprite    *sprites[36];
+    CocosDenshion::SimpleAudioEngine    *engine;
+    bool    BGMplaying;
+    
 };
 
 #endif /* defined(__castlewars__File__) */

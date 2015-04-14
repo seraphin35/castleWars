@@ -7,27 +7,29 @@
 //
 
 #include "SRes.h"
-#include "SimpleAudioEngine.h"
 
 void    SRes::initRessources() {
     static bool done = false;
     if (done) return;
+    this->engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
     this->initiateAudio();
     this->initiateSprites();
     done = true;
 }
 
 void    SRes::initiateAudio() {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("gameBGM.mp3");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("MainMenu.mp3");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("castleUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("gemUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("wallUp.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magicDown.wav");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("magicUp.wav");
+    this->BGMplaying = false;
+    this->engine->preloadBackgroundMusic("gameBGM.mp3");
+    this->engine->preloadBackgroundMusic("MainMenu.mp3");
+    this->engine->preloadEffect("castleDown.wav");
+    this->engine->preloadEffect("castleUp.wav");
+    this->engine->preloadEffect("gemDown.wav");
+    this->engine->preloadEffect("gemUp.wav");
+    this->engine->preloadEffect("wallDown.wav");
+    this->engine->preloadEffect("wallUp.wav");
+    this->engine->preloadEffect("magicDown.wav");
+    this->engine->preloadEffect("magicUp.wav");
+    
 }
 
 void    SRes::initiateSprites() {
@@ -53,12 +55,71 @@ void    SRes::initiateSprites() {
     this->sprites[STONE_GIANT] = cocos2d::CCSprite::create("sheepish_rabbit.png");
     this->sprites[STRIP_MINING] = cocos2d::CCSprite::create("stone_giant.png");
     this->sprites[MAGIC_MINERS] = cocos2d::CCSprite::create("strip_mining.png");
+    this->sprites[BANNER_BLUE] = cocos2d::CCSprite::create("bannerBlue.png");
+    this->sprites[BANNER_RED] = cocos2d::CCSprite::create("bannerRed.png");
+    this->sprites[RETURN_BTN] = cocos2d::CCSprite::create("returnBtn.png");
+    this->sprites[DEFEAT_BG] = cocos2d::CCSprite::create("defeatBG.png");
+    this->sprites[LEAVE_BTN] = cocos2d::CCSprite::create("leaveBtn.png");
+    this->sprites[QUIT_BTN] = cocos2d::CCSprite::create("quitBtn.png");
+    this->sprites[VICTORY_BG] = cocos2d::CCSprite::create("victoryBG.png");
+    this->sprites[GAME_BG] = cocos2d::CCSprite::create("gameBG.png");
+    this->sprites[MENU_BG] = cocos2d::CCSprite::create("menuBG.png");
+    this->sprites[STATS_BG] = cocos2d::CCSprite::create("statsBG.png");
+    this->sprites[MULTI_BTN] = cocos2d::CCSprite::create("multiBtn.png");
+    this->sprites[SOLO_BTN] = cocos2d::CCSprite::create("soloBtn.png");
+    this->sprites[STATS_BTN] = cocos2d::CCSprite::create("statsBtn.png");
+    this->sprites[BTN_BG] = cocos2d::CCSprite::create("btnBG.png");
 }
 
-cocos2d::CCSprite   *SRes::getSprite(SRes::CardID id) {
+void    SRes::playSound(SRes::SoundID id) {
+    switch (id) {
+        case BGM_GAME:
+            if (this->BGMplaying) this->engine->stopBackgroundMusic(false);
+            this->engine->playBackgroundMusic("gameBGM.mp3", true);
+            this->BGMplaying = true;
+            break;
+        case BGM_MENU:
+            if (this->BGMplaying) this->engine->stopBackgroundMusic(false);
+            this->engine->playBackgroundMusic("MainMenu.mp3", true);
+            this->BGMplaying = true;
+            break;
+        case CASTLE_DOWN:
+            this->engine->playEffect("castleDown.wav");
+            break;
+        case CASTLE_UP:
+            this->engine->playEffect("castleUp.wav");
+            break;
+        case GEM_DOWN:
+            this->engine->playEffect("gemDown.wav");
+            break;
+        case GEM_UP:
+            this->engine->playEffect("gemUp.wav");
+            break;
+        case WALL_DOWN:
+            this->engine->playEffect("wallDown.wav");
+            break;
+        case WALL_UP:
+            this->engine->playEffect("wallUp.wav");
+            break;
+        case MAGIC_DOWN:
+            this->engine->playEffect("magicDown.wav");
+            break;
+        case MAGIC_UP:
+            this->engine->playEffect("magicUp.wav");
+            break;
+    }
+    
+}
+
+void    SRes::stopSound() {
+    this->engine->stopBackgroundMusic(false);
+    this->BGMplaying = false;
+}
+
+cocos2d::CCSprite   *SRes::getSprite(SRes::ResID id) {
     return this->sprites[id];
 }
 
-cocos2d::CCSprite   *SRes::getSpriteCopy(SRes::CardID id) {
+cocos2d::CCSprite   *SRes::getSpriteCopy(SRes::ResID id) {
     return (cocos2d::CCSprite *) this->sprites[id]->copy();
 }
