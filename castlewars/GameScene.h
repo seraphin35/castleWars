@@ -60,6 +60,7 @@ private:
                                   int posX, int posY, float scale,
                                   SEL_MenuHandler callBack);
     CCMenuItemImage *createButtonFromCard(Card *, int tag);
+    CCMenuItemImage *createDiscardButton(int tag);
     
 public:
     void popCardMenuItem(int);

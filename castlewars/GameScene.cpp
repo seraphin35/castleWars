@@ -155,7 +155,7 @@ void    Game::cardDiscardButton(CCObject *pSend)
 void    Game::removeGameScene()
 {
     this->removeChild(this->bgGame, true);
-//    this->removeChild(this->cardsMenu, true);
+    //this->removeChild(this->cardsMenu, true);
     
     // remove p1 values
     this->removeChild(this->p1Magic, true);
@@ -209,8 +209,17 @@ bool    Game::init()
     CCMenuItemImage *bCard4 = createButtonFromCard(this->p1->getCard(3), 4);
     CCMenuItemImage *bCard5 = createButtonFromCard(this->p1->getCard(4), 5);
     
+    // add a "close" icon to exit the progress. it's an autorelease object
+    CCMenuItemImage *discard1 = createDiscardButton(1);
+    CCMenuItemImage *discard2 = createDiscardButton(2);
+    CCMenuItemImage *discard3 = createDiscardButton(3);
+    CCMenuItemImage *discard4 = createDiscardButton(4);
+    CCMenuItemImage *discard5 = createDiscardButton(5);
+
     // create menu, it's an autorelease object
-    this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1, NULL);
+    this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1,
+                                     discard1, discard2, discard3, discard4, discard5, NULL);
+
     this->cardsMenu->setPosition( CCPointZero );
     this->addChild(this->cardsMenu, 1);
     
@@ -305,7 +314,13 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
 CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 {
     return createButton(card->getImage(), card->getImage(), tag,
-                        screenSize.width / 2 + (150 * (tag - 3)), 150, .5, menu_selector(Game::cardClick));
+                        screenSize.width / 2 + (150 * (tag - 3)), 160, .5, menu_selector(Game::cardClick));
+}
+
+CCMenuItemImage *Game::createDiscardButton(int tag)
+{
+    return createButton("TemplateLittleButton.png", "TemplateLittleButton.png", tag,
+                        screenSize.width / 2 + (150 * (tag - 3)), 10, .5, menu_selector(Game::cardDiscardButton));
 }
 
 void    Game::update(float dt)
