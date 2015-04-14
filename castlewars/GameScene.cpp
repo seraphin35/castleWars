@@ -333,13 +333,17 @@ void    Game::update(float dt)
 }
 
 void    Game::popCardMenuItem(int position) {
+    printf("b popCardMebuItem\n");
     this->cardsMenu->removeChildByTag(position, true);
     this->p1->discard(position - 1);
+    printf("a popCardMebuItem\n");
 }
 
 void    Game::addCardMenuItem() {
+    printf("b addCardMebuItem\n");
     int pos = this->p1->draw();
     this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
+    printf("a addCardMebuItem\n");
 }
 
 void    Game::switchTurn(bool extra)

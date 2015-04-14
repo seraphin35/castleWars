@@ -10,6 +10,7 @@
 #include "Card.h"
 #include <algorithm>
 #include "SimpleAudioEngine.h"
+#include <unistd.h>
 
 Player::Player()
 {
@@ -112,7 +113,7 @@ void Player::handleNewTurn()
 }
 
 int     Player::draw() {
-    int pos;
+    int pos = 0;
     for (int i = 0; i < 5; i++) {
         if (this->hand[i] == NULL) pos = i;
     }
@@ -128,6 +129,7 @@ void    Player::discard(int pos) {
     this->hand[pos] = NULL;
 }
 
+int myrandom (int i) { return std::rand()%i;}
 
 void Player::shuffle()
 {
@@ -139,8 +141,7 @@ void Player::shuffle()
     }
     for (std::vector<Card *>::iterator it= Deck->begin(); it!=Deck->end(); ++it)
         printf("Before : %s\n", (*it)->getImage());
-    std::srand(unsigned (std::time(0)));
-    std::random_shuffle(this->Deck->begin(), this->Deck->end());
+    std::random_shuffle(this->Deck->begin(), this->Deck->end(), myrandom);
     for (std::vector<Card *>::iterator it= Deck->begin(); it!=Deck->end(); ++it)
         printf("After : %s\n", (*it)->getImage());
 }

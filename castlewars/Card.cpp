@@ -229,7 +229,7 @@ std::vector<Card *> *Card::getNewDeck()
     deck->push_back(new Card(&manaDisease, 0, "mana_disease.png"));
     deck->push_back(new Card(&manaStompers, 11, "mana_stompers.png"));
     deck->push_back(new Card(&mobbinGoblin, 3, "mobbin_goblin.png"));
-    deck->push_back(new Card(&mortarMole, 6, "mortal_mole.png"));
+    deck->push_back(new Card(&mortarMole, 6, "mortar_mole.png"));
     deck->push_back(new Card(&protectionWard, 12, "protection_ward.png"));
     deck->push_back(new Card(&recycledRainbows, 0, "recycled_rainbow.png"));
     deck->push_back(new Card(&rockSlasher, 5, "rock_slasher.png"));
