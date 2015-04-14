@@ -38,15 +38,6 @@ private:
     CCLabelTTF* p2Castle;
     CCLabelTTF* p2Wall;
     
-    //Card    *cardsArray[5];
-    /*
-     Card*   c1;
-     Card*   c2;
-     Card*   c3;
-     Card*   c4;
-     Card*   c5;
-     */
-    
     CCSprite    *bgGame;
     CCSprite    *endGame;
     CCMenu      *cardsMenu;
@@ -80,9 +71,10 @@ public:
     void mainMenu();
     void computerTurn();
     void cleanSprite(CCSprite *);
-    
+
     void endButton(CCObject *pSend);
-    void zob(CCObject *pSend);
+    void cardClick(CCObject *pSend);
+    void cardDiscardButton(CCObject *pSend);
     void removeGameScene();
     void removeEndScene();
 };

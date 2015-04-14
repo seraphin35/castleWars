@@ -33,11 +33,12 @@ public:
     Player();
     ~Player() {}
     
-    const int getGems();
-    const int getMagic();
-    const int getCastle();
-    const int getWall();
-    Card    *getCard(int pos);
+    const int   getGems();
+    const int   getMagic();
+    const int   getCastle();
+    const int   getWall();
+    Card        *getCard(int pos);
+    
     void addGems(const int);
     void removeGems(const int);
     void addMagic(const int);
