@@ -116,10 +116,13 @@ void    Game::cardClick(CCObject *pSend)
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
     
+    if (this->p1->getCard(tag - 1)->getCost() <= this->p1->getGems())
+    {
     fu = this->p1->getCard(tag - 1)->getEffect();
     
+    p1->removeGems(this->p1->getCard(tag - 1)->getCost());
+    
     bool extra = fu(p1, p2);
-    //sleep(1);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
@@ -136,6 +139,7 @@ void    Game::cardClick(CCObject *pSend)
     }
     else
         this->switchTurn(extra);
+    }
 }
 
 void    Game::cardDiscardButton(CCObject *pSend)
@@ -143,7 +147,7 @@ void    Game::cardDiscardButton(CCObject *pSend)
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
     
-    p1->addGems(this->p1->getGems() + this->p1->getCard(tag - 1)->getCost());
+    p1->addGems(this->p1->getCard(tag - 1)->getCost());
 
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
