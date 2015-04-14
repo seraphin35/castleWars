@@ -97,6 +97,8 @@ bool MainMenu::init()
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("mainMenu.mp3", true);
     
+    std::srand(arc4random());
+    
     return true;
 }
 
