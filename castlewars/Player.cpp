@@ -113,7 +113,7 @@ void Player::handleNewTurn()
 }
 
 int     Player::draw() {
-    int pos;
+    int pos = 0;
     for (int i = 0; i < 5; i++) {
         if (this->hand[i] == NULL) pos = i;
     }
