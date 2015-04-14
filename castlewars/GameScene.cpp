@@ -51,10 +51,10 @@ void Game::gameOver(bool hasWon)
     
     // display endGame informations
     CCString    nbTurnStr           =   *CCString::createWithFormat("%d", this->turn);
-    CCString    nbP1CastlePointStr  =   *CCString::createWithFormat("%d", this->turn);
-    CCString    nbP1WallsPointStr   =   *CCString::createWithFormat("%d", this->turn);
-    CCString    nbP2CastlePointStr  =   *CCString::createWithFormat("%d", this->turn);
-    CCString    nbP2WallsPointStr   =   *CCString::createWithFormat("%d", this->turn);
+    CCString    nbP1CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
+    CCString    nbP1WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
+    CCString    nbP2CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
+    CCString    nbP2WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
     
     CCLabelTTF  *nbTurn             =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
@@ -62,7 +62,7 @@ void Game::gameOver(bool hasWon)
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCLabelTTF  *nbP1WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP2CastlePoint =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
+    CCLabelTTF  *nbP2CastlePoint    =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
                                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCLabelTTF  *nbP2WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
@@ -109,16 +109,20 @@ void Game::gameOver(bool hasWon)
     this->addChild(returnToMenuTxt, 3);
 }
 
-void Game::zob(CCObject *pSend) {
+void    Game::cardClick(CCObject *pSend)
+{
     ptrfunc fu;
     
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
     
+    if (this->p1->getCard(tag - 1)->getCost() <= this->p1->getGems())
+    {
     fu = this->p1->getCard(tag - 1)->getEffect();
     
+    p1->removeGems(this->p1->getCard(tag - 1)->getCost());
+    
     bool extra = fu(p1, p2);
-    //sleep(1);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
@@ -135,12 +139,27 @@ void Game::zob(CCObject *pSend) {
     }
     else
         this->switchTurn(extra);
+    }
+}
+
+void    Game::cardDiscardButton(CCObject *pSend)
+{
+    CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
+    int tag = (int)pMenuItem->getTag();
+    
+    p1->addGems(this->p1->getCard(tag - 1)->getCost());
+
+    this->popCardMenuItem(tag);
+    this->addCardMenuItem();
+    
+    this->removeChild(pMenuItem, true);
+    this->switchTurn(false);
 }
 
 void    Game::removeGameScene()
 {
     this->removeChild(this->bgGame, true);
-    this->removeChild(this->cardsMenu, true);
+    //this->removeChild(this->cardsMenu, true);
     
     // remove p1 values
     this->removeChild(this->p1Magic, true);
@@ -194,8 +213,17 @@ bool    Game::init()
     CCMenuItemImage *bCard4 = createButtonFromCard(this->p1->getCard(3), 4);
     CCMenuItemImage *bCard5 = createButtonFromCard(this->p1->getCard(4), 5);
     
+    // add a "close" icon to exit the progress. it's an autorelease object
+    CCMenuItemImage *discard1 = createDiscardButton(1);
+    CCMenuItemImage *discard2 = createDiscardButton(2);
+    CCMenuItemImage *discard3 = createDiscardButton(3);
+    CCMenuItemImage *discard4 = createDiscardButton(4);
+    CCMenuItemImage *discard5 = createDiscardButton(5);
+
     // create menu, it's an autorelease object
-    this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1, NULL);
+    this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1,
+                                     discard1, discard2, discard3, discard4, discard5, NULL);
+
     this->cardsMenu->setPosition( CCPointZero );
     this->addChild(this->cardsMenu, 1);
     
@@ -290,7 +318,13 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
 CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 {
     return createButton(card->getImage(), card->getImage(), tag,
-                        screenSize.width / 2 + (150 * (tag - 3)), 150, .5, menu_selector(Game::zob));
+                        screenSize.width / 2 + (150 * (tag - 3)), 160, .5, menu_selector(Game::cardClick));
+}
+
+CCMenuItemImage *Game::createDiscardButton(int tag)
+{
+    return createButton("TemplateLittleButton.png", "TemplateLittleButton.png", tag,
+                        screenSize.width / 2 + (150 * (tag - 3)), 10, .5, menu_selector(Game::cardDiscardButton));
 }
 
 void    Game::update(float dt)
@@ -318,13 +352,17 @@ void    Game::update(float dt)
 }
 
 void    Game::popCardMenuItem(int position) {
+    printf("b popCardMebuItem\n");
     this->cardsMenu->removeChildByTag(position, true);
     this->p1->discard(position - 1);
+    printf("a popCardMebuItem\n");
 }
 
 void    Game::addCardMenuItem() {
+    printf("b addCardMebuItem\n");
     int pos = this->p1->draw();
     this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
+    printf("a addCardMebuItem\n");
 }
 
 void    Game::switchTurn(bool extra)
@@ -372,7 +410,6 @@ void    Game::computerTurn()
     cardSprite->runAction(moveCard);
     
     p2->discard(0);
-    p2->draw();
     
     ptrfunc fu;
     
