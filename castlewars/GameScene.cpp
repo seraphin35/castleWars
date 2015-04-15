@@ -39,9 +39,9 @@ void Game::gameOver(bool hasWon)
     this->gameEnd = true;
     
     if (hasWon)
-        this->endGame = CCSprite::create("victory.png");
+        this->endGame = CCSprite::create("victoryBG.png");
     else
-        this->endGame = CCSprite::create("defeat.png");
+        this->endGame = CCSprite::create("defeatBG.png");
     
     this->endGame->setScaleX(screenSize.width / this->endGame->getContentSize().width);
     this->endGame->setScaleY(screenSize.height / this->endGame->getContentSize().height);
@@ -95,8 +95,8 @@ void Game::gameOver(bool hasWon)
     // Create Button to come back to menu
     CCPoint     buttonPos = CCPoint(screenSize.width / 2, screenSize.height / 4 + 10);
     
-    CCMenuItemImage *returnToMenu = createButton("TemplateLittleButton.png",
-                                                 "TemplateLittleButton.png", 1,
+    CCMenuItemImage *returnToMenu = createButton("btnBG.png",
+                                                 "btnBG.png", 1,
                                                  0,
                                                  0 - this->screenSize.height / 4, 1,
                                                  menu_selector(Game::endButton));
@@ -219,6 +219,29 @@ bool    Game::init()
     CCMenuItemImage *discard3 = createDiscardButton(3);
     CCMenuItemImage *discard4 = createDiscardButton(4);
     CCMenuItemImage *discard5 = createDiscardButton(5);
+    
+    CCLabelTTF *dTxt1 = CCLabelTTF::create("Discard", "MagicFont", 16,
+                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCLabelTTF *dTxt2 = CCLabelTTF::create("Discard", "MagicFont", 16,
+                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCLabelTTF *dTxt3 = CCLabelTTF::create("Discard", "MagicFont", 16,
+                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCLabelTTF *dTxt4 = CCLabelTTF::create("Discard", "MagicFont", 16,
+                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCLabelTTF *dTxt5 = CCLabelTTF::create("Discard", "MagicFont", 16,
+                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    
+    dTxt1->setPosition(ccp(screenSize.width / 2 + (150 * (1 - 3)), 30));
+    dTxt2->setPosition(ccp(screenSize.width / 2 + (150 * (2 - 3)), 30));
+    dTxt3->setPosition(ccp(screenSize.width / 2 + (150 * (3 - 3)), 30));
+    dTxt4->setPosition(ccp(screenSize.width / 2 + (150 * (4 - 3)), 30));
+    dTxt5->setPosition(ccp(screenSize.width / 2 + (150 * (5 - 3)), 30));
+
+    this->addChild(dTxt1, 2);
+    this->addChild(dTxt2, 2);
+    this->addChild(dTxt3, 2);
+    this->addChild(dTxt4, 2);
+    this->addChild(dTxt5, 2);
 
     // create menu, it's an autorelease object
     this->cardsMenu = CCMenu::create(bCard5, bCard4, bCard3, bCard2, bCard1,
@@ -238,7 +261,7 @@ void    Game::createGameScene(CCSize screenSize) {
     this->gameEnd = false;
     
     // Background
-    this->bgGame = CCSprite::create("BackgroundGame.png");
+    this->bgGame = CCSprite::create("gameBG.png");
     this->bgGame->setScaleX(screenSize.width / bgGame->getContentSize().width);
     this->bgGame->setScaleY(screenSize.height / bgGame->getContentSize().height);
     this->bgGame->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
@@ -323,8 +346,8 @@ CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
 
 CCMenuItemImage *Game::createDiscardButton(int tag)
 {
-    return createButton("TemplateLittleButton.png", "TemplateLittleButton.png", tag,
-                        screenSize.width / 2 + (150 * (tag - 3)), 10, .5, menu_selector(Game::cardDiscardButton));
+    return createButton("btnBG.png", "btnBG.png", tag,
+                        screenSize.width / 2 + (150 * (tag - 3)), 30, .5, menu_selector(Game::cardDiscardButton));
 }
 
 void    Game::update(float dt)

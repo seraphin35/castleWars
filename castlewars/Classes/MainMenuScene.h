@@ -15,10 +15,13 @@ private:
     
     CCMenuItemImage*    onePlayerButton;
     CCMenuItemImage*    multiPlayerButton;
+    CCMenuItemImage*    statButton;
     CCMenuItemImage*    quitButton;
     
     CCLabelTTF*         onePlayerTitle;
     CCLabelTTF*         multiPlayerTitle;
+    CCLabelTTF*         statTitle;
+    
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
@@ -32,6 +35,7 @@ public:
     // a selector callback
     void onePlayerMode(CCObject* pSender);
     void multiplayerMode(CCObject* pSender);
+    void statMode(CCObject* pSender);
     void menuCloseCallback(CCObject* pSender);
     
     // preprocessor macro for "static create()" constructor ( node() deprecated )

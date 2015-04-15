@@ -33,25 +33,32 @@ bool MainMenu::init()
     
     // get screen size
 	CCSize  screenSize = CCDirector::sharedDirector()->getWinSize();
+
+    std::srand(arc4random());
     
     // add background to Main menu
-    CCSprite* bgMenu = CCSprite::create("BackgroundMenu.png");
+    CCSprite* bgMenu = CCSprite::create("menuBG.png");
     bgMenu->setScaleX(screenSize.width / bgMenu->getContentSize().width);
     bgMenu->setScaleY(screenSize.height / bgMenu->getContentSize().height);
     bgMenu->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
     this->addChild(bgMenu, 0);
     
     // create and initialize buttons
-    this->onePlayerButton = CCMenuItemImage::create("ButtonOnePlayer.png",
-                                                    "ButtonOnePlayer.png",
+    this->onePlayerButton = CCMenuItemImage::create("soloBtn.png",
+                                                    "soloBtn.png",
                                                     this,
                                                     menu_selector(MainMenu::onePlayerMode)
                                                     );
-    this->multiPlayerButton = CCMenuItemImage::create("ButtonMultiplayer.png",
-                                                      "ButtonMultiplayer.png",
+    this->multiPlayerButton = CCMenuItemImage::create("multiBtn.png",
+                                                      "multiBtn.png",
                                                       this,
                                                       menu_selector(MainMenu::multiplayerMode)
                                                       );
+    this->statButton = CCMenuItemImage::create("statsBtn.png",
+                                               "statsBtn.png",
+                                               this,
+                                               menu_selector(MainMenu::statMode)
+                                               );
     
     this->quitButton = CCMenuItemImage::create("CloseNormal.png",
                                                "CloseSelected.png",
@@ -66,25 +73,37 @@ bool MainMenu::init()
                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
     this->multiPlayerTitle = CCLabelTTF::create("Multiplayer", "MagicFont", 30,
                                                 CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->statTitle = CCLabelTTF::create("Statistiques", "MagicFont", 30,
+                                          CCSizeMake(245, 32), kCCTextAlignmentCenter);
     
     // set titles color
     this->onePlayerTitle->setColor(ccc3(50, 50, 250));
     this->multiPlayerTitle->setColor(ccc3(50, 50, 250));
+    this->statTitle->setColor(ccc3(50, 50, 250));
+    
+    // set buttons scale
+    this->onePlayerButton->setScale(0.9);
+    this->multiPlayerButton->setScale(0.9);
+    this->statButton->setScale(0.9);
     
     // set buttons position
-    this->onePlayerButton->setPosition(screenSize.width / 4,
+    this->onePlayerButton->setPosition(screenSize.width / 4 - 20,
                                        screenSize.height / 2);
-    this->multiPlayerButton->setPosition(screenSize.width / 4 * 3,
+    this->multiPlayerButton->setPosition(screenSize.width / 4 * 2,
+                                         screenSize.height / 2);
+    this->statButton->setPosition(screenSize.width / 4 * 3,
                                          screenSize.height / 2);
     
     // set buttons titles positions
-    this->onePlayerTitle->setPosition( ccp(screenSize.width / 4 - 50,
-                                           screenSize.height / 2 + 150) );
-    this->multiPlayerTitle->setPosition( ccp(screenSize.width / 4 * 3 - 50,
-                                             screenSize.height / 2 + 150) );
+    this->onePlayerTitle->setPosition( ccp(screenSize.width / 4 - 40,
+                                           screenSize.height / 2 + 135) );
+    this->multiPlayerTitle->setPosition( ccp(screenSize.width / 4 * 2 - 40,
+                                             screenSize.height / 2 + 135) );
+    this->statTitle->setPosition( ccp(screenSize.width / 4 * 3 - 40,
+                                             screenSize.height / 2 + 135) );
     
     // create menu, it's an autorelease object
-    this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton,
+    this->menu = CCMenu::create(this->onePlayerButton, this->multiPlayerButton, this->statButton,
                                 this->quitButton, NULL);
     menu->setPosition( CCPointZero );
     this->addChild(menu, 1);
@@ -92,12 +111,11 @@ bool MainMenu::init()
     // add titles elements as a child to this layer
     this->addChild(onePlayerTitle, 2);
     this->addChild(multiPlayerTitle, 2);
+    this->addChild(statTitle, 2);
     
     this->schedule(schedule_selector(MainMenu::update));
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("mainMenu.mp3", true);
-    
-    std::srand(arc4random());
     
     return true;
 }
@@ -117,6 +135,11 @@ void MainMenu::onePlayerMode(CCObject* pSender)
 }
 
 void MainMenu::multiplayerMode(CCObject* pSender)
+{
+    
+}
+
+void MainMenu::statMode(CCObject* pSender)
 {
     
 }

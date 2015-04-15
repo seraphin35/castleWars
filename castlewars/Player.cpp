@@ -14,9 +14,9 @@
 
 Player::Player()
 {
-    this->magic = 1;
-    this->gems = 3;
-    this->wall = 0;
+    this->magic = 3;
+    this->gems = 10;
+    this->wall = 10;
     this->castle = 15;
     
     this->won = false;
@@ -133,7 +133,6 @@ int myrandom (int i) { return std::rand()%i;}
 
 void Player::shuffle()
 {
-    
     printf("deck shuffled and restocked\n");
     while (!this->Discard->empty()) {
         this->Deck->push_back(this->Discard->back());
