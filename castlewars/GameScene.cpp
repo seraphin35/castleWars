@@ -444,6 +444,8 @@ void Game::computerPlay(Card *card, int pos)
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
     
+    p2->discard(pos);
+    
     ptrfunc fu;
     
     fu = card->getEffect();

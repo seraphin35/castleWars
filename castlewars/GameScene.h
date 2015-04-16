@@ -71,6 +71,8 @@ public:
     void switchTurn(bool extra);
     void gameOver(bool hasWon);
     void switchToMainMenu();
+    void computerDiscard(Card*);
+    void computerPlay(Card*, int);
     void computerTurn();
     void cleanSprite(CCSprite *);
     
