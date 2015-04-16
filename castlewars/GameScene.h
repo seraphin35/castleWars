@@ -17,11 +17,12 @@ using namespace cocos2d;
 class   Game : cocos2d::CCLayer
 {
 private:
-    int             turn;
-    bool            currentPlayerTurn;
-    
+    int     turn;
+    bool    currentPlayerTurn;
+
 private:
     bool         gameEnd;
+    bool    locked;
     
     Player*     p1;
     Player*     p2;
@@ -69,9 +70,13 @@ public:
     void startNewTurn(Player *p);
     void switchTurn(bool extra);
     void gameOver(bool hasWon);
-    void mainMenu();
+    void switchToMainMenu();
     void computerTurn();
     void cleanSprite(CCSprite *);
+    
+    void    lockScreen();
+    void    unlockScreen();
+    bool    isLocked();
 
     void endButton(CCObject *pSend);
     void cardClick(CCObject *pSend);

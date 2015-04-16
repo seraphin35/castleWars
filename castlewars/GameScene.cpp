@@ -11,6 +11,7 @@
 #include "Card.h"
 #include "SimpleAudioEngine.h"
 #include "MainMenuScene.h"
+#include "SRes.h"
 #include <unistd.h>
 
 CCScene* Game::createScene()
@@ -26,16 +27,28 @@ CCScene* Game::createScene()
     return scene;
 }
 
-void Game::mainMenu()
+void Game::switchToMainMenu()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    CCScene *gameScene = MainMenu::scene();
-    
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, MainMenu::scene()));
+}
+
+void    Game::lockScreen() {
+    this->locked = true;
+    printf("locking screen\n");
+}
+
+void    Game::unlockScreen() {
+    this->locked = false;
+    printf("unlocking screen\n");
+}
+
+bool    Game::isLocked() {
+    return this->locked;
 }
 
 void Game::gameOver(bool hasWon)
 {
+    printf("Player %s\n", hasWon ? "won." : "lost.");
     this->gameEnd = true;
     
     if (hasWon)
@@ -111,39 +124,37 @@ void Game::gameOver(bool hasWon)
 
 void    Game::cardClick(CCObject *pSend)
 {
-    ptrfunc fu;
+    if (this->isLocked()) printf("screen locked !!!\n");
+    if (this->isLocked()) return;
     
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
+
+    if (this->p1->getCard(tag - 1)->getCost() > this->p1->getGems()) return;
     
-    if (this->p1->getCard(tag - 1)->getCost() <= this->p1->getGems())
-    {
-    fu = this->p1->getCard(tag - 1)->getEffect();
+    this->lockScreen();
+    
+    ptrfunc effect = this->p1->getCard(tag - 1)->getEffect();
     
     p1->removeGems(this->p1->getCard(tag - 1)->getCost());
     
-    bool extra = fu(p1, p2);
+    bool extraTurn = effect(p1, p2);
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
-    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0)
-    {
-        this->removeChild(pMenuItem, true);
-        gameOver(true);
-        printf("Win");
-    }
-    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30)
-    {
-        gameOver(false);
-        printf("Lose");
-    }
-    else
-        this->switchTurn(extra);
+    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
+    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
+    else {
+        if (extraTurn) this->unlockScreen();
+        this->switchTurn(extraTurn);
     }
 }
 
 void    Game::cardDiscardButton(CCObject *pSend)
 {
+    if (this->isLocked()) return;
+    this->lockScreen();
+    
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
     
@@ -192,8 +203,8 @@ bool    Game::init()
     // get screen size
 	this->screenSize = CCDirector::sharedDirector()->getWinSize();
     
-    this->p1 = new Player();
-    this->p2 = new Player();
+    this->p1 = new Player("Player");
+    this->p2 = new Player("CPU");
     
     this->createGameScene(screenSize);
     
@@ -205,6 +216,7 @@ bool    Game::init()
     // initialize game values
     turn = 0;
     this->currentPlayerTurn = true;
+    this->unlockScreen();
     
     // add a "close" icon to exit the progress. it's an autorelease object
     CCMenuItemImage *bCard1 = createButtonFromCard(this->p1->getCard(0), 1);
@@ -252,7 +264,7 @@ bool    Game::init()
     
     this->schedule(schedule_selector(Game::update));
     
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("gameBGM.mp3", true);
+    SRes::getInstance().playSound(SRes::BGM_GAME);
     
     return true;
 }
@@ -375,17 +387,13 @@ void    Game::update(float dt)
 }
 
 void    Game::popCardMenuItem(int position) {
-    printf("b popCardMebuItem\n");
     this->cardsMenu->removeChildByTag(position, true);
     this->p1->discard(position - 1);
-    printf("a popCardMebuItem\n");
 }
 
 void    Game::addCardMenuItem() {
-    printf("b addCardMebuItem\n");
     int pos = this->p1->draw();
     this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
-    printf("a addCardMebuItem\n");
 }
 
 void    Game::switchTurn(bool extra)
@@ -424,23 +432,29 @@ void    Game::computerTurn()
     CCFiniteTimeAction  *moveToCenter = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
                                                                   screenSize.height / 3 * 2));
     CCFiniteTimeAction  *delay = CCDelayTime::create(1);
-    CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.3, ccp(screenSize.width / 2,
-                                                               screenSize.height + (cardSprite->getScaleY() * 4)));
+    CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
+                                                               screenSize.height * 2));
     CCFiniteTimeAction *endFun = CCCallFuncN::create(this, callfuncN_selector(Game::cleanSprite));
-    CCAction    *moveCard = CCSequence::create(moveToCenter, delay, moveToTop, endFun, NULL);
+    CCFiniteTimeAction *unlock = CCCallFuncN::create(this, callfuncN_selector(Game::unlockScreen));
+    CCAction    *moveCard = CCSequence::create(moveToCenter, delay, moveToTop, endFun, unlock, NULL);
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
-    
-    p2->discard(0);
     
     ptrfunc fu;
     
     fu = card->getEffect();
     
-    bool extra = fu(p2, p1);
+    bool extraTurn = fu(p2, p1);
+
+    p2->discard(0);
     this->p2->draw();
-    switchTurn(extra);
+    
+    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
+    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
+    else {
+        this->switchTurn(extraTurn);
+    }
 }
 
 void    Game::cleanSprite(CCSprite *sprite)
@@ -451,5 +465,6 @@ void    Game::cleanSprite(CCSprite *sprite)
 void    Game::endButton(CCObject *pSend)
 {
     removeEndScene();
-    this->schedule(schedule_selector(Game::mainMenu), 0.6);
+    switchToMainMenu();
+    this->schedule(schedule_selector(Game::switchToMainMenu), 1);
 }

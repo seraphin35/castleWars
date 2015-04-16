@@ -10,21 +10,24 @@
 #include "Card.h"
 #include <algorithm>
 #include "SimpleAudioEngine.h"
+#include "SRes.h"
 #include <unistd.h>
 
-Player::Player()
+Player::Player(char *name)
 {
     this->magic = 3;
     this->gems = 10;
     this->wall = 10;
     this->castle = 15;
     
-    this->won = false;
+    this->name = name;
     
     for (int i = 0; i < 5; i++) this->hand[i] = NULL;
     this->Deck = new std::vector<Card *>;
     this->Discard = Card::getNewDeck();
 }
+
+
 
 const int Player::getCastle()
 {
@@ -46,62 +49,62 @@ const int Player::getWall()
     return this->wall;
 }
 
+const char *Player::getName() {
+    return this->name;
+}
+
 Card    *Player::getCard(int pos) {
     return this->hand[pos];
 }
 
 void Player::addCastle(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("castleUp.wav");
+    SRes::getInstance().playSound(SRes::CASTLE_UP);
     this->castle += value;
-    if (castle >= 30) this->won = true;
 }
 
 void Player::removeCastle(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("castleDown.wav");
+    SRes::getInstance().playSound(SRes::CASTLE_DOWN);
     this->castle -= value;
-    if (castle <= 0) {
-        this->castle = 0;
-        this->won = true;
-    }
+    if (castle <= 0) this->castle = 0;
 }
 
 void Player::addWall(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("wallUp.wav");
+    SRes::getInstance().playSound(SRes::WALL_UP);
     this->wall += value;
 }
 
 void Player::removeWall(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("wallDown.wav");
+    SRes::getInstance().playSound(SRes::WALL_DOWN);
     this->wall -= value;
     if (this->wall < 0) this->wall = 0;
 }
 
 void Player::addMagic(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("magUp.wav");
+    SRes::getInstance().playSound(SRes::MAGIC_UP);
     this->magic += value;
 }
 
 void Player::removeMagic(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("magDown.wav");
+    SRes::getInstance().playSound(SRes::MAGIC_DOWN);
     this->magic -= value;
     if (this->magic <= 0) this->magic = 1;
 }
 
 void Player::addGems(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("gemUp.wav");
+    SRes::getInstance().playSound(SRes::GEM_UP);
     this->gems += value;
 }
 
 void Player::removeGems(const int value)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("gemDown.wav");
+    SRes::getInstance().playSound(SRes::GEM_DOWN);
     this->gems -= value;
     if (this->gems < 0) this->gems = 0;
 }
@@ -138,11 +141,7 @@ void Player::shuffle()
         this->Deck->push_back(this->Discard->back());
         this->Discard->pop_back();
     }
-    for (std::vector<Card *>::iterator it= Deck->begin(); it!=Deck->end(); ++it)
-        printf("Before : %s\n", (*it)->getImage());
     std::random_shuffle(this->Deck->begin(), this->Deck->end(), myrandom);
-    for (std::vector<Card *>::iterator it= Deck->begin(); it!=Deck->end(); ++it)
-        printf("After : %s\n", (*it)->getImage());
 }
 
 

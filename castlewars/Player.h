@@ -23,6 +23,8 @@ private:
     int castle;
     int wall;
     
+    char    *name;
+    
     bool    won;
     
     Card    *hand[5];
@@ -30,13 +32,14 @@ private:
     std::vector<Card*> *Discard;
     
 public:
-    Player();
+    Player(char *name);
     ~Player() {}
     
     const int   getGems();
     const int   getMagic();
     const int   getCastle();
     const int   getWall();
+    const char  *getName();
     Card        *getCard(int pos);
     
     void addGems(const int);
