@@ -77,7 +77,6 @@ public:
     void cardClick(CCObject *pSend);
     void cardDiscardButton(CCObject *pSend);
     void removeGameScene();
-    void removeEndScene();
 };
 
 #endif /* defined(__castlewars__GameScene__) */

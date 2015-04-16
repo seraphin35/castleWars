@@ -9,8 +9,10 @@
 #include "GameScene.h"
 #include "cocos2d.h"
 #include "Card.h"
+#include "SRes.h"
 #include "SimpleAudioEngine.h"
 #include "MainMenuScene.h"
+#include "GameOverScene.h"
 #include <unistd.h>
 
 CCScene* Game::createScene()
@@ -26,87 +28,23 @@ CCScene* Game::createScene()
     return scene;
 }
 
-void Game::mainMenu()
-{
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    CCScene *gameScene = MainMenu::scene();
-    
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
-}
-
 void Game::gameOver(bool hasWon)
 {
-    this->gameEnd = true;
-    
-    if (hasWon)
-        this->endGame = CCSprite::create("victoryBG.png");
-    else
-        this->endGame = CCSprite::create("defeatBG.png");
-    
-    this->endGame->setScaleX(screenSize.width / this->endGame->getContentSize().width);
-    this->endGame->setScaleY(screenSize.height / this->endGame->getContentSize().height);
-    this->endGame->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
-    this->endGame->setPosition(ccp(screenSize.width / 2, screenSize.height / 2));
-    this->addChild(this->endGame, 2);
-    
-    // display endGame informations
-    CCString    nbTurnStr           =   *CCString::createWithFormat("%d", this->turn);
-    CCString    nbP1CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
-    CCString    nbP1WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
-    CCString    nbP2CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
-    CCString    nbP2WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
-    
-    CCLabelTTF  *nbTurn             =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
-                                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP1CastlePoint    =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
-                                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP1WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
-                                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP2CastlePoint    =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
-                                                        CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP2WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
-                                                           CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    
-    nbTurn->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 + 80));
-    nbP1CastlePoint->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 + 50));
-    nbP1WallsPoint->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 + 20));
-    nbP2CastlePoint->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 - 10));
-    nbP2WallsPoint->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 - 40));
-    
-    nbTurn->setColor(ccc3(0, 0, 0));
-    nbP1CastlePoint->setColor(ccc3(0, 0, 0));
-    nbP1WallsPoint->setColor(ccc3(0, 0, 0));
-    nbP2CastlePoint->setColor(ccc3(0, 0, 0));
-    nbP2WallsPoint->setColor(ccc3(0, 0, 0));
-    
-    this->endValues.push_back(nbTurn);
-    this->endValues.push_back(nbP1CastlePoint);
-    this->endValues.push_back(nbP1WallsPoint);
-    this->endValues.push_back(nbP2CastlePoint);
-    this->endValues.push_back(nbP2WallsPoint);
-
     removeGameScene();
-    this->addChild(nbTurn, 2);
-    this->addChild(nbP1CastlePoint, 2);
-    this->addChild(nbP1WallsPoint, 2);
-    this->addChild(nbP2CastlePoint, 2);
-    this->addChild(nbP2WallsPoint, 2);
-    
-    // Create Button to come back to menu
-    CCPoint     buttonPos = CCPoint(screenSize.width / 2, screenSize.height / 4 + 10);
-    
-    CCMenuItemImage *returnToMenu = createButton("btnBG.png",
-                                                 "btnBG.png", 1,
-                                                 0,
-                                                 0 - this->screenSize.height / 4, 1,
-                                                 menu_selector(Game::endButton));
-    CCLabelTTF  *returnToMenuTxt = CCLabelTTF::create("Done", "MagicFont", 24,
-                                                      CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    returnToMenuTxt->setPosition(buttonPos);
-    
-    CCMenu  *menu   = CCMenu::create(returnToMenu, NULL);
-    this->addChild(menu, 3);
-    this->addChild(returnToMenuTxt, 3);
+
+    this->gameEnd = true;
+
+    SRes::getInstance().setEndGameInfos(this->turn,
+                                        this->p1->getCastle(),
+                                        this->p2->getCastle(),
+                                        this->p1->getWall(),
+                                        this->p2->getWall(),
+                                        hasWon);
+    CCScene *gameOverScene = GameOver::createScene();
+    gameOverScene->init();
+
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, gameOverScene));
+
 }
 
 void    Game::cardClick(CCObject *pSend)
@@ -174,17 +112,6 @@ void    Game::removeGameScene()
     this->removeChild(this->p2Name, true);
     this->removeChild(this->p2Castle, true);
     this->removeChild(this->p2Wall, true);
-}
-
-void    Game::removeEndScene()
-{
-    this->removeChild(this->endGame, true);
-
-    for(std::vector<CCLabelTTF *>::iterator it = this->endValues.begin();
-        it != this->endValues.end(); ++it) {
-        this->removeChild(*it, true);
-    }
-    this->endValues.clear();
 }
 
 bool    Game::init()
@@ -446,10 +373,4 @@ void    Game::computerTurn()
 void    Game::cleanSprite(CCSprite *sprite)
 {
     this->removeChild(sprite, true);
-}
-
-void    Game::endButton(CCObject *pSend)
-{
-    removeEndScene();
-    this->schedule(schedule_selector(Game::mainMenu), 0.6);
 }

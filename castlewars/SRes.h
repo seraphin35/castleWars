@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "CCSprite.h"
+#include "Player.h"
 #include "SimpleAudioEngine.h"
 
 class SRes
@@ -75,6 +76,16 @@ public:
         BTN_BG = 35
     };
     
+    typedef struct s_endGameInfos
+    {
+        int     turn;
+        int     p1Castle;
+        int     p2Castle;
+        int     p1Wall;
+        int     p2Wall;
+        bool    hasWon;
+    }   endGameInfos;
+    
 private:
     SRes() {};
     SRes(SRes const&);              // Don't Implement
@@ -91,11 +102,15 @@ public:
     
     void    playSound(SoundID);
     void    stopSound();
-
+    
+    void           setEndGameInfos(int, int, int, int, int, bool);
+    endGameInfos   getEndGameInfos();
+    
 private:
     cocos2d::CCSprite    *sprites[36];
     CocosDenshion::SimpleAudioEngine    *engine;
     bool    BGMplaying;
+    endGameInfos infos;
     
 };
 

@@ -110,6 +110,21 @@ void    SRes::playSound(SRes::SoundID id) {
     }
     
 }
+void    SRes::setEndGameInfos(int turn, int p1Castle, int p2Castle, int p1Wall, int p2Wall, bool hasWon)
+{
+    this->infos.turn = turn;
+    this->infos.p1Castle = p1Castle;
+    this->infos.p2Castle = p2Castle;
+    this->infos.p1Wall = p1Wall;
+    this->infos.p2Wall = p2Wall;
+    this->infos.hasWon = hasWon;
+}
+
+
+SRes::endGameInfos   SRes::getEndGameInfos()
+{
+    return this->infos;
+}
 
 void    SRes::stopSound() {
     this->engine->stopBackgroundMusic(false);

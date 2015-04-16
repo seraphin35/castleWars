@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "CCDirector.h"
 #include "GameScene.h"
+#include "StatScene.h"
 #include "SRes.h"
 
 CCScene* MainMenu::scene()
@@ -127,7 +128,6 @@ void MainMenu::update(float dt)
 
 void MainMenu::onePlayerMode(CCObject* pSender)
 {
-    printf("Game launched");
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     CCScene *gameScene = Game::createScene();
     
@@ -141,7 +141,9 @@ void MainMenu::multiplayerMode(CCObject* pSender)
 
 void MainMenu::statMode(CCObject* pSender)
 {
+    CCScene *statScene = Stat::createScene();
     
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, statScene));
 }
 
 void MainMenu::menuCloseCallback(CCObject* pSender)

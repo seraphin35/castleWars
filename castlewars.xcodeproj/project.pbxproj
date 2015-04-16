@@ -216,6 +216,8 @@
 		AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */; };
 		AC47EAEF1AB15BB500A9EC59 /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */; };
 		AC47EAF71AB1680300A9EC59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC47EAF51AB1680300A9EC59 /* Player.cpp */; };
+		AC5651301ADF7E92007CD88B /* StatScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC56512E1ADF7E92007CD88B /* StatScene.cpp */; };
+		AC5651331ADF8091007CD88B /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC5651311ADF8091007CD88B /* GameOverScene.cpp */; };
 		AC82BCC41ACA64B10022CA18 /* amethyst_wand.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */; };
 		AC82BCC51ACA64B10022CA18 /* bottled_flatulence.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */; };
 		AC82BCC61ACA64B10022CA18 /* bowmin_goblin.png in Resources */ = {isa = PBXBuildFile; fileRef = AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */; };
@@ -702,6 +704,10 @@
 		AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainMenuScene.cpp; path = Classes/MainMenuScene.cpp; sourceTree = "<group>"; };
 		AC47EAF51AB1680300A9EC59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		AC47EAF61AB1680300A9EC59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		AC56512E1ADF7E92007CD88B /* StatScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StatScene.cpp; sourceTree = "<group>"; };
+		AC56512F1ADF7E92007CD88B /* StatScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatScene.h; sourceTree = "<group>"; };
+		AC5651311ADF8091007CD88B /* GameOverScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverScene.cpp; sourceTree = "<group>"; };
+		AC5651321ADF8091007CD88B /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		AC82BCAE1ACA64B10022CA18 /* amethyst_wand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amethyst_wand.png; sourceTree = "<group>"; };
 		AC82BCAF1ACA64B10022CA18 /* bottled_flatulence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottled_flatulence.png; sourceTree = "<group>"; };
 		AC82BCB01ACA64B10022CA18 /* bowmin_goblin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowmin_goblin.png; sourceTree = "<group>"; };
@@ -1655,6 +1661,10 @@
 				AC32E07F1ACE8381002D77DE /* GameScene.h */,
 				AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */,
 				AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */,
+				AC56512E1ADF7E92007CD88B /* StatScene.cpp */,
+				AC56512F1ADF7E92007CD88B /* StatScene.h */,
+				AC5651311ADF8091007CD88B /* GameOverScene.cpp */,
+				AC5651321ADF8091007CD88B /* GameOverScene.h */,
 				AC27E7751AD65C040075A606 /* SRes.cpp */,
 				AC27E7741AD65BFB0075A606 /* SRes.h */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
@@ -1842,6 +1852,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5651301ADF7E92007CD88B /* StatScene.cpp in Sources */,
 				AC47E9891AB15BB400A9EC59 /* CCImage.mm in Sources */,
 				AC47EA3C1AB15BB500A9EC59 /* CCTouchHandler.cpp in Sources */,
 				AC47E9371AB15BB400A9EC59 /* CCScene.cpp in Sources */,
@@ -1983,6 +1994,7 @@
 				AC47E91C1AB15BB400A9EC59 /* vec2.c in Sources */,
 				AC47E9CD1AB15BB400A9EC59 /* CCAnimation.cpp in Sources */,
 				AC47E9101AB15BB400A9EC59 /* mat4.c in Sources */,
+				AC5651331ADF8091007CD88B /* GameOverScene.cpp in Sources */,
 				AC47EA511AB15BB500A9EC59 /* SimpleAudioEngine_objc.m in Sources */,
 				AC47E8E01AB15BB300A9EC59 /* cocos2d.cpp in Sources */,
 				AC47EA981AB15BB500A9EC59 /* CCScale9SpriteLoader.cpp in Sources */,
