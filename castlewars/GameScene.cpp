@@ -65,19 +65,19 @@ void Game::gameOver(bool hasWon)
     // display endGame informations
     CCString    nbTurnStr           =   *CCString::createWithFormat("%d", this->turn);
     CCString    nbP1CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
-    CCString    nbP1WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
-    CCString    nbP2CastlePointStr  =   *CCString::createWithFormat("%d", this->p1->getCastle());
+    CCString    nbP1WallsPointStr   =   *CCString::createWithFormat("%d", this->p1->getWall());
+    CCString    nbP2CastlePointStr  =   *CCString::createWithFormat("%d", this->p2->getCastle());
     CCString    nbP2WallsPointStr   =   *CCString::createWithFormat("%d", this->p2->getWall());
     
     CCLabelTTF  *nbTurn             =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP1CastlePoint    =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
+    CCLabelTTF  *nbP1CastlePoint    =   CCLabelTTF::create(nbP1CastlePointStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP1WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
+    CCLabelTTF  *nbP1WallsPoint     =   CCLabelTTF::create(nbP1WallsPointStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP2CastlePoint    =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
+    CCLabelTTF  *nbP2CastlePoint    =   CCLabelTTF::create(nbP2CastlePointStr.getCString(), "MagicFont", 20,
                                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCLabelTTF  *nbP2WallsPoint     =   CCLabelTTF::create(nbTurnStr.getCString(), "MagicFont", 20,
+    CCLabelTTF  *nbP2WallsPoint     =   CCLabelTTF::create(nbP2WallsPointStr.getCString(), "MagicFont", 20,
                                                            CCSizeMake(245, 32), kCCTextAlignmentCenter);
     
     nbTurn->setPosition(ccp(screenSize.width / 2 + 105, screenSize.height / 2 + 80));
@@ -416,12 +416,15 @@ void    Game::startNewTurn(Player *p)
     }
 }
 
-void    Game::computerTurn()
+void Game::computerDiscard(Card *card)
 {
-    Card        *card       = p2->getCard(0);
+    p1->addGems(card->getCost());
+    switchTurn(false);
+}
+
+void Game::computerPlay(Card *card, int pos)
+{
     CCSprite    *cardSprite = CCSprite::create(card->getImage());
-    
-    printf("card moving [%f]", cardSprite->getScaleX());
     
     // Move the card from the right to the center of the screen
     cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));
@@ -455,6 +458,23 @@ void    Game::computerTurn()
     else {
         this->switchTurn(extraTurn);
     }
+}
+
+void    Game::computerTurn()
+{
+    Card        *hand[5];
+    hand[0] = p2->getCard(0);
+    hand[1] = p2->getCard(1);
+    hand[2] = p2->getCard(2);
+    hand[3] = p2->getCard(3);
+    hand[4] = p2->getCard(4);
+    
+    // Choose the card to play or discard
+    
+    
+    
+    
+    computerPlay(hand[0], 0);
 }
 
 void    Game::cleanSprite(CCSprite *sprite)
