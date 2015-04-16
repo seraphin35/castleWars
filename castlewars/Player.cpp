@@ -27,8 +27,6 @@ Player::Player(char *name)
     this->Discard = Card::getNewDeck();
 }
 
-
-
 const int Player::getCastle()
 {
     return this->castle;

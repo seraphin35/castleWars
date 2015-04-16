@@ -119,27 +119,8 @@ CCMenuItemImage *GameOver::createButton(const char *plain, const char *focus, in
     return btn;
 }
 
-void    GameOver::removeEndScene()
-{
-    this->removeChild(this->bgGameOver, true);
-    
-    for(std::vector<CCLabelTTF *>::iterator it = this->endValues.begin();
-        it != this->endValues.end(); ++it) {
-        this->removeChild(*it, true);
-    }
-    this->endValues.clear();
-}
-
-void    GameOver::mainMenu()
-{
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    CCScene *gameScene = MainMenu::scene();
-    
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
-}
-
 void    GameOver::endButton(CCObject *pSend)
 {
-    removeEndScene();
-    this->schedule(schedule_selector(GameOver::mainMenu), 0.6);
+    SRes::getInstance().stopSound();
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, MainMenu::scene()));
 }

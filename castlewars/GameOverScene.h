@@ -40,7 +40,6 @@ private:
                                   int posX, int posY, float scale,
                                   SEL_MenuHandler callBack);
     void    mainMenu();
-    void    removeEndScene();
     void    endButton(CCObject *);
 };
 

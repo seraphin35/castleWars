@@ -28,11 +28,27 @@ CCScene* Game::createScene()
     return scene;
 }
 
+void Game::switchToMainMenu()
+{
+}
+
+void    Game::lockScreen() {
+    this->locked = true;
+    printf("locking screen\n");
+}
+
+void    Game::unlockScreen() {
+    this->locked = false;
+    printf("unlocking screen\n");
+}
+
+bool    Game::isLocked() {
+    return this->locked;
+}
+
 void Game::gameOver(bool hasWon)
 {
-    removeGameScene();
-
-    this->gameEnd = true;
+    printf("Player %s\n", hasWon ? "won." : "lost.");
 
     SRes::getInstance().setEndGameInfos(this->turn,
                                         this->p1->getCastle(),
@@ -40,10 +56,8 @@ void Game::gameOver(bool hasWon)
                                         this->p1->getWall(),
                                         this->p2->getWall(),
                                         hasWon);
-    CCScene *gameOverScene = GameOver::createScene();
-    gameOverScene->init();
 
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, gameOverScene));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, GameOver::createScene()));
 
 }
 
@@ -386,10 +400,7 @@ void    Game::computerTurn()
     hand[4] = p2->getCard(4);
     
     // Choose the card to play or discard
-    
-    
-    
-    
+
     computerPlay(hand[0], 0);
 }
 
