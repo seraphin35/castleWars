@@ -209,34 +209,34 @@ void    Game::createGameScene(CCSize screenSize) {
     this->addChild(this->bgGame);
     
     // Values strings
-    CCString pMagicStr  =   *CCString::createWithFormat("%d", this->p1->getMagic());
-    this->p1Magic       =   CCLabelTTF::create(pMagicStr.getCString(), "MagicFont", 22,
-                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString pGemsStr   =   *CCString::createWithFormat("%d", this->p1->getGems());
-    this->p1Gems        =   CCLabelTTF::create(pGemsStr.getCString(), "MagicFont", 20,
-                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString p2MagicStr =   *CCString::createWithFormat("%d", this->p2->getMagic());
-    this->p2Magic       =   CCLabelTTF::create(p2MagicStr.getCString(), "MagicFont", 22,
-                                               CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    CCString p2GemsStr  =   *CCString::createWithFormat("%d", this->p2->getGems());
-    this->p2Gems        =  CCLabelTTF::create(p2GemsStr.getCString(), "MagicFont", 20,
-                                              CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
+    this->p1Magic           =   CCLabelTTF::create(pMagicStr.getCString(), "MagicFont", 22,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
+    this->p1Gems            =   CCLabelTTF::create(pGemsStr.getCString(), "MagicFont", 20,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
+    this->p2Magic           =   CCLabelTTF::create(p2MagicStr.getCString(), "MagicFont", 22,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getGems());
+    this->p2Gems            =  CCLabelTTF::create(p2GemsStr.getCString(), "MagicFont", 20,
+                                                  CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
-    this->p1Castle  = CCLabelTTF::create(p1CastleStr.getCString(), "MagicFont", 18,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p1Castle          =   CCLabelTTF::create(p1CastleStr.getCString(), "MagicFont", 18,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
-    this->p1Wall    = CCLabelTTF::create(p1WallStr.getCString(), "MagicFont", 18,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p1Wall            =   CCLabelTTF::create(p1WallStr.getCString(), "MagicFont", 18,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
-    this->p2Castle  = CCLabelTTF::create(p2CastleStr.getCString(), "MagicFont", 18,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p2Castle          =   CCLabelTTF::create(p2CastleStr.getCString(), "MagicFont", 18,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
     CCString p2WallStr      =   *CCString::createWithFormat("%d", this->p2->getWall());
-    this->p2Wall    = CCLabelTTF::create(p2WallStr.getCString(), "MagicFont", 18,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    this->p1Name    = CCLabelTTF::create("Player 1", "MagicFont", 22,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    this->p2Name    = CCLabelTTF::create("Computer", "MagicFont", 22,
-                                         CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p2Wall            =   CCLabelTTF::create(p2WallStr.getCString(), "MagicFont", 18,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p1Name            =   CCLabelTTF::create("Player 1", "MagicFont", 22,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
+    this->p2Name            =   CCLabelTTF::create("Computer", "MagicFont", 22,
+                                                   CCSizeMake(245, 32), kCCTextAlignmentCenter);
     
     // setPosition for p1
     p1Magic->setPosition(ccp(105, screenSize.height - 30));
@@ -344,30 +344,31 @@ void    Game::startNewTurn(Player *p)
     }
 }
 
-void Game::computerDiscard(Card *card)
+void    Game::computerDiscard(Card *card)
 {
     p1->addGems(card->getCost());
     switchTurn(false);
 }
 
-void Game::computerPlay(Card *card, int pos)
+void    Game::computerPlay(Card *card, int pos)
 {
     CCSprite    *cardSprite = CCSprite::create(card->getImage());
     
     // Move the card from the right to the center of the screen
     cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));
-    cardSprite->setScale(0.7);
+    cardSprite->setScale(0.65);
     
     this->addChild(cardSprite, 2);
     
-    CCFiniteTimeAction  *moveToCenter = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
+    CCFiniteTimeAction  *moveToScreen = CCMoveTo::create(0.5, ccp(screenSize.width / 4 * 3 + 10,
                                                                   screenSize.height / 3 * 2));
     CCFiniteTimeAction  *delay = CCDelayTime::create(1);
     CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
                                                                screenSize.height * 2));
     CCFiniteTimeAction *endFun = CCCallFuncN::create(this, callfuncN_selector(Game::cleanSprite));
     CCFiniteTimeAction *unlock = CCCallFuncN::create(this, callfuncN_selector(Game::unlockScreen));
-    CCAction    *moveCard = CCSequence::create(moveToCenter, delay, moveToTop, endFun, unlock, NULL);
+    
+    CCAction    *moveCard = CCSequence::create(moveToScreen, delay, moveToTop, endFun, unlock, NULL);
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
