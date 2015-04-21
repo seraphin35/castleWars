@@ -337,6 +337,7 @@ void    Game::switchTurn(bool extra)
 
 void    Game::startNewTurn(Player *p)
 {
+    printf("Starting new turn, current player turn : %d", currentPlayerTurn);
     p->handleNewTurn();
     if (!currentPlayerTurn)
     {
@@ -344,9 +345,12 @@ void    Game::startNewTurn(Player *p)
     }
 }
 
-void Game::computerDiscard(Card *card)
+void Game::computerDiscard(Card *card, int pos)
 {
-    p1->addGems(card->getCost());
+    p2->addGems(card->getCost());
+    p2->discard(pos);
+    p2->draw();
+    this->unlockScreen();
     switchTurn(false);
 }
 
@@ -372,17 +376,16 @@ void Game::computerPlay(Card *card, int pos)
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
     
-    p2->discard(pos);
-    
     ptrfunc fu;
+    bool extraTurn = false;
+    
+    p2->removeGems(card->getCost());
     
     fu = card->getEffect();
-    
-    bool extraTurn = fu(p2, p1);
-
-    p2->discard(0);
+    extraTurn = fu(p2, p1);
+    p2->discard(pos);
     this->p2->draw();
-    
+
     if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
     else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
     else {
@@ -398,10 +401,26 @@ void    Game::computerTurn()
     hand[2] = p2->getCard(2);
     hand[3] = p2->getCard(3);
     hand[4] = p2->getCard(4);
+    bool hasPlayed = false;
     
     // Choose the card to play or discard
-
-    computerPlay(hand[0], 0);
+    for (int i = 0; i < 5; i++)
+    {
+        if (hand[i]->getCost() <= p2->getGems())
+        {
+            computerPlay(hand[i], i);
+            hasPlayed = true;
+            break;
+        }
+    }
+    if (!hasPlayed) {
+        int to_discard = 0;
+        for (int i = 0; i < 5; i++) {
+            if (hand[i]->getCost() > hand[to_discard]->getCost())
+                to_discard = i;
+        }
+        computerDiscard(hand[to_discard], to_discard);
+    }
 }
 
 void    Game::cleanSprite(CCSprite *sprite)

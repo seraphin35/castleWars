@@ -91,7 +91,7 @@ void Player::removeMagic(const int value)
 {
     SRes::getInstance().playSound(SRes::MAGIC_DOWN);
     this->magic -= value;
-    if (this->magic <= 0) this->magic = 1;
+    if (this->magic < 0) this->magic = 1;
 }
 
 void Player::addGems(const int value)
@@ -126,6 +126,7 @@ int     Player::draw() {
 }
 
 void    Player::discard(int pos) {
+    printf("Discard in slot %d\n", pos);
     this->Discard->push_back(this->hand[pos]);
     this->hand[pos] = NULL;
 }
