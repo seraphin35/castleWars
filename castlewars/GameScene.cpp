@@ -28,71 +28,43 @@ CCScene* Game::createScene()
     return scene;
 }
 
-void Game::switchToMainMenu()
-{
-}
-
-void    Game::lockScreen() {
-    this->locked = true;
-    printf("locking screen\n");
-}
-
-void    Game::unlockScreen() {
-    this->locked = false;
-    printf("unlocking screen\n");
-}
-
-bool    Game::isLocked() {
-    return this->locked;
-}
-
-void Game::gameOver(bool hasWon)
-{
-    printf("Player %s\n", hasWon ? "won." : "lost.");
-
-    SRes::getInstance().setEndGameInfos(this->turn,
-                                        this->p1->getCastle(),
-                                        this->p2->getCastle(),
-                                        this->p1->getWall(),
-                                        this->p2->getWall(),
-                                        hasWon);
-
-    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, GameOver::createScene()));
-
-}
-
 void    Game::cardClick(CCObject *pSend)
 {
-    if (this->isLocked()) printf("screen locked !!!\n");
-    if (this->isLocked()) return;
-    
-    CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
-    int tag = (int)pMenuItem->getTag();
+    if (p1->isLocked()) printf("p1 locked !!!\n");
+    if (p1->isLocked()) return;
 
-    if (this->p1->getCard(tag - 1)->getCost() > this->p1->getGems()) return;
+    CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
+    int tag = (int) pMenuItem->getTag();
     
-    this->lockScreen();
-    
-    ptrfunc effect = this->p1->getCard(tag - 1)->getEffect();
-    
-    p1->removeGems(this->p1->getCard(tag - 1)->getCost());
-    
-    bool extraTurn = effect(p1, p2);
+    SRes::playResults results = this->p1->play(tag - 1);
+    if (results.success) this->applyCardEffects(p1, p2, results);
+    else return;
+
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
     
-    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
-    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
-    else {
-        if (extraTurn) this->unlockScreen();
-        this->switchTurn(extraTurn);
-    }
+    this->endTurn();
+}
+
+void    Game::applyCardEffects(Player *current, Player *opp, SRes::playResults r) {
+    this->extraTurn = r.extraTurn;
+    current->addGems(r.pGemMod);
+    current->addMagic(r.pMagMod);
+    if (r.pCastleMod >= 0) current->addCastle(r.pCastleMod);
+    else Card::damageCastle(current, -r.pCastleMod);
+    if (r.pWallMod >= 0) current->addWall(r.pWallMod);
+    else Card::damage(current, -r.pWallMod);
+    opp->addGems(r.oppGemMod);
+    opp->addMagic(r.oppMagMod);
+    if (r.oppCastleMod >= 0) opp->addCastle(r.oppCastleMod);
+    else Card::damageCastle(opp, -r.oppCastleMod);
+    if (r.oppWallMod >= 0) opp->addWall(r.oppWallMod);
+    else Card::damage(opp, -r.oppWallMod);
 }
 
 void    Game::cardDiscardButton(CCObject *pSend)
 {
-    if (this->isLocked()) return;
-    this->lockScreen();
+    if (this->p1->isLocked()) return;
     
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int)pMenuItem->getTag();
@@ -103,7 +75,7 @@ void    Game::cardDiscardButton(CCObject *pSend)
     this->addCardMenuItem();
     
     this->removeChild(pMenuItem, true);
-    this->switchTurn(false);
+    this->endTurn();
 }
 
 void    Game::removeGameScene()
@@ -128,11 +100,12 @@ void    Game::removeGameScene()
 
 bool    Game::init()
 {
-    // get screen size
 	this->screenSize = CCDirector::sharedDirector()->getWinSize();
     
-    this->p1 = new Player("Player");
-    this->p2 = new Player("CPU");
+    this->p1 = new Player("Player", Player::HUMAN);
+    this->p2 = new Player("CPU", Player::COMPUTER);
+    
+    this->extraTurn = false;
     
     this->createGameScene(screenSize);
     
@@ -143,8 +116,10 @@ bool    Game::init()
     
     // initialize game values
     turn = 0;
-    this->currentPlayerTurn = true;
-    this->unlockScreen();
+    this->currentPlayer = p1;
+    this->newTurn = true;
+    this->p1->unlock();
+    this->p2->lock();
     
     // add a "close" icon to exit the progress. it's an autorelease object
     CCMenuItemImage *bCard1 = createButtonFromCard(this->p1->getCard(0), 1);
@@ -191,6 +166,7 @@ bool    Game::init()
     this->addChild(this->cardsMenu, 1);
     
     this->schedule(schedule_selector(Game::update));
+    this->running = true;
     
     SRes::getInstance().playSound(SRes::BGM_GAME);
     
@@ -198,7 +174,6 @@ bool    Game::init()
 }
 
 void    Game::createGameScene(CCSize screenSize) {
-    this->gameEnd = false;
     
     // Background
     this->bgGame = CCSprite::create("gameBG.png");
@@ -292,25 +267,29 @@ CCMenuItemImage *Game::createDiscardButton(int tag)
 
 void    Game::update(float dt)
 {
-    if (!gameEnd)
-    {
-        CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
-        CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
-        CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
-        CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getGems());
-        CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
-        CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
-        CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
-        CCString p2WallStr      =   *CCString::createWithFormat("%d", this->p2->getWall());
-        
-        this->p1Magic->setString(pMagicStr.getCString());
-        this->p1Gems->setString(pGemsStr.getCString());
-        this->p1Castle->setString(p1CastleStr.getCString());
-        this->p1Wall->setString(p1WallStr.getCString());
-        this->p2Magic->setString(p2MagicStr.getCString());
-        this->p2Gems->setString(p2GemsStr.getCString());
-        this->p2Castle->setString(p2CastleStr.getCString());
-        this->p2Wall->setString(p2WallStr.getCString());
+    if (!running) return;
+
+    CCString pMagicStr      =   *CCString::createWithFormat("%d", this->p1->getMagic());
+    CCString pGemsStr       =   *CCString::createWithFormat("%d", this->p1->getGems());
+    CCString p2MagicStr     =   *CCString::createWithFormat("%d", this->p2->getMagic());
+    CCString p2GemsStr      =   *CCString::createWithFormat("%d", this->p2->getGems());
+    CCString p1CastleStr    =   *CCString::createWithFormat("%d", this->p1->getCastle());
+    CCString p1WallStr      =   *CCString::createWithFormat("%d", this->p1->getWall());
+    CCString p2CastleStr    =   *CCString::createWithFormat("%d", this->p2->getCastle());
+    CCString p2WallStr      =   *CCString::createWithFormat("%d", this->p2->getWall());
+    
+    this->p1Magic->setString(pMagicStr.getCString());
+    this->p1Gems->setString(pGemsStr.getCString());
+    this->p1Castle->setString(p1CastleStr.getCString());
+    this->p1Wall->setString(p1WallStr.getCString());
+    this->p2Magic->setString(p2MagicStr.getCString());
+    this->p2Gems->setString(p2GemsStr.getCString());
+    this->p2Castle->setString(p2CastleStr.getCString());
+    this->p2Wall->setString(p2WallStr.getCString());
+    
+    if (this->newTurn) {
+        this->newTurn = false;
+        this->startTurn();
     }
 }
 
@@ -324,39 +303,58 @@ void    Game::addCardMenuItem() {
     this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
 }
 
-void    Game::switchTurn(bool extra)
+void    Game::startTurn()
 {
+    printf("\nStarting %s turn\n", currentPlayer->getName());
     this->turn++;
-    printf("%d", this->p1->getGems());
-    if (!extra)
-    {
-        currentPlayerTurn = !currentPlayerTurn;
-    }
-    this->startNewTurn(currentPlayerTurn ? p1 : p2);
+    currentPlayer->startTurn();
+    if (currentPlayer->getType() == Player::COMPUTER) this->computerTurn();
 }
 
-void    Game::startNewTurn(Player *p)
+void    Game::endTurn()
 {
-    printf("Starting new turn, current player turn : %d", currentPlayerTurn);
-    p->handleNewTurn();
-    if (!currentPlayerTurn)
-    {
-        this->computerTurn();
-    }
+    printf("Ending %s turn\n", currentPlayer->getName());
+    this->currentPlayer->endTurn();
+    if (!this->extraTurn) currentPlayer = (currentPlayer == p1 ? p2 : p1);
+    this->checkGameOver();
+    this->extraTurn = false;
+    this->newTurn = true;
 }
+
+void    Game::checkGameOver() {
+    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
+    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
+}
+
+void Game::gameOver(bool win)
+{
+    printf("Player %s\n", win ? "won." : "lost.");
+    
+    this->running = false;
+    SRes::getInstance().setEndGameInfos(this->turn,
+                                        this->p1->getCastle(),
+                                        this->p2->getCastle(),
+                                        this->p1->getWall(),
+                                        this->p2->getWall(),
+                                        win);
+    
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, GameOver::createScene()));
+}
+
+
+
 
 void Game::computerDiscard(Card *card, int pos)
 {
     p2->addGems(card->getCost());
     p2->discard(pos);
     p2->draw();
-    this->unlockScreen();
-    switchTurn(false);
+    endTurn();
 }
 
-void    Game::computerPlay(Card *card, int pos)
+void    Game::computerPlay(int pos)
 {
-    CCSprite    *cardSprite = CCSprite::create(card->getImage());
+    CCSprite    *cardSprite = CCSprite::create(p2->getCard(pos)->getImage());
     
     // Move the card from the right to the center of the screen
     cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));
@@ -369,33 +367,32 @@ void    Game::computerPlay(Card *card, int pos)
     CCFiniteTimeAction  *delay = CCDelayTime::create(1);
     CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
                                                                screenSize.height * 2));
-    CCFiniteTimeAction *endFun = CCCallFuncN::create(this, callfuncN_selector(Game::cleanSprite));
-    CCFiniteTimeAction *unlock = CCCallFuncN::create(this, callfuncN_selector(Game::unlockScreen));
+    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
     
-    CCAction    *moveCard = CCSequence::create(moveToScreen, delay, moveToTop, endFun, unlock, NULL);
+    CCAction    *moveCard = CCSequence::create(moveToScreen, delay, moveToTop, endTurn, NULL, NULL, NULL);
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
     
+    /*
     ptrfunc fu;
-    bool extraTurn = false;
     
-    p2->removeGems(card->getCost());
+    p2->removeGems(p2->getCard(pos)->getCost());
     
-    fu = card->getEffect();
-    extraTurn = fu(p2, p1);
+    fu = p2->getCard(pos)->getEffect();
+    this->extraTurn = fu(p2, p1);
     p2->discard(pos);
     this->p2->draw();
+*/
 
-    if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
-    else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
-    else {
-        this->switchTurn(extraTurn);
-    }
+    //this->endTurn();
 }
 
 void    Game::computerTurn()
 {
+    this->computerPlay(0);
+    
+    /*
     Card        *hand[5];
     hand[0] = p2->getCard(0);
     hand[1] = p2->getCard(1);
@@ -417,14 +414,10 @@ void    Game::computerTurn()
     if (!hasPlayed) {
         int to_discard = 0;
         for (int i = 0; i < 5; i++) {
-            if (hand[i]->getCost() > hand[to_discard]->getCost())
+            if (hand[i]->getCost() > hand[to_discard]->getCost() || i == 4)
                 to_discard = i;
         }
         computerDiscard(hand[to_discard], to_discard);
     }
-}
-
-void    Game::cleanSprite(CCSprite *sprite)
-{
-    this->removeChild(sprite, true);
+     */
 }

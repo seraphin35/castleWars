@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		840543281AB7FD7D00233F8C /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840543261AB7FD7D00233F8C /* Card.cpp */; };
 		840824EB1ACD178C00E875C8 /* MagicFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 840824EA1ACD178C00E875C8 /* MagicFont.ttf */; };
+		84A61BF41AE8D7DD0075F773 /* CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84A61BF31AE8D7DD0075F773 /* CPU.cpp */; };
 		84F780511AD62009006430A5 /* mainMenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780501AD62009006430A5 /* mainMenu.mp3 */; };
 		84F780531AD620E4006430A5 /* gameBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780521AD620E4006430A5 /* gameBGM.mp3 */; };
 		84F7805C1AD625E4006430A5 /* castleDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F780541AD625E4006430A5 /* castleDown.wav */; };
@@ -260,6 +261,8 @@
 		840543261AB7FD7D00233F8C /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		840543271AB7FD7D00233F8C /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		840824EA1ACD178C00E875C8 /* MagicFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MagicFont.ttf; sourceTree = "<group>"; };
+		84A61BF21AE8D78F0075F773 /* CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPU.h; sourceTree = "<group>"; };
+		84A61BF31AE8D7DD0075F773 /* CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPU.cpp; sourceTree = "<group>"; };
 		84F780501AD62009006430A5 /* mainMenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMenu.mp3; sourceTree = "<group>"; };
 		84F780521AD620E4006430A5 /* gameBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameBGM.mp3; sourceTree = "<group>"; };
 		84F780541AD625E4006430A5 /* castleDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = castleDown.wav; sourceTree = "<group>"; };
@@ -766,6 +769,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84A61BF11AE8B7080075F773 /* IA */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = IA;
+			sourceTree = "<group>";
+		};
 		84F7804F1AD61FF9006430A5 /* audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -1653,6 +1663,7 @@
 		AC47EAE91AB15BB500A9EC59 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				84A61BF11AE8B7080075F773 /* IA */,
 				AC47EAEB1AB15BB500A9EC59 /* AppDelegate.cpp */,
 				AC47EAEA1AB15BB500A9EC59 /* AppDelegate.h */,
 				840543261AB7FD7D00233F8C /* Card.cpp */,
@@ -1668,6 +1679,8 @@
 				AC27E7751AD65C040075A606 /* SRes.cpp */,
 				AC27E7741AD65BFB0075A606 /* SRes.h */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
+				84A61BF21AE8D78F0075F773 /* CPU.h */,
+				84A61BF31AE8D7DD0075F773 /* CPU.cpp */,
 				AC47EAF61AB1680300A9EC59 /* Player.h */,
 			);
 			name = Classes;
@@ -2030,6 +2043,7 @@
 				AC47EAD91AB15BB500A9EC59 /* CCSorting.cpp in Sources */,
 				AC47EA871AB15BB500A9EC59 /* CCMenuItemLoader.cpp in Sources */,
 				AC47E9261AB15BB400A9EC59 /* CCKeypadDispatcher.cpp in Sources */,
+				84A61BF41AE8D7DD0075F773 /* CPU.cpp in Sources */,
 				AC47E9D01AB15BB400A9EC59 /* CCAnimationCache.cpp in Sources */,
 				AC47E95E1AB15BB400A9EC59 /* CCParticleSystemQuad.cpp in Sources */,
 			);

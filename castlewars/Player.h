@@ -12,11 +12,18 @@
 #include <iostream>
 #include <vector>
 #include "Card.h"
+#include "SRes.h"
 
 class Card;
 
 class Player
 {
+public:
+    enum playerType {
+        HUMAN,
+        COMPUTER
+    };
+    
 private:
     int gems;
     int magic;
@@ -24,16 +31,21 @@ private:
     int wall;
     
     char    *name;
+    playerType type;
     
-    bool    won;
+    bool    locked;
     
     Card    *hand[5];
     std::vector<Card*> *Deck;
     std::vector<Card*> *Discard;
     
 public:
-    Player(char *name);
+    Player(char *name, playerType);
     ~Player() {}
+    
+    void    lock();
+    void    unlock();
+    bool    isLocked();
     
     const int   getGems();
     const int   getMagic();
@@ -41,17 +53,16 @@ public:
     const int   getWall();
     const char  *getName();
     Card        *getCard(int pos);
+    playerType  getType();
     
     void addGems(const int);
-    void removeGems(const int);
     void addMagic(const int);
-    void removeMagic(const int);
     void addCastle(const int);
-    void removeCastle(const int);
     void addWall(const int);
-    void removeWall(const int);
     
-    void handleNewTurn();
+    void    startTurn();
+    SRes::playResults    play(int pos);
+    void    endTurn();
     
     int     draw();
     void    discard(int pos);

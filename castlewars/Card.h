@@ -12,53 +12,58 @@
 #include <iostream>
 #include "Player.h"
 #include "cocos2d.h"
+#include "SRes.h"
 
 class Player;
 
-typedef bool (*ptrfunc)(Player *, Player *);
-
 class Card {
+
+public:
     
 private:
     int         cost;
-    ptrfunc     effect;
+    SRes::ptrfunc   effect;
     char        *image;
     
 public:
-    Card(ptrfunc effect, int value, char *image);
+    Card(SRes::ptrfunc effect, int cost, char *image);
     ~Card() {}
     
     const int getCost();
-    const ptrfunc getEffect();
+    const SRes::ptrfunc getEffect();
     
     const char *getImage();
     //image getter here
     
+    static SRes::playResults getCardReport(bool success, bool extraTurn,
+                                     int pGemMod, int pMagMod, int pCastleMod, int pWallMod,
+                                     int oppGemMod, int oppMagMod, int oppCastleMod, int oppWallMod);
+    
     static void damage(Player *player, int damage);
     static void damageCastle(Player *player, int damage);
     
-    static bool stripMining(Player *player1, Player *player2);
-    static bool stoneGiant(Player *player1, Player *player2);
-    static bool sheepishRabbit(Player *player1, Player *player2);
-    static bool rubyWand(Player *player1, Player *player2);
-    static bool rockSlasher(Player *player1, Player *player2);
-    static bool recycledRainbows(Player *player1, Player *player2);
-    static bool protectionWard(Player *player1, Player *player2);
-    static bool mortarMole(Player *player1, Player *player2);
-    static bool mobbinGoblin(Player *player1, Player *player2);
-    static bool manaStompers(Player *player1, Player *player2);
-    static bool manaDisease(Player *player1, Player *player2);
-    static bool magicMiners(Player *player1, Player *player2);
-    static bool instantWall(Player *player1, Player *player2);
-    static bool insecureWall(Player *player1, Player *player2);
-    static bool harmonicOrc(Player *player1, Player *player2);
-    static bool friendship(Player *player1, Player *player2);
-    static bool flyinGoblin(Player *player1, Player *player2);
-    static bool emeraldWand(Player *player1, Player *player2);
-    static bool clubbinGoblin(Player *player1, Player *player2);
-    static bool bowminGoblin(Player *player1, Player *player2);
-    static bool bottledFlatulence(Player *player1, Player *player2);
-    static bool amethystWand(Player *player1, Player *player2);
+    static SRes::playResults stripMining();
+    static SRes::playResults stoneGiant();
+    static SRes::playResults sheepishRabbit();
+    static SRes::playResults rubyWand();
+    static SRes::playResults rockSlasher();
+    static SRes::playResults recycledRainbows();
+    static SRes::playResults protectionWard();
+    static SRes::playResults mortarMole();
+    static SRes::playResults mobbinGoblin();
+    static SRes::playResults manaStompers();
+    static SRes::playResults manaDisease();
+    static SRes::playResults magicMiners();
+    static SRes::playResults instantWall();
+    static SRes::playResults insecureWall();
+    static SRes::playResults harmonicOrc();
+    static SRes::playResults friendship();
+    static SRes::playResults flyinGoblin();
+    static SRes::playResults emeraldWand();
+    static SRes::playResults clubbinGoblin();
+    static SRes::playResults bowminGoblin();
+    static SRes::playResults bottledFlatulence();
+    static SRes::playResults amethystWand();
     
     static std::vector<Card *> *getNewDeck();
 };

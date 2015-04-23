@@ -13,7 +13,7 @@
 #include "SRes.h"
 #include <unistd.h>
 
-Player::Player(char *name)
+Player::Player(char *name, playerType type)
 {
     this->magic = 3;
     this->gems = 10;
@@ -21,10 +21,27 @@ Player::Player(char *name)
     this->castle = 15;
     
     this->name = name;
+    this->type = type;
+    
+    this->locked = false;
     
     for (int i = 0; i < 5; i++) this->hand[i] = NULL;
     this->Deck = new std::vector<Card *>;
     this->Discard = Card::getNewDeck();
+}
+
+void    Player::lock() {
+    this->locked = true;
+    printf("    locking %s\n", this->name);
+}
+
+void    Player::unlock() {
+    this->locked = false;
+    printf("    unlocking %s\n", this->name);
+}
+
+bool    Player::isLocked() {
+    return this->locked;
 }
 
 const int Player::getCastle()
@@ -55,62 +72,66 @@ Card    *Player::getCard(int pos) {
     return this->hand[pos];
 }
 
-void Player::addCastle(const int value)
-{
-    SRes::getInstance().playSound(SRes::CASTLE_UP);
-    this->castle += value;
+Player::playerType  Player::getType() {
+    return this->type;
 }
 
-void Player::removeCastle(const int value)
+void Player::addCastle(const int value)
 {
+    if (value == 0) return;
+    printf("        %s gains %d castle\n", this->name, value);
     SRes::getInstance().playSound(SRes::CASTLE_DOWN);
-    this->castle -= value;
+    this->castle += value;
     if (castle <= 0) this->castle = 0;
 }
 
 void Player::addWall(const int value)
 {
-    SRes::getInstance().playSound(SRes::WALL_UP);
-    this->wall += value;
-}
-
-void Player::removeWall(const int value)
-{
+    if (value == 0) return;
+    printf("        %s gains %d wall\n", this->name, value);
     SRes::getInstance().playSound(SRes::WALL_DOWN);
-    this->wall -= value;
+    this->wall += value;
     if (this->wall < 0) this->wall = 0;
 }
 
 void Player::addMagic(const int value)
 {
-    SRes::getInstance().playSound(SRes::MAGIC_UP);
-    this->magic += value;
-}
-
-void Player::removeMagic(const int value)
-{
+    if (value == 0) return;
+    printf("        %s gains %d magic\n", this->name, value);
     SRes::getInstance().playSound(SRes::MAGIC_DOWN);
-    this->magic -= value;
+    this->magic += value;
     if (this->magic < 0) this->magic = 1;
 }
 
 void Player::addGems(const int value)
 {
-    SRes::getInstance().playSound(SRes::GEM_UP);
-    this->gems += value;
-}
-
-void Player::removeGems(const int value)
-{
+    if (value == 0) return;
+    printf("        %s gains %d gems\n", this->name, value);
     SRes::getInstance().playSound(SRes::GEM_DOWN);
-    this->gems -= value;
+    this->gems += value;
     if (this->gems < 0) this->gems = 0;
 }
 
-void Player::handleNewTurn()
+void Player::startTurn()
 {
     this->gems += this->magic;
-    
+    this->unlock();
+}
+
+SRes::playResults    Player::play(int pos) {
+    Card    *card = this->hand[pos];
+    SRes::playResults results;
+
+    results.success = false;
+    if (card->getCost() <= this->gems) {
+        this->addGems(-card->getCost());
+        results = card->getEffect()();
+    }
+    return results;
+}
+
+void Player::endTurn() {
+    this->lock();
 }
 
 int     Player::draw() {
@@ -120,13 +141,11 @@ int     Player::draw() {
     }
     if (this->Deck->empty()) shuffle();
     this->hand[pos] = this->Deck->back();
-    printf("draw in slot %d - Deck : %lu - Discard : %lu\n",pos, this->Deck->size(), this->Discard->size());
     this->Deck->pop_back();
     return pos;
 }
 
 void    Player::discard(int pos) {
-    printf("Discard in slot %d\n", pos);
     this->Discard->push_back(this->hand[pos]);
     this->hand[pos] = NULL;
 }
@@ -135,7 +154,6 @@ int myrandom (int i) { return std::rand()%i;}
 
 void Player::shuffle()
 {
-    printf("deck shuffled and restocked\n");
     while (!this->Discard->empty()) {
         this->Deck->push_back(this->Discard->back());
         this->Discard->pop_back();

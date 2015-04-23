@@ -16,13 +16,15 @@ using namespace cocos2d;
 
 class   Game : cocos2d::CCLayer
 {
-private:
-    int     turn;
-    bool    currentPlayerTurn;
 
+    
 private:
-    bool         gameEnd;
-    bool    locked;
+    bool    running;
+
+    int     turn;
+    Player  *currentPlayer;
+    bool    newTurn;
+    bool    extraTurn;
     
     Player*     p1;
     Player*     p2;
@@ -67,19 +69,18 @@ public:
     void popCardMenuItem(int);
     void addCardMenuItem();
     
-    void startNewTurn(Player *p);
-    void switchTurn(bool extra);
-    void gameOver(bool hasWon);
-    void switchToMainMenu();
-    void computerDiscard(Card*, int);
-    void computerPlay(Card*, int);
-    void computerTurn();
-    void cleanSprite(CCSprite *);
+    void startTurn();
+    void endTurn();
     
-    void    lockScreen();
-    void    unlockScreen();
-    bool    isLocked();
-
+    void computerTurn();
+    void computerPlay(int);
+    void computerDiscard(Card*, int);
+    
+    void    applyCardEffects(Player *current, Player *opp, SRes::playResults);
+    
+    void checkGameOver();
+    void gameOver(bool hasWon);
+    
     void endButton(CCObject *pSend);
     void cardClick(CCObject *pSend);
     void cardDiscardButton(CCObject *pSend);

@@ -8,7 +8,7 @@
 
 #include "Card.h"
 
-Card::Card(ptrfunc effect, int cost, char *image)
+Card::Card(SRes::ptrfunc effect, int cost, char *image)
 {
     this->effect = effect;
     this->cost = cost;
@@ -20,7 +20,7 @@ const int Card::getCost()
     return this->cost;
 }
 
-const ptrfunc Card::getEffect()
+const SRes::ptrfunc Card::getEffect()
 {
     return this->effect;
 }
@@ -32,190 +32,177 @@ const char *Card::getImage()
 
 void Card::damageCastle(Player *player, int damage)
 {
-    player->removeCastle(damage);
+    printf("        %s's castle takes %d dmg\n", player->getName(), damage);
+    player->addCastle(-damage);
 }
 
 
 void Card::damage(Player *player, int damage) {
+    printf("        %s takes %d dmg\n", player->getName(), damage);
     int wall = player->getWall();
     int wallDmg = (wall >= damage ? damage : wall);
-    player->removeWall(wallDmg);
-    if (damage - wallDmg > 0) player->removeCastle(damage - wallDmg);
+    player->addWall(-wallDmg);
+    if (damage - wallDmg > 0) player->addCastle(-(damage - wallDmg));
 }
 
-bool Card::stripMining(Player *player1, Player *player2)
-{
-    player1->removeMagic(1);
-    player1->addWall(10);
-    player1->addGems(5);
+
+SRes::playResults Card::getCardReport(bool success, bool extraTurn,
+                                      int pGemMod, int pMagMod, int pCastleMod, int pWallMod,
+                                      int oppGemMod, int oppMagMod, int oppCastleMod, int oppWallMod) {
+    SRes::playResults report;
+    report.success = success;
+    report.extraTurn = extraTurn;
+    report.pGemMod = pGemMod;
+    report.pMagMod = pMagMod;
+    report.pCastleMod = pCastleMod;
+    report.pWallMod = pWallMod;
+    report.oppGemMod = oppGemMod;
+    report.oppMagMod = oppMagMod;
+    report.oppCastleMod = oppCastleMod;
+    report.oppWallMod = oppWallMod;
     
-    return false;
+    return report;
 }
 
-bool Card::stoneGiant(Player *player1, Player *player2)
-{
-    player1->addWall(4);
-    damage(player2, 10);
-    
-    return false;
+SRes::playResults Card::stripMining() {
+    return getCardReport(true, false,
+                         5, -1, 0, 10,
+                         0, 0, 0, 0);
 }
 
-bool Card::sheepishRabbit(Player *player1, Player *player2)
-{
-    damage(player2, 6);
-    player2->removeGems(3);
-    
-    return false;
+SRes::playResults Card::stoneGiant() {
+    return getCardReport(true, false,
+                         0, 0, 0, 4,
+                         0, 0, 0, -10);
 }
 
-bool Card::rubyWand(Player *player1, Player *player2)
-{
-    player1->addCastle(5);
-    
-    return false;
+SRes::playResults Card::sheepishRabbit() {
+    return getCardReport(true, false,
+                         5, 0, 0, 0,
+                         -3, 0, 0, -6);
 }
 
-bool Card::rockSlasher(Player *player1, Player *player2)
-{
-    damage(player2, 6);
-    
-    return false;
+SRes::playResults Card::rubyWand() {
+    return getCardReport(true, false,
+                         0, 0, 5, 0,
+                         0, 0, 0, 0);
 }
 
-bool Card::recycledRainbows(Player *player1, Player *player2)
-{
-    player1->addCastle(1);
-    player2->addCastle(1);
-    player1->addGems(3);
-    
-    return false;
+SRes::playResults Card::rockSlasher() {
+    return getCardReport(true, false,
+                         0, 0, 0, 0,
+                         0, 0, 0, -6);
 }
 
-bool Card::protectionWard(Player *player1, Player *player2)
+SRes::playResults Card::recycledRainbows()
 {
-    player1->addCastle(8);
-    player1->addWall(3);
-    
-    return false;
+    return getCardReport(true, false,
+                         3, 0, 1, 0,
+                         0, 0, 1, 0);
 }
 
-bool Card::mortarMole(Player *player1, Player *player2)
+SRes::playResults Card::protectionWard()
 {
-    damageCastle(player2, 4);
-    
-    return false;
+    return getCardReport(true, false,
+                         0, 0, 8, 3,
+                         0, 0, 0, 0);
 }
 
-bool Card::mobbinGoblin(Player *player1, Player *player2)
-{
-    damage(player1, 3);
-    damage(player2, 6);
-    
-    return false;
+SRes::playResults Card::mortarMole() {
+    return getCardReport(true, false,
+                         0, 0, 0, 0,
+                         0, 0, 0, -4);
 }
 
-bool Card::manaStompers(Player *player1, Player *player2)
-{
-    damage(player2, 8);
-    player2->removeMagic(1);
-    
-    return false;
+SRes::playResults Card::mobbinGoblin() {
+    return getCardReport(true, false,
+                         0, 0, 0, -3,
+                         0, 0, 0, -6);
 }
 
-bool Card::manaDisease(Player *player1, Player *player2)
-{
-    player1->removeGems(8);
-    player2->removeGems(8);
-    
-    return false;
+SRes::playResults Card::manaStompers() {
+    return getCardReport(true, false,
+                         0, 0, 0, 0,
+                         0, -1, 0, -8);
 }
 
-bool Card::magicMiners(Player *player1, Player *player2)
-{
-    player1->addWall(4);
-    player1->addMagic(1);
-    
-    return false;
+SRes::playResults Card::manaDisease() {
+    return getCardReport(true, false,
+                         -8, 0, 0, 0,
+                         -8, 0, 0, 0);
 }
 
-bool Card::instantWall(Player *player1, Player *player2)
-{
-    player1->addWall(3);
-    
-    return false;
+SRes::playResults Card::magicMiners() {
+    return getCardReport(true, false,
+                         0, 1, 0, 4,
+                         0, 0, 0, 0);
 }
 
-bool Card::insecureWall(Player *player1, Player *player2)
-{
-    player1->addWall(4);
-    
-    return false;
+SRes::playResults Card::instantWall() {
+    return getCardReport(true, false,
+                         0, 0, 0, 3,
+                         0, 0, 0, 0);
 }
 
-bool Card::harmonicOrc(Player *player1, Player *player2)
-{
-    player1->addWall(6);
-    player1->addCastle(3);
-    
-    return false;
+SRes::playResults Card::insecureWall() {
+    return getCardReport(true, false,
+                         0, 0, 0, 4,
+                         0, 0, 0, 0);
 }
 
-bool Card::friendship(Player *player1, Player *player2)
-{
-    player1->addWall(1);
-    
-    return true;
+SRes::playResults Card::harmonicOrc() {
+    return getCardReport(true, false,
+                         0, 0, 3, 6,
+                         0, 0, 0, 0);
 }
 
-bool Card::flyinGoblin(Player *player1, Player *player2)
-{
-    damage(player2, 2);
-    
-    return true;
+SRes::playResults Card::friendship() {
+    return getCardReport(true, true,
+                         0, 0, 0, 1,
+                         0, 0, 0, 0);
 }
 
-bool Card::emeraldWand(Player *player1, Player *player2)
-{
-    player1->addCastle(8);
-    
-    return false;
+SRes::playResults Card::flyinGoblin() {
+    return getCardReport(true, true,
+                         0, 0, 0, 0,
+                         0, 0, 0, -2);
 }
 
-bool Card::clubbinGoblin(Player *player1, Player *player2)
-{
-    damageCastle(player1, 3);
-    damage(player2, 8);
-    
-    return false;
+SRes::playResults Card::emeraldWand() {
+    return getCardReport(true, false,
+                         0, 0, 8, 0,
+                         0, 0, 0, 0);
 }
 
-bool Card::bowminGoblin(Player *player1, Player *player2)
-{
-    damage(player1, 1);
-    damageCastle(player2, 3);
-    
-    return false;
+SRes::playResults Card::clubbinGoblin() {
+    return getCardReport(true, false,
+                         0, 0, -3, 0,
+                         0, 0, 0, -8);
 }
 
-bool Card::bottledFlatulence(Player *player1, Player *player2)
-{
-    damageCastle(player2, 3);
-    
-    return false;
+SRes::playResults Card::bowminGoblin() {
+    return getCardReport(true, false,
+                         0, 0, 0, -1,
+                         0, 0, -3, 0);
 }
 
-bool Card::amethystWand(Player *player1, Player *player2)
-{
-    player1->addCastle(3);
-    
-    return false;
+SRes::playResults Card::bottledFlatulence() {
+    return getCardReport(true, false,
+                         0, 0, 0, 0,
+                         0, 0, -3, 0);
+}
+
+SRes::playResults Card::amethystWand() {
+    return getCardReport(true, false,
+                         0, 0, 3, 0,
+                         0, 0, 0, 0);
 }
 
 std::vector<Card *> *Card::getNewDeck()
 {
     std::vector<Card *> *deck = new std::vector<Card *>();
-    
-    deck->push_back(new Card(&amethystWand, 4, "amethyst_wand.png"));
+
+    deck->push_back(new Card(&Card::amethystWand, 4, "amethyst_wand.png"));
     deck->push_back(new Card(&bottledFlatulence, 4, "bottled_flatulence.png"));
     deck->push_back(new Card(&bowminGoblin, 4, "bowmin_goblin.png"));
     deck->push_back(new Card(&clubbinGoblin, 4, "clubin_goblin.png"));

@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include "CCSprite.h"
-#include "Player.h"
 #include "SimpleAudioEngine.h"
 
 class SRes
@@ -85,6 +84,22 @@ public:
         int     p2Wall;
         bool    hasWon;
     }   endGameInfos;
+    
+    typedef struct s_playResults
+    {
+        bool    success;
+        bool    extraTurn;
+        int pGemMod;
+        int pMagMod;
+        int pCastleMod;
+        int pWallMod;
+        int oppGemMod;
+        int oppMagMod;
+        int oppCastleMod;
+        int oppWallMod;
+    }   playResults;
+    
+    typedef playResults (*ptrfunc)();
     
 private:
     SRes() {};
