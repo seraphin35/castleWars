@@ -39,11 +39,30 @@ void    Game::cardClick(CCObject *pSend)
     SRes::playResults results = this->p1->play(tag - 1);
     if (results.success) this->applyCardEffects(p1, p2, results);
     else return;
-
+    
+    CCSprite    *cardSprite = CCSprite::create(p1->getCard(tag - 1)->getImage());
+    
+    // Move the card from the left to the center of the screen
+    cardSprite->setPosition(ccp(screenSize.width / 2 + (150 * (tag - 3)), 160));
+    cardSprite->setScale(0.65);
+    
+    this->addChild(cardSprite, 2);
+    
+    CCFiniteTimeAction  *moveToTop = CCMoveTo::create(1, ccp(screenSize.width / 2,
+                                                               screenSize.height * 2));
+    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
+    
+    CCAction    *moveCard = CCSequence::create(moveToTop, endTurn, NULL, NULL, NULL);
+    
+    cardSprite->stopAllActions();
+    cardSprite->runAction(moveCard);
+    
+    
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
+
     
-    this->endTurn();
+    //this->endTurn();
 }
 
 void    Game::applyCardEffects(Player *current, Player *opp, SRes::playResults r) {
