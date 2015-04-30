@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "AICore.h"
 
 using namespace cocos2d;
 
@@ -47,6 +48,8 @@ private:
     std::vector<CCLabelTTF *>   endValues;
     
     CCSize      screenSize;
+    
+    AICore *core;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)

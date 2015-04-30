@@ -107,6 +107,8 @@ bool    Game::init()
     
     this->extraTurn = false;
     
+    this->core = new AICore(AICore::MEDIUM);
+    
     this->createGameScene(screenSize);
     
     for (int i = 0; i < 5; i++) {
@@ -390,7 +392,13 @@ void    Game::computerPlay(int pos)
 
 void    Game::computerTurn()
 {
-    this->computerPlay(0);
+    AIReport report = this->core->getBestMove(p2->hand, p2, p1);
+    
+    SRes::playResults results = this->p2->play(report.bestMovePosition);
+    if (results.success) this->applyCardEffects(p2, p1, results);
+    this->computerPlay(report.bestMovePosition);
+    p2->discard(report.bestMovePosition);
+    this->p2->draw();
     
     /*
     Card        *hand[5];

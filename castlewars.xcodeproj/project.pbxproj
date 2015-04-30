@@ -22,6 +22,12 @@
 		84F780631AD625E4006430A5 /* wallUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805B1AD625E4006430A5 /* wallUp.wav */; };
 		AC27E7761AD65C040075A606 /* SRes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC27E7751AD65C040075A606 /* SRes.cpp */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
+		AC4698CE1AF1F0C7007D2510 /* AICore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C21AF1F0C7007D2510 /* AICore.cpp */; };
+		AC4698CF1AF1F0C7007D2510 /* CardValueNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C41AF1F0C7007D2510 /* CardValueNode.cpp */; };
+		AC4698D01AF1F0C7007D2510 /* CrystalNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C61AF1F0C7007D2510 /* CrystalNode.cpp */; };
+		AC4698D11AF1F0C7007D2510 /* DiscardValueNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C81AF1F0C7007D2510 /* DiscardValueNode.cpp */; };
+		AC4698D21AF1F0C7007D2510 /* OppWinNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698CA1AF1F0C7007D2510 /* OppWinNode.cpp */; };
+		AC4698D31AF1F0C7007D2510 /* PlayerWinNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698CC1AF1F0C7007D2510 /* PlayerWinNode.cpp */; };
 		AC47E84E1AB15BB300A9EC59 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */; };
 		AC47E8501AB15BB300A9EC59 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */; };
 		AC47E8521AB15BB300A9EC59 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47E8511AB15BB300A9EC59 /* OpenAL.framework */; };
@@ -277,6 +283,18 @@
 		AC27E7751AD65C040075A606 /* SRes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SRes.cpp; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		AC4698C21AF1F0C7007D2510 /* AICore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AICore.cpp; sourceTree = "<group>"; };
+		AC4698C31AF1F0C7007D2510 /* AICore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AICore.h; sourceTree = "<group>"; };
+		AC4698C41AF1F0C7007D2510 /* CardValueNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CardValueNode.cpp; sourceTree = "<group>"; };
+		AC4698C51AF1F0C7007D2510 /* CardValueNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardValueNode.h; sourceTree = "<group>"; };
+		AC4698C61AF1F0C7007D2510 /* CrystalNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrystalNode.cpp; sourceTree = "<group>"; };
+		AC4698C71AF1F0C7007D2510 /* CrystalNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrystalNode.h; sourceTree = "<group>"; };
+		AC4698C81AF1F0C7007D2510 /* DiscardValueNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiscardValueNode.cpp; sourceTree = "<group>"; };
+		AC4698C91AF1F0C7007D2510 /* DiscardValueNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscardValueNode.h; sourceTree = "<group>"; };
+		AC4698CA1AF1F0C7007D2510 /* OppWinNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OppWinNode.cpp; sourceTree = "<group>"; };
+		AC4698CB1AF1F0C7007D2510 /* OppWinNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OppWinNode.h; sourceTree = "<group>"; };
+		AC4698CC1AF1F0C7007D2510 /* PlayerWinNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerWinNode.cpp; sourceTree = "<group>"; };
+		AC4698CD1AF1F0C7007D2510 /* PlayerWinNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerWinNode.h; sourceTree = "<group>"; };
 		AC47E84A1AB15BB300A9EC59 /* castlewars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = castlewars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC47E84D1AB15BB300A9EC59 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AC47E84F1AB15BB300A9EC59 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -772,6 +790,18 @@
 		84A61BF11AE8B7080075F773 /* IA */ = {
 			isa = PBXGroup;
 			children = (
+				AC4698C21AF1F0C7007D2510 /* AICore.cpp */,
+				AC4698C31AF1F0C7007D2510 /* AICore.h */,
+				AC4698C41AF1F0C7007D2510 /* CardValueNode.cpp */,
+				AC4698C51AF1F0C7007D2510 /* CardValueNode.h */,
+				AC4698C61AF1F0C7007D2510 /* CrystalNode.cpp */,
+				AC4698C71AF1F0C7007D2510 /* CrystalNode.h */,
+				AC4698C81AF1F0C7007D2510 /* DiscardValueNode.cpp */,
+				AC4698C91AF1F0C7007D2510 /* DiscardValueNode.h */,
+				AC4698CA1AF1F0C7007D2510 /* OppWinNode.cpp */,
+				AC4698CB1AF1F0C7007D2510 /* OppWinNode.h */,
+				AC4698CC1AF1F0C7007D2510 /* PlayerWinNode.cpp */,
+				AC4698CD1AF1F0C7007D2510 /* PlayerWinNode.h */,
 			);
 			name = IA;
 			sourceTree = "<group>";
@@ -1882,6 +1912,7 @@
 				AC47E87C1AB15BB300A9EC59 /* RootViewController.mm in Sources */,
 				AC47E97D1AB15BB400A9EC59 /* CCDirectorCaller.mm in Sources */,
 				AC47E92A1AB15BB400A9EC59 /* CCLabelAtlas.cpp in Sources */,
+				AC4698CF1AF1F0C7007D2510 /* CardValueNode.cpp in Sources */,
 				AC47EA6C1AB15BB500A9EC59 /* CCControlButtonLoader.cpp in Sources */,
 				AC47E95B1AB15BB400A9EC59 /* CCParticleSystem.cpp in Sources */,
 				AC47EAC41AB15BB500A9EC59 /* CCInvocation.cpp in Sources */,
@@ -1947,10 +1978,12 @@
 				AC47EAD61AB15BB500A9EC59 /* CCScrollView.cpp in Sources */,
 				AC47E9EF1AB15BB400A9EC59 /* ccUtils.cpp in Sources */,
 				AC47EAB51AB15BB500A9EC59 /* CCControlSaturationBrightnessPicker.cpp in Sources */,
+				AC4698CE1AF1F0C7007D2510 /* AICore.cpp in Sources */,
 				AC47EA661AB15BB500A9EC59 /* CCBSequenceProperty.cpp in Sources */,
 				AC47EA281AB15BB400A9EC59 /* CCTMXLayer.cpp in Sources */,
 				AC47E99A1AB15BB400A9EC59 /* platform.cpp in Sources */,
 				AC47E9511AB15BB400A9EC59 /* CCRenderTexture.cpp in Sources */,
+				AC4698D01AF1F0C7007D2510 /* CrystalNode.cpp in Sources */,
 				AC47EA5B1AB15BB500A9EC59 /* CCBKeyframe.cpp in Sources */,
 				AC47EA7B1AB15BB500A9EC59 /* CCLayerColorLoader.cpp in Sources */,
 				AC47E8AE1AB15BB300A9EC59 /* CCNode.cpp in Sources */,
@@ -1963,8 +1996,10 @@
 				AC47E9721AB15BB400A9EC59 /* AccelerometerDelegateWrapper.mm in Sources */,
 				AC47E8BD1AB15BB300A9EC59 /* CCScheduler.cpp in Sources */,
 				AC47EA841AB15BB500A9EC59 /* CCMenuItemImageLoader.cpp in Sources */,
+				AC4698D11AF1F0C7007D2510 /* DiscardValueNode.cpp in Sources */,
 				AC47E9581AB15BB400A9EC59 /* CCParticleExamples.cpp in Sources */,
 				AC47E8A11AB15BB300A9EC59 /* CCActionProgressTimer.cpp in Sources */,
+				AC4698D31AF1F0C7007D2510 /* PlayerWinNode.cpp in Sources */,
 				AC47EA061AB15BB400A9EC59 /* unzip.cpp in Sources */,
 				AC47E90E1AB15BB400A9EC59 /* mat3.c in Sources */,
 				AC47EA911AB15BB500A9EC59 /* CCNodeLoaderLibrary.cpp in Sources */,
@@ -1987,6 +2022,7 @@
 				AC47EABE1AB15BB500A9EC59 /* CCControlSwitch.cpp in Sources */,
 				AC47E9751AB15BB400A9EC59 /* CCAccelerometer.mm in Sources */,
 				AC47EAAF1AB15BB500A9EC59 /* CCControlHuePicker.cpp in Sources */,
+				AC4698D21AF1F0C7007D2510 /* OppWinNode.cpp in Sources */,
 				AC47E8E61AB15BB300A9EC59 /* CCGrid.cpp in Sources */,
 				AC47E8791AB15BB300A9EC59 /* AppController.mm in Sources */,
 				AC47E9831AB15BB400A9EC59 /* CCES2Renderer.m in Sources */,
