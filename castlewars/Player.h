@@ -35,13 +35,14 @@ private:
     
     bool    locked;
     
-    Card    *hand[5];
     std::vector<Card*> *Deck;
     std::vector<Card*> *Discard;
     
 public:
     Player(char *name, playerType);
     ~Player() {}
+
+    Card    *hand[5];
     
     void    lock();
     void    unlock();
