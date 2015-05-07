@@ -79,6 +79,9 @@ void    Game::applyCardEffects(Player *current, Player *opp, SRes::playResults r
     else Card::damageCastle(opp, -r.oppCastleMod);
     if (r.oppWallMod >= 0) opp->addWall(r.oppWallMod);
     else Card::damage(opp, -r.oppWallMod);
+    
+    CCPoint pos = ccp(screenSize.width / 2 - 135, screenSize.height / 2 + 6);
+    this->startExplosion(pos);
 }
 
 void    Game::cardDiscardButton(CCObject *pSend)
@@ -95,6 +98,29 @@ void    Game::cardDiscardButton(CCObject *pSend)
     
     this->removeChild(pMenuItem, true);
     this->endTurn();
+}
+
+void	Game::startExplosion(CCPoint pos)
+{
+    CCTexture2D*            texture = CCSprite::create("star.png")->getTexture();
+    CCParticleExplosion*    explosion = new CCParticleExplosion();
+
+    explosion->initWithTotalParticles(30);
+    explosion->setTexture(texture);
+    explosion->setPosition(pos);
+    explosion->setDuration(0.01f);
+    explosion->setSpeed(200);
+    explosion->setGravity(ccp(0, -250));
+    explosion->setAngle(90);
+    explosion->setAngleVar(10);
+    explosion->setStartSize(20);
+    explosion->setEndSize(0);
+    explosion->setLife(1.0f);
+    explosion->setLifeVar(1.0f);
+    explosion->setEmissionRate(200);
+    explosion->setAutoRemoveOnFinish(true);
+    
+    this->addChild(explosion, 3);
 }
 
 void    Game::removeGameScene()

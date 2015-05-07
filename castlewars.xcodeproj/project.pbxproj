@@ -21,6 +21,7 @@
 		84F780621AD625E4006430A5 /* wallDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805A1AD625E4006430A5 /* wallDown.wav */; };
 		84F780631AD625E4006430A5 /* wallUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805B1AD625E4006430A5 /* wallUp.wav */; };
 		AC27E7761AD65C040075A606 /* SRes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC27E7751AD65C040075A606 /* SRes.cpp */; };
+		AC2865511AFB23A000DE37B3 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2865501AFB23A000DE37B3 /* star.png */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC4698CE1AF1F0C7007D2510 /* AICore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C21AF1F0C7007D2510 /* AICore.cpp */; };
 		AC4698CF1AF1F0C7007D2510 /* CardValueNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C41AF1F0C7007D2510 /* CardValueNode.cpp */; };
@@ -281,6 +282,7 @@
 		84F7805B1AD625E4006430A5 /* wallUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallUp.wav; sourceTree = "<group>"; };
 		AC27E7741AD65BFB0075A606 /* SRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRes.h; sourceTree = "<group>"; };
 		AC27E7751AD65C040075A606 /* SRes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SRes.cpp; sourceTree = "<group>"; };
+		AC2865501AFB23A000DE37B3 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		AC4698C21AF1F0C7007D2510 /* AICore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AICore.cpp; sourceTree = "<group>"; };
@@ -1758,6 +1760,7 @@
 		AC82BCDC1ACA67B90022CA18 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AC2865501AFB23A000DE37B3 /* star.png */,
 				ACC724F51AD23D6E00A88C34 /* bannerBlue.png */,
 				ACC724F61AD23D6E00A88C34 /* bannerRed.png */,
 				ACC724F71AD23D6E00A88C34 /* returnBtn.png */,
@@ -1836,6 +1839,7 @@
 				AC47E9061AB15BB400A9EC59 /* ChangeLog in Resources */,
 				AC82BCD31ACA64B10022CA18 /* protection_ward.png in Resources */,
 				AC82BCE41ACA67B90022CA18 /* gameBG.png in Resources */,
+				AC2865511AFB23A000DE37B3 /* star.png in Resources */,
 				AC82BCC91ACA64B10022CA18 /* flyin_goblin.png in Resources */,
 				ACC724FE1AD23D6E00A88C34 /* returnBtn.png in Resources */,
 				ACC724FF1AD23D6E00A88C34 /* defeatBG.png in Resources */,

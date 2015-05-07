@@ -47,7 +47,7 @@ private:
     CCMenu      *cardsMenu;
     std::vector<CCLabelTTF *>   endValues;
     
-    CCSize      screenSize;
+    CCSize      screenSize;    
     
     AICore *core;
     
@@ -87,6 +87,7 @@ public:
     void endButton(CCObject *pSend);
     void cardClick(CCObject *pSend);
     void cardDiscardButton(CCObject *pSend);
+    void startExplosion(CCPoint pos);
     void removeGameScene();
 };
 
