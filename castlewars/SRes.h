@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "CCSprite.h"
+#include "CCParticleExamples.h"
 #include "SimpleAudioEngine.h"
 
 class SRes
@@ -72,7 +73,8 @@ public:
         MULTI_BTN = 32,
         SOLO_BTN = 33,
         STATS_BTN = 34,
-        BTN_BG = 35
+        BTN_BG = 35,
+        STAR = 36
     };
     
     typedef struct s_endGameInfos
@@ -119,10 +121,11 @@ public:
     void    stopSound();
     
     void           setEndGameInfos(int, int, int, int, int, bool);
-    endGameInfos   getEndGameInfos();
+    endGameInfos    getEndGameInfos();
+    cocos2d::CCParticleExplosion *getExplosion(cocos2d::CCPoint);
     
 private:
-    cocos2d::CCSprite    *sprites[36];
+    cocos2d::CCSprite    *sprites[37];
     CocosDenshion::SimpleAudioEngine    *engine;
     bool    BGMplaying;
     endGameInfos infos;

@@ -7,6 +7,7 @@
 //
 
 #include "SRes.h"
+#include "cocos2d.h"
 
 void    SRes::initRessources() {
     static bool done = false;
@@ -69,6 +70,7 @@ void    SRes::initiateSprites() {
     this->sprites[SOLO_BTN] = cocos2d::CCSprite::create("soloBtn.png");
     this->sprites[STATS_BTN] = cocos2d::CCSprite::create("statsBtn.png");
     this->sprites[BTN_BG] = cocos2d::CCSprite::create("btnBG.png");
+    this->sprites[STAR] = cocos2d::CCSprite::create("star.png");
 }
 
 void    SRes::playSound(SRes::SoundID id) {
@@ -137,4 +139,30 @@ cocos2d::CCSprite   *SRes::getSprite(SRes::ResID id) {
 
 cocos2d::CCSprite   *SRes::getSpriteCopy(SRes::ResID id) {
     return (cocos2d::CCSprite *) this->sprites[id]->copy();
+}
+
+cocos2d::CCParticleExplosion    *SRes::getExplosion(cocos2d::CCPoint pos) {
+  //  cocos2d::CCSprite *s = getSprite(STAR);
+    cocos2d::CCSprite *ss = cocos2d::CCSprite::create("star.png");
+    
+    cocos2d::CCTexture2D*            texture = ss->getTexture();
+    
+    cocos2d::CCParticleExplosion*    explosion = new cocos2d::CCParticleExplosion();
+    
+    explosion->initWithTotalParticles(30);
+    explosion->setTexture(texture);
+    explosion->setPosition(pos);
+    explosion->setDuration(0.01f);
+    explosion->setSpeed(200);
+    explosion->setGravity(ccp(0, -250));
+    explosion->setAngle(90);
+    explosion->setAngleVar(10);
+    explosion->setStartSize(20);
+    explosion->setEndSize(0);
+    explosion->setLife(1.0f);
+    explosion->setLifeVar(1.0f);
+    explosion->setEmissionRate(200);
+    explosion->setAutoRemoveOnFinish(true);
+    
+    return explosion;
 }

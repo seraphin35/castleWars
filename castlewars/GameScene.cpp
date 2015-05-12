@@ -102,23 +102,7 @@ void    Game::cardDiscardButton(CCObject *pSend)
 
 void	Game::startExplosion(CCPoint pos)
 {
-    CCTexture2D*            texture = CCSprite::create("star.png")->getTexture();
-    CCParticleExplosion*    explosion = new CCParticleExplosion();
-
-    explosion->initWithTotalParticles(30);
-    explosion->setTexture(texture);
-    explosion->setPosition(pos);
-    explosion->setDuration(0.01f);
-    explosion->setSpeed(200);
-    explosion->setGravity(ccp(0, -250));
-    explosion->setAngle(90);
-    explosion->setAngleVar(10);
-    explosion->setStartSize(20);
-    explosion->setEndSize(0);
-    explosion->setLife(1.0f);
-    explosion->setLifeVar(1.0f);
-    explosion->setEmissionRate(200);
-    explosion->setAutoRemoveOnFinish(true);
+    CCParticleExplosion*    explosion = SRes::getInstance().getExplosion(pos);
     
     this->addChild(explosion, 3);
 }
