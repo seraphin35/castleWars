@@ -15,6 +15,7 @@ void    SRes::initRessources() {
     this->engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
     this->initiateAudio();
     this->initiateSprites();
+    this->screenSize = cocos2d::CCDirector::sharedDirector()->getWinSize();
     done = true;
 }
 
@@ -28,8 +29,8 @@ void    SRes::initiateAudio() {
     this->engine->preloadEffect("gemUp.wav");
     this->engine->preloadEffect("wallDown.wav");
     this->engine->preloadEffect("wallUp.wav");
-    this->engine->preloadEffect("magicDown.wav");
-    this->engine->preloadEffect("magicUp.wav");
+    this->engine->preloadEffect("magDown.wav");
+    this->engine->preloadEffect("magUp.wav");
     
 }
 
@@ -104,10 +105,10 @@ void    SRes::playSound(SRes::SoundID id) {
             this->engine->playEffect("wallUp.wav");
             break;
         case MAGIC_DOWN:
-            this->engine->playEffect("magicDown.wav");
+            this->engine->playEffect("magDown.wav");
             break;
         case MAGIC_UP:
-            this->engine->playEffect("magicUp.wav");
+            this->engine->playEffect("magUp.wav");
             break;
     }
     
@@ -131,6 +132,31 @@ SRes::endGameInfos   SRes::getEndGameInfos()
 void    SRes::stopSound() {
     this->engine->stopBackgroundMusic(false);
     this->BGMplaying = false;
+}
+
+cocos2d::CCPoint    SRes::getPoint(SRes::PointID id, bool player) {
+    switch (id) {
+        case CCP_GEM:
+            return player ?
+            ccp(50, screenSize.height - 80) :
+            ccp(screenSize.width - 50, screenSize.height - 80);
+            break;
+        case CCP_MAGIC:
+            return player ?
+            ccp(100, screenSize.height - 50) :
+            ccp(screenSize.width - 100, screenSize.height - 50);
+            break;
+        case CCP_CASTLE:
+            return player ?
+            ccp(screenSize.width / 2 - 135, screenSize.height / 2 + 6) :
+            ccp(screenSize.width / 2 + 135, screenSize.height / 2 + 6);
+            break;
+        case CCP_WALL:
+            return player ?
+            ccp(screenSize.width / 2 - 50, screenSize.height / 2 + 6) :
+            ccp(screenSize.width / 2 + 50, screenSize.height / 2 + 6);
+            break;
+    }
 }
 
 cocos2d::CCSprite   *SRes::getSprite(SRes::ResID id) {

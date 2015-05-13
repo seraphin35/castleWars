@@ -80,7 +80,6 @@ void Player::addCastle(const int value)
 {
     if (value == 0) return;
     printf("        %s gains %d castle\n", this->name, value);
-    SRes::getInstance().playSound(SRes::CASTLE_DOWN);
     this->castle += value;
     if (castle <= 0) this->castle = 0;
 }
@@ -89,7 +88,6 @@ void Player::addWall(const int value)
 {
     if (value == 0) return;
     printf("        %s gains %d wall\n", this->name, value);
-    SRes::getInstance().playSound(SRes::WALL_DOWN);
     this->wall += value;
     if (this->wall < 0) this->wall = 0;
 }
@@ -98,7 +96,6 @@ void Player::addMagic(const int value)
 {
     if (value == 0) return;
     printf("        %s gains %d magic\n", this->name, value);
-    SRes::getInstance().playSound(SRes::MAGIC_DOWN);
     this->magic += value;
     if (this->magic < 0) this->magic = 1;
 }
@@ -107,7 +104,6 @@ void Player::addGems(const int value)
 {
     if (value == 0) return;
     printf("        %s gains %d gems\n", this->name, value);
-    SRes::getInstance().playSound(SRes::GEM_DOWN);
     this->gems += value;
     if (this->gems < 0) this->gems = 0;
 }

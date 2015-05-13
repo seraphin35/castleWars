@@ -78,7 +78,7 @@ SRes::playResults Card::stoneGiant() {
 
 SRes::playResults Card::sheepishRabbit() {
     return getCardReport(true, false,
-                         5, 0, 0, 0,
+                         0, 0, 0, 0,
                          -3, 0, 0, -6);
 }
 

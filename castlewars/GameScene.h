@@ -24,6 +24,7 @@ private:
 
     int     turn;
     Player  *currentPlayer;
+    Player  *currentOpponent;
     bool    newTurn;
     bool    extraTurn;
     
@@ -49,7 +50,9 @@ private:
     
     CCSize      screenSize;    
     
-    AICore *core;
+    AICore      *core;
+    
+    SRes::playResults   r;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -76,10 +79,10 @@ public:
     void endTurn();
     
     void computerTurn();
-    void computerPlay(int);
+    void computerPlay(int, CCArray *);
     void computerDiscard(Card*, int);
     
-    void    applyCardEffects(Player *current, Player *opp, SRes::playResults);
+    CCArray    *applyCardEffects(Player *current, Player *opp);
     
     void checkGameOver();
     void gameOver(bool hasWon);
@@ -88,6 +91,16 @@ public:
     void cardClick(CCObject *pSend);
     void cardDiscardButton(CCObject *pSend);
     void startExplosion(CCPoint pos);
+    
+    void    applyPGemEffect();
+    void    applyPWallEffect();
+    void    applyPCastleEffect();
+    void    applyPMagicEffect();
+    void    applyOGemEffect();
+    void    applyOWallEffect();
+    void    applyOCastleEffect();
+    void    applyOMagicEffect();
+    
     void removeGameScene();
 };
 

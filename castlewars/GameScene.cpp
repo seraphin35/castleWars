@@ -36,8 +36,10 @@ void    Game::cardClick(CCObject *pSend)
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSend);
     int tag = (int) pMenuItem->getTag();
     
-    SRes::playResults results = this->p1->play(tag - 1);
-    if (results.success) this->applyCardEffects(p1, p2, results);
+    CCArray    *effectsArray = NULL;
+    
+    r = this->p1->play(tag - 1);
+    if (r.success) effectsArray = this->applyCardEffects(p1, p2);
     else return;
     
     CCSprite    *cardSprite = CCSprite::create(p1->getCard(tag - 1)->getImage());
@@ -52,7 +54,12 @@ void    Game::cardClick(CCObject *pSend)
                                                                screenSize.height * 2));
     CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
     
-    CCAction    *moveCard = CCSequence::create(moveToTop, endTurn, NULL, NULL, NULL);
+    
+    CCArray     *actions = CCArray::createWithObject(moveToTop);
+    actions->addObjectsFromArray(effectsArray);
+    actions->addObject(endTurn);
+    
+    CCAction    *moveCard = CCSequence::create(actions);
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
@@ -63,25 +70,6 @@ void    Game::cardClick(CCObject *pSend)
 
     
     //this->endTurn();
-}
-
-void    Game::applyCardEffects(Player *current, Player *opp, SRes::playResults r) {
-    this->extraTurn = r.extraTurn;
-    current->addGems(r.pGemMod);
-    current->addMagic(r.pMagMod);
-    if (r.pCastleMod >= 0) current->addCastle(r.pCastleMod);
-    else Card::damageCastle(current, -r.pCastleMod);
-    if (r.pWallMod >= 0) current->addWall(r.pWallMod);
-    else Card::damage(current, -r.pWallMod);
-    opp->addGems(r.oppGemMod);
-    opp->addMagic(r.oppMagMod);
-    if (r.oppCastleMod >= 0) opp->addCastle(r.oppCastleMod);
-    else Card::damageCastle(opp, -r.oppCastleMod);
-    if (r.oppWallMod >= 0) opp->addWall(r.oppWallMod);
-    else Card::damage(opp, -r.oppWallMod);
-    
-    CCPoint pos = ccp(screenSize.width / 2 - 135, screenSize.height / 2 + 6);
-    this->startExplosion(pos);
 }
 
 void    Game::cardDiscardButton(CCObject *pSend)
@@ -136,7 +124,7 @@ bool    Game::init()
     
     this->extraTurn = false;
     
-    this->core = new AICore(AICore::MEDIUM);
+    this->core = new AICore(AICore::EASY);
     
     this->createGameScene(screenSize);
     
@@ -148,6 +136,7 @@ bool    Game::init()
     // initialize game values
     turn = 0;
     this->currentPlayer = p1;
+    this->currentOpponent = p2;
     this->newTurn = true;
     this->p1->unlock();
     this->p2->lock();
@@ -199,7 +188,7 @@ bool    Game::init()
     this->schedule(schedule_selector(Game::update));
     this->running = true;
     
-    SRes::getInstance().playSound(SRes::BGM_GAME);
+   // SRes::getInstance().playSound(SRes::BGM_GAME);
     
     return true;
 }
@@ -336,7 +325,7 @@ void    Game::addCardMenuItem() {
 
 void    Game::startTurn()
 {
-    printf("\nStarting %s turn\n", currentPlayer->getName());
+    printf("\nStarting %s turn. Facing %s.\n", currentPlayer->getName(), currentOpponent->getName());
     this->turn++;
     currentPlayer->startTurn();
     if (currentPlayer->getType() == Player::COMPUTER) this->computerTurn();
@@ -346,7 +335,10 @@ void    Game::endTurn()
 {
     printf("Ending %s turn\n", currentPlayer->getName());
     this->currentPlayer->endTurn();
-    if (!this->extraTurn) currentPlayer = (currentPlayer == p1 ? p2 : p1);
+    if (!this->extraTurn) {
+        currentPlayer = (currentPlayer == p1 ? p2 : p1);
+        currentOpponent = (currentPlayer == p1 ? p2 : p1);
+    }
     this->checkGameOver();
     this->extraTurn = false;
     this->newTurn = true;
@@ -383,7 +375,7 @@ void Game::computerDiscard(Card *card, int pos)
     endTurn();
 }
 
-void    Game::computerPlay(int pos)
+void    Game::computerPlay(int pos, CCArray *anims)
 {
     CCSprite    *cardSprite = CCSprite::create(p2->getCard(pos)->getImage());
     
@@ -393,68 +385,168 @@ void    Game::computerPlay(int pos)
     
     this->addChild(cardSprite, 2);
     
+    
     CCFiniteTimeAction  *moveToScreen = CCMoveTo::create(0.5, ccp(screenSize.width / 4 * 3 + 10,
                                                                   screenSize.height / 3 * 2));
     CCFiniteTimeAction  *delay = CCDelayTime::create(1);
     CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
                                                                screenSize.height * 2));
     CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
+
     
-    CCAction    *moveCard = CCSequence::create(moveToScreen, delay, moveToTop, endTurn, NULL, NULL, NULL);
+    CCArray *actions = CCArray::createWithObject(moveToScreen);
+    actions->addObjectsFromArray(anims);
+    actions->addObject(moveToTop);
+    actions->addObject(endTurn);
+
+    
+    CCAction    *moveCard = CCSequence::create(actions);
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
     
-    /*
-    ptrfunc fu;
-    
-    p2->removeGems(p2->getCard(pos)->getCost());
-    
-    fu = p2->getCard(pos)->getEffect();
-    this->extraTurn = fu(p2, p1);
-    p2->discard(pos);
-    this->p2->draw();
-*/
-
-    //this->endTurn();
 }
 
 void    Game::computerTurn()
 {
     AIReport report = this->core->getBestMove(p2->hand, p2, p1);
     
-    SRes::playResults results = this->p2->play(report.bestMovePosition);
-    if (results.success) this->applyCardEffects(p2, p1, results);
-    this->computerPlay(report.bestMovePosition);
+    r = this->p2->play(report.bestMovePosition);
+    CCArray *effects = NULL;
+    if (r.success) effects = this->applyCardEffects(p2, p1);
+    if (effects != NULL) this->computerPlay(report.bestMovePosition, effects);
     p2->discard(report.bestMovePosition);
     this->p2->draw();
+}
+
+CCArray    *Game::applyCardEffects(Player *current, Player *opp) {
+    CCArray *effectArray = CCArray::create();
     
-    /*
-    Card        *hand[5];
-    hand[0] = p2->getCard(0);
-    hand[1] = p2->getCard(1);
-    hand[2] = p2->getCard(2);
-    hand[3] = p2->getCard(3);
-    hand[4] = p2->getCard(4);
-    bool hasPlayed = false;
+    this->extraTurn = r.extraTurn;
     
-    // Choose the card to play or discard
-    for (int i = 0; i < 5; i++)
-    {
-        if (hand[i]->getCost() <= p2->getGems())
-        {
-            computerPlay(hand[i], i);
-            hasPlayed = true;
-            break;
-        }
+    if (r.pGemMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPGemEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
     }
-    if (!hasPlayed) {
-        int to_discard = 0;
-        for (int i = 0; i < 5; i++) {
-            if (hand[i]->getCost() > hand[to_discard]->getCost() || i == 4)
-                to_discard = i;
-        }
-        computerDiscard(hand[to_discard], to_discard);
+
+    if (r.pMagMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPMagicEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
     }
-     */
+
+    if (r.pCastleMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPCastleEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+
+    if (r.pWallMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPWallEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+    
+    if (r.oppGemMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOGemEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+
+    if (r.oppMagMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOMagicEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+
+    if (r.oppCastleMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOCastleEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+    
+    if (r.oppWallMod != 0) {
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOWallEffect)));
+        effectArray->addObject(CCDelayTime::create(1));
+    }
+    
+    return effectArray;
+}
+
+void    Game::applyPGemEffect() {
+    if (r.pGemMod == 0) return;
+    this->currentPlayer->addGems(r.pGemMod);
+    SRes::getInstance().playSound(r.pGemMod > 0 ? SRes::GEM_UP : SRes::GEM_DOWN);
+
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_GEM,
+                                               this->currentPlayer->getType() == Player::HUMAN);
+    this->startExplosion(pos);
+}
+
+void    Game::applyPMagicEffect() {
+    if (r.pMagMod == 0) return;
+    this->currentPlayer->addMagic(r.pMagMod);
+    SRes::getInstance().playSound(r.pMagMod > 0 ? SRes::MAGIC_UP : SRes::MAGIC_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_MAGIC,
+                                               this->currentPlayer->getType() == Player::HUMAN);
+    this->startExplosion(pos);
+}
+
+void    Game::applyPCastleEffect() {
+    if (r.pCastleMod == 0) return;
+    if (r.pCastleMod >= 0) this->currentPlayer->addCastle(r.pCastleMod);
+    else Card::damageCastle(this->currentPlayer, -r.pCastleMod);
+    SRes::getInstance().playSound(r.pCastleMod > 0 ? SRes::CASTLE_UP : SRes::CASTLE_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_CASTLE,
+                                               this->currentPlayer->getType() == Player::HUMAN);
+    this->startExplosion(pos);
+}
+
+void    Game::applyPWallEffect() {
+    if (r.pWallMod == 0) return;
+    if (r.pWallMod >= 0) this->currentPlayer->addWall(r.pWallMod);
+    else Card::damage(this->currentPlayer, -r.pWallMod);
+    SRes::getInstance().playSound(r.pWallMod > 0 ? SRes::WALL_UP : SRes::WALL_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_WALL,
+                                               this->currentPlayer->getType() == Player::HUMAN);
+    this->startExplosion(pos);
+}
+
+void    Game::applyOGemEffect() {
+    if (r.oppGemMod == 0) return;
+    this->currentOpponent->addGems(r.oppGemMod);
+    SRes::getInstance().playSound(r.oppGemMod > 0 ? SRes::GEM_UP : SRes::GEM_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_GEM,
+                                               this->currentPlayer->getType() == Player::COMPUTER);
+    this->startExplosion(pos);
+}
+
+void    Game::applyOMagicEffect() {
+    if (r.oppMagMod == 0) return;
+    this->currentOpponent->addMagic(r.oppMagMod);
+    SRes::getInstance().playSound(r.oppMagMod > 0 ? SRes::MAGIC_UP : SRes::MAGIC_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_MAGIC,
+                                               this->currentPlayer->getType() == Player::COMPUTER);
+    this->startExplosion(pos);
+}
+
+void    Game::applyOCastleEffect() {
+    if (r.oppCastleMod == 0) return;
+    if (r.oppCastleMod >= 0) this->currentOpponent->addCastle(r.oppCastleMod);
+    else Card::damageCastle(this->currentOpponent, -r.oppCastleMod);
+    SRes::getInstance().playSound(r.oppCastleMod > 0 ? SRes::CASTLE_UP : SRes::CASTLE_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_CASTLE,
+                                               this->currentPlayer->getType() == Player::COMPUTER);
+    this->startExplosion(pos);
+}
+
+void    Game::applyOWallEffect() {
+    if (r.oppWallMod == 0) return;
+    if (r.oppWallMod >= 0) this->currentOpponent->addWall(r.oppWallMod);
+    else Card::damage(this->currentOpponent, -r.oppWallMod);
+    SRes::getInstance().playSound(r.oppWallMod > 0 ? SRes::WALL_UP : SRes::WALL_DOWN);
+    
+    CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_WALL,
+                                               this->currentPlayer->getType() == Player::COMPUTER);
+    this->startExplosion(pos);
 }

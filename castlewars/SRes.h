@@ -77,6 +77,13 @@ public:
         STAR = 36
     };
     
+    enum    PointID {
+        CCP_GEM,
+        CCP_MAGIC,
+        CCP_CASTLE,
+        CCP_WALL
+    };
+    
     typedef struct s_endGameInfos
     {
         int     turn;
@@ -120,6 +127,8 @@ public:
     void    playSound(SoundID);
     void    stopSound();
     
+    cocos2d::CCPoint getPoint(PointID, bool);
+    
     void           setEndGameInfos(int, int, int, int, int, bool);
     endGameInfos    getEndGameInfos();
     cocos2d::CCParticleExplosion *getExplosion(cocos2d::CCPoint);
@@ -129,6 +138,7 @@ private:
     CocosDenshion::SimpleAudioEngine    *engine;
     bool    BGMplaying;
     endGameInfos infos;
+    cocos2d::CCSize  screenSize;
     
 };
 
