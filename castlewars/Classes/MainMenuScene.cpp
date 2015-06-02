@@ -5,6 +5,8 @@
 #include "StatScene.h"
 #include "SRes.h"
 
+#include "HelloWorldScene.h"
+
 CCScene* MainMenu::scene()
 {
     // 'scene' is an autorelease object
@@ -129,14 +131,20 @@ void MainMenu::update(float dt)
 void MainMenu::onePlayerMode(CCObject* pSender)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    CCScene *gameScene = Game::createScene();
+    SRes::getInstance().onlinePlay = false;
+    CCScene *gameScene = GameScene::createScene();
     
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
 }
 
 void MainMenu::multiplayerMode(CCObject* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    SRes::getInstance().onlinePlay = true;
+  // CCScene *multiScene = GameScene::createScene();
+    CCScene *multiScene = HelloWorld::createScene();
     
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, multiScene));
 }
 
 void MainMenu::statMode(CCObject* pSender)
@@ -154,3 +162,9 @@ void MainMenu::menuCloseCallback(CCObject* pSender)
     exit(0);
 #endif
 }
+
+void    MainMenu::startOnlineGame() {
+// TODO Start game with parameters
+
+}
+

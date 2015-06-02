@@ -96,6 +96,7 @@ public:
     
     typedef struct s_playResults
     {
+        ResID   cardID;
         bool    success;
         bool    extraTurn;
         int pGemMod;
@@ -139,6 +140,10 @@ private:
     bool    BGMplaying;
     endGameInfos infos;
     cocos2d::CCSize  screenSize;
+    
+public:
+    bool    onlinePlay = false;
+    char    *opponentName;
     
 };
 

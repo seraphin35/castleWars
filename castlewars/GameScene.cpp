@@ -15,12 +15,12 @@
 #include "GameOverScene.h"
 #include <unistd.h>
 
-CCScene* Game::createScene()
+CCScene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
-    CCLayer *layer = Game::create();
+    CCLayer *layer = GameScene::create();
     // add layer as a child to scene
     scene->addChild(layer);
     
@@ -28,7 +28,7 @@ CCScene* Game::createScene()
     return scene;
 }
 
-void    Game::cardClick(CCObject *pSend)
+void    GameScene::cardClick(CCObject *pSend)
 {
     if (p1->isLocked()) printf("p1 locked !!!\n");
     if (p1->isLocked()) return;
@@ -52,7 +52,7 @@ void    Game::cardClick(CCObject *pSend)
     
     CCFiniteTimeAction  *moveToTop = CCMoveTo::create(1, ccp(screenSize.width / 2,
                                                                screenSize.height * 2));
-    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
+    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(GameScene::endTurn));
     
     
     CCArray     *actions = CCArray::createWithObject(moveToTop);
@@ -72,7 +72,7 @@ void    Game::cardClick(CCObject *pSend)
     //this->endTurn();
 }
 
-void    Game::cardDiscardButton(CCObject *pSend)
+void    GameScene::cardDiscardButton(CCObject *pSend)
 {
     if (this->p1->isLocked()) return;
     
@@ -88,14 +88,14 @@ void    Game::cardDiscardButton(CCObject *pSend)
     this->endTurn();
 }
 
-void	Game::startExplosion(CCPoint pos)
+void	GameScene::startExplosion(CCPoint pos)
 {
     CCParticleExplosion*    explosion = SRes::getInstance().getExplosion(pos);
     
     this->addChild(explosion, 3);
 }
 
-void    Game::removeGameScene()
+void    GameScene::removeGameScene()
 {
     this->removeChild(this->bgGame, true);
     //this->removeChild(this->cardsMenu, true);
@@ -115,13 +115,16 @@ void    Game::removeGameScene()
     this->removeChild(this->p2Wall, true);
 }
 
-bool    Game::init()
+bool    GameScene::init()
 {
 	this->screenSize = CCDirector::sharedDirector()->getWinSize();
     
     this->p1 = new Player("Player", Player::HUMAN);
-    this->p2 = new Player("CPU", Player::COMPUTER);
-    
+    if (SRes::getInstance().onlinePlay) {
+        this->p2 = new Player(SRes::getInstance().opponentName, Player::HUMAN);
+    }
+    else this->p2 = new Player("CPU", Player::COMPUTER);
+
     this->extraTurn = false;
     
     this->core = new AICore(AICore::EASY);
@@ -185,15 +188,15 @@ bool    Game::init()
     this->cardsMenu->setPosition( CCPointZero );
     this->addChild(this->cardsMenu, 1);
     
-    this->schedule(schedule_selector(Game::update));
+    this->schedule(schedule_selector(GameScene::update));
     this->running = true;
     
-   // SRes::getInstance().playSound(SRes::BGM_GAME);
+    SRes::getInstance().playSound(SRes::BGM_GAME);
     
     return true;
 }
 
-void    Game::createGameScene(CCSize screenSize) {
+void    GameScene::createGameScene(CCSize screenSize) {
     
     // Background
     this->bgGame = CCSprite::create("gameBG.png");
@@ -228,9 +231,9 @@ void    Game::createGameScene(CCSize screenSize) {
     CCString p2WallStr      =   *CCString::createWithFormat("%d", this->p2->getWall());
     this->p2Wall            =   CCLabelTTF::create(p2WallStr.getCString(), "MagicFont", 18,
                                                    CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    this->p1Name            =   CCLabelTTF::create("Player 1", "MagicFont", 22,
+    this->p1Name            =   CCLabelTTF::create(this->p1->getName(), "MagicFont", 22,
                                                    CCSizeMake(245, 32), kCCTextAlignmentCenter);
-    this->p2Name            =   CCLabelTTF::create("Computer", "MagicFont", 22,
+    this->p2Name            =   CCLabelTTF::create(this->p2->getName(), "MagicFont", 22,
                                                    CCSizeMake(245, 32), kCCTextAlignmentCenter);
     
     // setPosition for p1
@@ -262,7 +265,7 @@ void    Game::createGameScene(CCSize screenSize) {
     this->addChild(p2Wall, 1);
 }
 
-CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int tag,
+CCMenuItemImage *GameScene::createButton(const char *plain, const char *focus, int tag,
                                     int posX, int posY, float scale,
                                     SEL_MenuHandler callBack) {
     CCMenuItemImage *btn = CCMenuItemImage::create(plain, focus, this, callBack);
@@ -273,19 +276,19 @@ CCMenuItemImage *Game::createButton(const char *plain, const char *focus, int ta
     return btn;
 }
 
-CCMenuItemImage *Game::createButtonFromCard(Card *card, int tag)
+CCMenuItemImage *GameScene::createButtonFromCard(Card *card, int tag)
 {
     return createButton(card->getImage(), card->getImage(), tag,
-                        screenSize.width / 2 + (150 * (tag - 3)), 160, .5, menu_selector(Game::cardClick));
+                        screenSize.width / 2 + (150 * (tag - 3)), 160, .5, menu_selector(GameScene::cardClick));
 }
 
-CCMenuItemImage *Game::createDiscardButton(int tag)
+CCMenuItemImage *GameScene::createDiscardButton(int tag)
 {
     return createButton("btnBG.png", "btnBG.png", tag,
-                        screenSize.width / 2 + (150 * (tag - 3)), 30, .5, menu_selector(Game::cardDiscardButton));
+                        screenSize.width / 2 + (150 * (tag - 3)), 30, .5, menu_selector(GameScene::cardDiscardButton));
 }
 
-void    Game::update(float dt)
+void    GameScene::update(float dt)
 {
     if (!running) return;
 
@@ -313,17 +316,17 @@ void    Game::update(float dt)
     }
 }
 
-void    Game::popCardMenuItem(int position) {
+void    GameScene::popCardMenuItem(int position) {
     this->cardsMenu->removeChildByTag(position, true);
     this->p1->discard(position - 1);
 }
 
-void    Game::addCardMenuItem() {
+void    GameScene::addCardMenuItem() {
     int pos = this->p1->draw();
     this->cardsMenu->addChild(this->createButtonFromCard(this->p1->getCard(pos), pos + 1));
 }
 
-void    Game::startTurn()
+void    GameScene::startTurn()
 {
     printf("\nStarting %s turn. Facing %s.\n", currentPlayer->getName(), currentOpponent->getName());
     this->turn++;
@@ -331,7 +334,7 @@ void    Game::startTurn()
     if (currentPlayer->getType() == Player::COMPUTER) this->computerTurn();
 }
 
-void    Game::endTurn()
+void    GameScene::endTurn()
 {
     printf("Ending %s turn\n", currentPlayer->getName());
     this->currentPlayer->endTurn();
@@ -344,12 +347,12 @@ void    Game::endTurn()
     this->newTurn = true;
 }
 
-void    Game::checkGameOver() {
+void    GameScene::checkGameOver() {
     if (this->p1->getCastle() >= 30 || this->p2->getCastle() <= 0) this->gameOver(true);
     else if (this->p1->getCastle() <= 0 || this->p2->getCastle() >= 30) this->gameOver(false);
 }
 
-void Game::gameOver(bool win)
+void GameScene::gameOver(bool win)
 {
     printf("Player %s\n", win ? "won." : "lost.");
     
@@ -364,10 +367,7 @@ void Game::gameOver(bool win)
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeDown::create(0.8, GameOver::createScene()));
 }
 
-
-
-
-void Game::computerDiscard(Card *card, int pos)
+void GameScene::computerDiscard(Card *card, int pos)
 {
     p2->addGems(card->getCost());
     p2->discard(pos);
@@ -375,7 +375,7 @@ void Game::computerDiscard(Card *card, int pos)
     endTurn();
 }
 
-void    Game::computerPlay(int pos, CCArray *anims)
+void    GameScene::computerPlay(int pos, CCArray *anims)
 {
     CCSprite    *cardSprite = CCSprite::create(p2->getCard(pos)->getImage());
     
@@ -391,7 +391,7 @@ void    Game::computerPlay(int pos, CCArray *anims)
     CCFiniteTimeAction  *delay = CCDelayTime::create(1);
     CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
                                                                screenSize.height * 2));
-    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(Game::endTurn));
+    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(GameScene::endTurn));
 
     
     CCArray *actions = CCArray::createWithObject(moveToScreen);
@@ -407,7 +407,7 @@ void    Game::computerPlay(int pos, CCArray *anims)
     
 }
 
-void    Game::computerTurn()
+void    GameScene::computerTurn()
 {
     AIReport report = this->core->getBestMove(p2->hand, p2, p1);
     
@@ -419,55 +419,55 @@ void    Game::computerTurn()
     this->p2->draw();
 }
 
-CCArray    *Game::applyCardEffects(Player *current, Player *opp) {
+CCArray    *GameScene::applyCardEffects(Player *current, Player *opp) {
     CCArray *effectArray = CCArray::create();
     
     this->extraTurn = r.extraTurn;
     
     if (r.pGemMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPGemEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyPGemEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
 
     if (r.pMagMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPMagicEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyPMagicEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
 
     if (r.pCastleMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPCastleEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyPCastleEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
 
     if (r.pWallMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyPWallEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyPWallEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
     
     if (r.oppGemMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOGemEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyOGemEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
 
     if (r.oppMagMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOMagicEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyOMagicEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
 
     if (r.oppCastleMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOCastleEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyOCastleEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
     
     if (r.oppWallMod != 0) {
-        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(Game::applyOWallEffect)));
+        effectArray->addObject(CCCallFuncN::create(this, callfuncN_selector(GameScene::applyOWallEffect)));
         effectArray->addObject(CCDelayTime::create(1));
     }
     
     return effectArray;
 }
 
-void    Game::applyPGemEffect() {
+void    GameScene::applyPGemEffect() {
     if (r.pGemMod == 0) return;
     this->currentPlayer->addGems(r.pGemMod);
     SRes::getInstance().playSound(r.pGemMod > 0 ? SRes::GEM_UP : SRes::GEM_DOWN);
@@ -477,7 +477,7 @@ void    Game::applyPGemEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyPMagicEffect() {
+void    GameScene::applyPMagicEffect() {
     if (r.pMagMod == 0) return;
     this->currentPlayer->addMagic(r.pMagMod);
     SRes::getInstance().playSound(r.pMagMod > 0 ? SRes::MAGIC_UP : SRes::MAGIC_DOWN);
@@ -487,7 +487,7 @@ void    Game::applyPMagicEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyPCastleEffect() {
+void    GameScene::applyPCastleEffect() {
     if (r.pCastleMod == 0) return;
     if (r.pCastleMod >= 0) this->currentPlayer->addCastle(r.pCastleMod);
     else Card::damageCastle(this->currentPlayer, -r.pCastleMod);
@@ -498,7 +498,7 @@ void    Game::applyPCastleEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyPWallEffect() {
+void    GameScene::applyPWallEffect() {
     if (r.pWallMod == 0) return;
     if (r.pWallMod >= 0) this->currentPlayer->addWall(r.pWallMod);
     else Card::damage(this->currentPlayer, -r.pWallMod);
@@ -509,7 +509,7 @@ void    Game::applyPWallEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyOGemEffect() {
+void    GameScene::applyOGemEffect() {
     if (r.oppGemMod == 0) return;
     this->currentOpponent->addGems(r.oppGemMod);
     SRes::getInstance().playSound(r.oppGemMod > 0 ? SRes::GEM_UP : SRes::GEM_DOWN);
@@ -519,7 +519,7 @@ void    Game::applyOGemEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyOMagicEffect() {
+void    GameScene::applyOMagicEffect() {
     if (r.oppMagMod == 0) return;
     this->currentOpponent->addMagic(r.oppMagMod);
     SRes::getInstance().playSound(r.oppMagMod > 0 ? SRes::MAGIC_UP : SRes::MAGIC_DOWN);
@@ -529,7 +529,7 @@ void    Game::applyOMagicEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyOCastleEffect() {
+void    GameScene::applyOCastleEffect() {
     if (r.oppCastleMod == 0) return;
     if (r.oppCastleMod >= 0) this->currentOpponent->addCastle(r.oppCastleMod);
     else Card::damageCastle(this->currentOpponent, -r.oppCastleMod);
@@ -540,7 +540,7 @@ void    Game::applyOCastleEffect() {
     this->startExplosion(pos);
 }
 
-void    Game::applyOWallEffect() {
+void    GameScene::applyOWallEffect() {
     if (r.oppWallMod == 0) return;
     if (r.oppWallMod >= 0) this->currentOpponent->addWall(r.oppWallMod);
     else Card::damage(this->currentOpponent, -r.oppWallMod);

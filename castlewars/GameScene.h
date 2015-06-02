@@ -15,7 +15,7 @@
 
 using namespace cocos2d;
 
-class   Game : cocos2d::CCLayer
+class   GameScene : cocos2d::CCLayer
 {
 
     
@@ -54,9 +54,11 @@ private:
     
     SRes::playResults   r;
     
+    Player::playerType mode;
+    
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
-    CREATE_FUNC(Game);
+    CREATE_FUNC(GameScene);
     
     virtual bool init();
     virtual void update(float);
@@ -72,6 +74,7 @@ private:
     CCMenuItemImage *createDiscardButton(int tag);
     
 public:
+    
     void popCardMenuItem(int);
     void addCardMenuItem();
     

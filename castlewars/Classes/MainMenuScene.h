@@ -37,6 +37,8 @@ public:
     void multiplayerMode(CCObject* pSender);
     void statMode(CCObject* pSender);
     void menuCloseCallback(CCObject* pSender);
+
+    void startOnlineGame();
     
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(MainMenu);
