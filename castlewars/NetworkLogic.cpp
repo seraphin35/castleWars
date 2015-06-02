@@ -1,7 +1,7 @@
 #include "NetworkLogic.h"
 #include "cocos2d.h"
 
-static const ExitGames::Common::JString appId = L"f05d00f5-cacc-4452-9894-fbfcee557181"; // set your app id here
+static const ExitGames::Common::JString appId = L"c1b3bbcb-7f82-4d3b-b464-748d890e784a"; // set your app id here
 static const ExitGames::Common::JString appVersion = L"1.0";
 
 static const bool autoLobbbyStats = true;
@@ -104,12 +104,13 @@ void NetworkLogic::registerForStateUpdates(NetworkLogicListener* listener)
     mStateAccessor.registerForStateUpdates(listener);
 }
 
-void NetworkLogic::connect(void)
+bool NetworkLogic::connect(void)
 {
     CCLOG("connecting to Photon");
     //mpOutputListener->writeLine(ExitGames::Common::JString(L"connecting to Photon"));
-    mLoadBalancingClient.connect();
+    if (!mLoadBalancingClient.connect()) return false;
     mStateAccessor.setState(STATE_CONNECTING);
+    return true;
 }
 
 void NetworkLogic::disconnect(void)
@@ -117,19 +118,20 @@ void NetworkLogic::disconnect(void)
     mLoadBalancingClient.disconnect();
 }
 
-void NetworkLogic::opCreateRoom(void)
+bool NetworkLogic::opCreateRoom(void)
 {
     // if last digits are always nearly the same, this is because of the timer calling this function being triggered every x ms with x being a factor of 10
     ExitGames::Common::JString tmp;
-    mLoadBalancingClient.opCreateRoom(tmp=GETTIMEMS(), true, true, 4, ExitGames::Common::Hashtable(), ExitGames::Common::JVector<ExitGames::Common::JString>(), ExitGames::Common::JString(), 1, INT_MAX/2, 10000);
+    if (!mLoadBalancingClient.opCreateRoom(tmp=GETTIMEMS(), true, true, 4, ExitGames::Common::Hashtable(), ExitGames::Common::JVector<ExitGames::Common::JString>(), ExitGames::Common::JString(), 1, INT_MAX/2, 10000)) return false;
     mStateAccessor.setState(STATE_JOINING);
     CCLOG("creating room ...");
     //mpOutputListener->writeLine(ExitGames::Common::JString(L"creating room ") + tmp + L"...");
+    return true;
 }
 
-void NetworkLogic::opJoinRandomRoom(void)
+bool NetworkLogic::opJoinRandomRoom(void)
 {
-    mLoadBalancingClient.opJoinRandomRoom();
+    return mLoadBalancingClient.opJoinRandomRoom();
 }
 
 void NetworkLogic::run(void)

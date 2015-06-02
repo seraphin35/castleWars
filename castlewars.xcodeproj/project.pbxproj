@@ -56,6 +56,7 @@
 		84F780631AD625E4006430A5 /* wallUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84F7805B1AD625E4006430A5 /* wallUp.wav */; };
 		AC27E7761AD65C040075A606 /* SRes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC27E7751AD65C040075A606 /* SRes.cpp */; };
 		AC2865511AFB23A000DE37B3 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2865501AFB23A000DE37B3 /* star.png */; };
+		AC2D3F5E1B1D9AD20048AC89 /* MultiScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC2D3F5C1B1D9AD20048AC89 /* MultiScene.cpp */; };
 		AC32E0801ACE8381002D77DE /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC32E07E1ACE8381002D77DE /* GameScene.cpp */; };
 		AC4698CE1AF1F0C7007D2510 /* AICore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C21AF1F0C7007D2510 /* AICore.cpp */; };
 		AC4698CF1AF1F0C7007D2510 /* CardValueNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4698C41AF1F0C7007D2510 /* CardValueNode.cpp */; };
@@ -482,6 +483,8 @@
 		AC27E7741AD65BFB0075A606 /* SRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRes.h; sourceTree = "<group>"; };
 		AC27E7751AD65C040075A606 /* SRes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SRes.cpp; sourceTree = "<group>"; };
 		AC2865501AFB23A000DE37B3 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		AC2D3F5C1B1D9AD20048AC89 /* MultiScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiScene.cpp; sourceTree = "<group>"; };
+		AC2D3F5D1B1D9AD20048AC89 /* MultiScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiScene.h; sourceTree = "<group>"; };
 		AC32E07E1ACE8381002D77DE /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		AC32E07F1ACE8381002D77DE /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		AC4698C21AF1F0C7007D2510 /* AICore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AICore.cpp; sourceTree = "<group>"; };
@@ -2241,6 +2244,8 @@
 				AC47EAEE1AB15BB500A9EC59 /* MainMenuScene.cpp */,
 				AC47EAED1AB15BB500A9EC59 /* MainMenuScene.h */,
 				AC56512E1ADF7E92007CD88B /* StatScene.cpp */,
+				AC2D3F5C1B1D9AD20048AC89 /* MultiScene.cpp */,
+				AC2D3F5D1B1D9AD20048AC89 /* MultiScene.h */,
 				AC56512F1ADF7E92007CD88B /* StatScene.h */,
 				AC5651311ADF8091007CD88B /* GameOverScene.cpp */,
 				AC5651321ADF8091007CD88B /* GameOverScene.h */,
@@ -2527,6 +2532,7 @@
 				AC47EAE31AB15BB500A9EC59 /* HttpClient.cpp in Sources */,
 				AC47EA691AB15BB500A9EC59 /* CCBValue.cpp in Sources */,
 				AC47E9E61AB15BB400A9EC59 /* CCPointExtension.cpp in Sources */,
+				AC2D3F5E1B1D9AD20048AC89 /* MultiScene.cpp in Sources */,
 				AC47E9EC1AB15BB400A9EC59 /* CCUserDefault.cpp in Sources */,
 				AC47E8B11AB15BB300A9EC59 /* CCCamera.cpp in Sources */,
 				AC47EAEC1AB15BB500A9EC59 /* AppDelegate.cpp in Sources */,

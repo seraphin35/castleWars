@@ -58,9 +58,9 @@ public:
 	NetworkLogic(const ExitGames::LoadBalancing::AuthenticationValues& authenticationValues=ExitGames::LoadBalancing::AuthenticationValues());
 	void registerForStateUpdates(NetworkLogicListener* listener);
 	void run(void);
-	void connect(void);
-	void opCreateRoom(void);
-	void opJoinRandomRoom(void);
+	bool connect(void);
+	bool opCreateRoom(void);
+	bool opJoinRandomRoom(void);
 	void disconnect(void);
 	void sendEvent(void);
 

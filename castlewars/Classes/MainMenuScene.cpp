@@ -5,7 +5,7 @@
 #include "StatScene.h"
 #include "SRes.h"
 
-#include "HelloWorldScene.h"
+#include "MultiScene.h"
 
 CCScene* MainMenu::scene()
 {
@@ -141,8 +141,7 @@ void MainMenu::multiplayerMode(CCObject* pSender)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     SRes::getInstance().onlinePlay = true;
-  // CCScene *multiScene = GameScene::createScene();
-    CCScene *multiScene = HelloWorld::createScene();
+    CCScene *multiScene = MultiScene::createScene();
     
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, multiScene));
 }
