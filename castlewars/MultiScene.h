@@ -26,6 +26,7 @@ private:
     
     NetworkLogic    *netLog;
     bool            netRunning;
+    int             joinAttempt;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)

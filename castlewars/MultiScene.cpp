@@ -36,6 +36,7 @@ bool    MultiScene::init()
 void    MultiScene::createMultiScene(CCSize screenSize)
 {
     this->netRunning = false;
+    this->joinAttempt = 0;
     this->bgMulti = CCSprite::create("statsBG.png");
     this->bgMulti->setPosition(ccp(this->screenSize.width / 2, this->screenSize.height / 2));
     
@@ -71,7 +72,10 @@ void    MultiScene::returnMenu()
 
 void MultiScene::update()
 {
-    if (!this->netRunning) return;
+    if (!this->netRunning) {
+        this->netLog->disconnect();
+        return;
+    }
     
 	netLog->run();
     
@@ -80,10 +84,12 @@ void MultiScene::update()
 			CCLOG("connected");
 		case STATE_LEFT:
 			// ルームが存在すればジョイン、なければ作成する
-			if (netLog->isRoomExists()) {
-				CCLOG("Join");
+			if (netLog->isRoomExists() && this->joinAttempt < 10) {
+				printf("Join attempt n.%d\n", this->joinAttempt + 1);
 				netLog->setLastInput(INPUT_2);
+                this->joinAttempt++;
 			} else {
+                this->joinAttempt = 0;
 				CCLOG("Create");
 				netLog->setLastInput(INPUT_1);
 			}
@@ -107,27 +113,8 @@ void MultiScene::update()
 
 void    MultiScene::lookForGame() {
     
-    this->netRunning = true;
+    this->netRunning = !this->netRunning;
     return;
-    
-    bool result = false;
-    
-    result = this->netLog->connect();
-    printf("Connected : %d\n", result);
-    
-    printf("Looking for game ...\n");
-    if (this->isRoomAvailable()) {
-        printf("Found room(s) !\n");
-        if (!this->joinRoom()) {
-            printf("Failed to join room, creating one\n");
-            result = this->createRoom();
-        }
-    } else {
-        printf("No room, creating one\n");
-        result = this->createRoom();
-    }
-    
-    printf("Room created : %d\n", result);
 }
 
 bool    MultiScene::isRoomAvailable() {
