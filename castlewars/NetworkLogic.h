@@ -29,6 +29,14 @@ enum Input
 	INPUT_EXIT
 };
 
+enum Event
+{
+    EVENT_NOTHING = 0,
+    EVENT_NEW_MSG,
+    EVENT_OPP_JOINED,
+    EVENT_OPP_LEFT
+};
+
 class NetworkLogicListener : public ExitGames::Common::ToString
 {
 public:
@@ -62,6 +70,7 @@ public:
 	bool opCreateRoom(void);
 	bool opJoinRandomRoom(void);
 	void disconnect(void);
+    void sendPlayResult(SRes::playResults *results);
 	void sendEvent(void);
 
 	Input getLastInput(void) const;
@@ -76,7 +85,8 @@ public:
  
 	// 自分のプレイヤー番号
 	int playerNr = 0;
-	
+    Event lastEvent = EVENT_NOTHING;
+    
 private:
 	// receive and print out debug out here
 	virtual void debugReturn(ExitGames::Common::DebugLevel::DebugLevel debugLevel, const ExitGames::Common::JString& string);
@@ -113,7 +123,9 @@ private:
 	ExitGames::Common::Logger mLogger;
 	StateAccessor mStateAccessor;
 	Input mLastInput;
-	//OutputListener* mpOutputListener;
+	
+    void    pushResultToQueue(ExitGames::Common::Hashtable *content);
+    std::queue<SRes::playResults>   eventQueue;
 };
 
 #endif

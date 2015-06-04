@@ -42,9 +42,6 @@ private:
     void        returnMenu();
     
     void    lookForGame();
-    bool    isRoomAvailable();
-    bool    joinRoom();
-    bool    createRoom();
     void    leaveRoom();
 };
 

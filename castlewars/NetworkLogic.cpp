@@ -122,7 +122,7 @@ bool NetworkLogic::opCreateRoom(void)
 {
     // if last digits are always nearly the same, this is because of the timer calling this function being triggered every x ms with x being a factor of 10
     ExitGames::Common::JString tmp;
-    if (!mLoadBalancingClient.opCreateRoom(tmp=GETTIMEMS(), true, true, 4, ExitGames::Common::Hashtable(), ExitGames::Common::JVector<ExitGames::Common::JString>(), ExitGames::Common::JString(), 1, INT_MAX/2, 10000)) return false;
+    if (!mLoadBalancingClient.opCreateRoom(tmp=GETTIMEMS(), true, true, 2, ExitGames::Common::Hashtable(), ExitGames::Common::JVector<ExitGames::Common::JString>(), ExitGames::Common::JString(), 1, INT_MAX/2, 10000)) return false;
     mStateAccessor.setState(STATE_JOINING);
     CCLOG("creating room ...");
     //mpOutputListener->writeLine(ExitGames::Common::JString(L"creating room ") + tmp + L"...");
@@ -278,6 +278,7 @@ void NetworkLogic::joinRoomEventAction(int playerNr, const ExitGames::Common::JV
     //mpOutputListener->writeLine(L"");
     auto ttttt = player.getName();
     CCLOG("%s %d %s %ls %s","player ", playerNr, " ", ttttt.cstr() , " has joined the game");
+    this->lastEvent = EVENT_OPP_JOINED;
     //mpOutputListener->writeLine(ExitGames::Common::JString(L"player ") + playerNr + L" " + player.getName() + L" has joined the game");
 }
 
@@ -286,8 +287,7 @@ void NetworkLogic::leaveRoomEventAction(int playerNr, bool isInactive)
     EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
     CCLOG("");
     CCLOG("%s %d %s", "player ", playerNr, " has left the game");
-    //mpOutputListener->writeLine(L"");
-    //mpOutputListener->writeLine(ExitGames::Common::JString(L"player ") + playerNr + L" has left the game");
+    this->lastEvent = EVENT_OPP_LEFT;
 }
 
 void NetworkLogic::disconnectEventAction(int playerNr)
@@ -295,8 +295,7 @@ void NetworkLogic::disconnectEventAction(int playerNr)
     EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
     CCLOG("");
     CCLOG("%s %d %s", "player ", playerNr, " has disconnected");
-    //mpOutputListener->writeLine(L"");
-    //mpOutputListener->writeLine(ExitGames::Common::JString(L"player ") + playerNr + L" has disconnected");
+    this->lastEvent = EVENT_OPP_LEFT;
 }
 
 void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent)
@@ -306,14 +305,40 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
     switch (eventCode) {
         case 1:
             event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
-            float x = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
             
-            float y = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
-            
-           // eventQueue.push({static_cast<float>(playerNr), x, y});
+            this->pushResultToQueue(event);
+
+            this->lastEvent = EVENT_NEW_MSG;
             
             break;
     }
+}
+
+void    NetworkLogic::pushResultToQueue(ExitGames::Common::Hashtable *content) {
+    SRes::playResults   *results = new SRes::playResults();
+    
+    results->cardID = static_cast<SRes::ResID>(ExitGames::Common::ValueObject<int>(content->getValue(1)).getDataCopy());
+    results->extraTurn = ExitGames::Common::ValueObject<bool>(content->getValue(2)).getDataCopy();
+    results->pGemMod = ExitGames::Common::ValueObject<int>(content->getValue(3)).getDataCopy();
+    results->pMagMod = ExitGames::Common::ValueObject<int>(content->getValue(4)).getDataCopy();
+    results->pCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(5)).getDataCopy();
+    results->pWallMod = ExitGames::Common::ValueObject<int>(content->getValue(6)).getDataCopy();
+    results->oppGemMod = ExitGames::Common::ValueObject<int>(content->getValue(7)).getDataCopy();
+    results->oppMagMod = ExitGames::Common::ValueObject<int>(content->getValue(8)).getDataCopy();
+    results->oppCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(9)).getDataCopy();
+    results->oppWallMod = ExitGames::Common::ValueObject<int>(content->getValue(10)).getDataCopy();
+    
+    CCLOG("Received : %d %d %d %d %d %d %d %d %d %d",
+          results->cardID,
+          results->extraTurn,
+          results->pGemMod,
+          results->pMagMod,
+          results->pCastleMod,
+          results->pWallMod,
+          results->oppGemMod,
+          results->oppMagMod,
+          results->oppCastleMod,
+          results->oppWallMod);
 }
 
 void NetworkLogic::connectReturn(int errorCode, const ExitGames::Common::JString& errorString)
@@ -486,6 +511,36 @@ bool NetworkLogic::isRoomExists(void)
     }
     
     return true;
+}
+
+void NetworkLogic::sendPlayResult(SRes::playResults *results) {
+    
+    ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+
+    eventContent->put<int, int>(1, results->cardID);
+    eventContent->put<int, bool>(2, results->extraTurn);
+    eventContent->put<int, int>(3, results->pGemMod);
+    eventContent->put<int, int>(4, results->pMagMod);
+    eventContent->put<int, int>(5, results->pCastleMod);
+    eventContent->put<int, int>(6, results->pWallMod);
+    eventContent->put<int, int>(7, results->oppGemMod);
+    eventContent->put<int, int>(8, results->oppMagMod);
+    eventContent->put<int, int>(9, results->oppCastleMod);
+    eventContent->put<int, int>(10, results->oppWallMod);
+    
+    CCLOG("Sent : %d %d %d %d %d %d %d %d %d %d",
+          results->cardID,
+          results->extraTurn,
+          results->pGemMod,
+          results->pMagMod,
+          results->pCastleMod,
+          results->pWallMod,
+          results->oppGemMod,
+          results->oppMagMod,
+          results->oppCastleMod,
+          results->oppWallMod);
+    
+    this->sendEvent(1, eventContent);
 }
 
 void NetworkLogic::sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent)

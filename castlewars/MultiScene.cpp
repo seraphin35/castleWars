@@ -67,13 +67,14 @@ void    MultiScene::createMultiScene(CCSize screenSize)
 
 void    MultiScene::returnMenu()
 {
+    this->leaveRoom();
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, MainMenu::scene()));
 }
 
 void MultiScene::update()
 {
     if (!this->netRunning) {
-        this->netLog->disconnect();
+        this->leaveRoom();
         return;
     }
     
@@ -115,18 +116,6 @@ void    MultiScene::lookForGame() {
     
     this->netRunning = !this->netRunning;
     return;
-}
-
-bool    MultiScene::isRoomAvailable() {
-    return this->netLog->isRoomExists();
-}
-
-bool    MultiScene::joinRoom() {
-    return this->netLog->opJoinRandomRoom();
-}
-
-bool    MultiScene::createRoom() {
-    return this->netLog->opCreateRoom();
 }
 
 void    MultiScene::leaveRoom() {
