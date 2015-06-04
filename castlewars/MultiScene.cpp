@@ -35,6 +35,7 @@ bool    MultiScene::init()
 
 void    MultiScene::createMultiScene(CCSize screenSize)
 {
+    this->netRunning = false;
     this->bgMulti = CCSprite::create("statsBG.png");
     this->bgMulti->setPosition(ccp(this->screenSize.width / 2, this->screenSize.height / 2));
     
@@ -70,6 +71,8 @@ void    MultiScene::returnMenu()
 
 void MultiScene::update()
 {
+    if (!this->netRunning) return;
+    
 	netLog->run();
     
 	switch (netLog->getState()) {
@@ -103,6 +106,10 @@ void MultiScene::update()
 }
 
 void    MultiScene::lookForGame() {
+    
+    this->netRunning = true;
+    return;
+    
     bool result = false;
     
     result = this->netLog->connect();
