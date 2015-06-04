@@ -143,7 +143,7 @@ private:
     
 public:
     bool    onlinePlay = false;
-    char    *opponentName;
+    bool    playFirst = false;
     
 };
 

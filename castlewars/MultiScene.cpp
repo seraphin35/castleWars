@@ -9,6 +9,7 @@
 #include "MultiScene.h"
 #include "MainMenuScene.h"
 #include "SRes.h"
+#include "GameScene.h"
 
 CCScene*    MultiScene::createScene()
 {
@@ -27,6 +28,9 @@ bool    MultiScene::init()
     this->createMultiScene(screenSize);
     
     this->netLog = new NetworkLogic();
+    this->connected = false;
+    this->netRunning = false;
+    this->joinAttempt = 0;
     
     this->schedule(schedule_selector(MultiScene::update));
     
@@ -35,8 +39,6 @@ bool    MultiScene::init()
 
 void    MultiScene::createMultiScene(CCSize screenSize)
 {
-    this->netRunning = false;
-    this->joinAttempt = 0;
     this->bgMulti = CCSprite::create("statsBG.png");
     this->bgMulti->setPosition(ccp(this->screenSize.width / 2, this->screenSize.height / 2));
     
@@ -82,34 +84,43 @@ void MultiScene::update()
     
 	switch (netLog->getState()) {
 		case STATE_CONNECTED:
-			CCLOG("connected");
 		case STATE_LEFT:
-			// ルームが存在すればジョイン、なければ作成する
-			if (netLog->isRoomExists() && this->joinAttempt < 10) {
-				printf("Join attempt n.%d\n", this->joinAttempt + 1);
-				netLog->setLastInput(INPUT_2);
-                this->joinAttempt++;
-			} else {
-                this->joinAttempt = 0;
-				CCLOG("Create");
-				netLog->setLastInput(INPUT_1);
-			}
+			CCLOG("joining new room ...");
+			this->createOrJoinRoom();
 			break;
 		case STATE_DISCONNECTED:
-			CCLOG("disconnected");
-			// 接続が切れたら再度接続
+			CCLOG("disconnected. reconnecting ...");
+            this->connected = false;
 			netLog->connect();
 			break;
+		case STATE_JOINED:
+            this->connected = true;
+            break;
 		case STATE_CONNECTING:
 		case STATE_JOINING:
-		case STATE_JOINED:
 		case STATE_LEAVING:
 		case STATE_DISCONNECTING:
-			//CCLOG("bbbbb");
 		default:
 			//CCLOG("default");
 			break;
 	}
+    
+    if (this->connected) {
+        switch(this->netLog->lastEvent) {
+            case EVENT_OPP_JOINED:
+                this->netLog->sendEvent(2, NULL);
+                break;
+            case EVENT_START_FIRST:
+                SRes::getInstance().onlinePlay = true;
+                this->startGame(true);
+                break;
+            case EVENT_START_SECOND:
+                this->startGame(false);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 void    MultiScene::lookForGame() {
@@ -118,6 +129,28 @@ void    MultiScene::lookForGame() {
     return;
 }
 
+void    MultiScene::createOrJoinRoom() {
+    if (netLog->isRoomExists() && this->joinAttempt < 10) {
+        printf("Join attempt n.%d\n", this->joinAttempt + 1);
+        netLog->setLastInput(INPUT_2);
+        this->joinAttempt++;
+    } else {
+        this->joinAttempt = 0;
+        CCLOG("Create");
+        netLog->setLastInput(INPUT_1);
+    }
+}
+
 void    MultiScene::leaveRoom() {
+    this->connected = false;
     this->netLog->disconnect();
+}
+
+void    MultiScene::startGame(bool first) {
+    SRes::getInstance().onlinePlay = true;
+    SRes::getInstance().playFirst = first;
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    CCScene *gameScene = GameScene::createScene();
+    
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, gameScene));
 }

@@ -34,6 +34,8 @@ enum Event
     EVENT_NOTHING = 0,
     EVENT_NEW_MSG,
     EVENT_OPP_JOINED,
+    EVENT_START_FIRST,
+    EVENT_START_SECOND,
     EVENT_OPP_LEFT
 };
 
@@ -124,6 +126,7 @@ private:
 	StateAccessor mStateAccessor;
 	Input mLastInput;
 	
+    void    sendStartSignal(bool first);
     void    pushResultToQueue(ExitGames::Common::Hashtable *content);
     std::queue<SRes::playResults>   eventQueue;
 };

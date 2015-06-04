@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "AICore.h"
+#include "NetworkLogic.h"
 
 using namespace cocos2d;
 
@@ -54,7 +55,7 @@ private:
     
     SRes::playResults   r;
     
-    Player::playerType mode;
+    NetworkLogic    *netLog;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
@@ -104,7 +105,9 @@ public:
     void    applyOCastleEffect();
     void    applyOMagicEffect();
     
-    void removeGameScene();
+    void    removeGameScene();
+    
+    void    setNetworkLogic(NetworkLogic *);
 };
 
 #endif /* defined(__castlewars__GameScene__) */

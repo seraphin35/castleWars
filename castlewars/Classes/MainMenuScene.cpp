@@ -139,8 +139,6 @@ void MainMenu::onePlayerMode(CCObject* pSender)
 
 void MainMenu::multiplayerMode(CCObject* pSender)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-    SRes::getInstance().onlinePlay = true;
     CCScene *multiScene = MultiScene::createScene();
     
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeBL::create(0.8, multiScene));

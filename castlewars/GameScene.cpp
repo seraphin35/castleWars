@@ -17,6 +17,7 @@
 
 CCScene* GameScene::createScene()
 {
+    //GameScene::IMFirst = playFirst;
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
@@ -117,11 +118,12 @@ void    GameScene::removeGameScene()
 
 bool    GameScene::init()
 {
+    CCLOG("INIT CALLED");
 	this->screenSize = CCDirector::sharedDirector()->getWinSize();
     
     this->p1 = new Player("Player", Player::HUMAN);
     if (SRes::getInstance().onlinePlay) {
-        this->p2 = new Player(SRes::getInstance().opponentName, Player::HUMAN);
+        this->p2 = new Player("Opponent", Player::HUMAN);
     }
     else this->p2 = new Player("CPU", Player::COMPUTER);
 
@@ -138,11 +140,17 @@ bool    GameScene::init()
     
     // initialize game values
     turn = 0;
-    this->currentPlayer = p1;
-    this->currentOpponent = p2;
+    bool p1First = SRes::getInstance().playFirst;
+    this->currentPlayer = p1First ? p1 : p2;
+    this->currentOpponent = p1First ? p2 : p1;
     this->newTurn = true;
-    this->p1->unlock();
-    this->p2->lock();
+    if (p1First) {
+        this->p1->unlock();
+        this->p2->lock();
+    } else {
+        this->p2->unlock();
+        this->p1->lock();
+    }
     
     // add a "close" icon to exit the progress. it's an autorelease object
     CCMenuItemImage *bCard1 = createButtonFromCard(this->p1->getCard(0), 1);
@@ -549,4 +557,8 @@ void    GameScene::applyOWallEffect() {
     CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_WALL,
                                                this->currentPlayer->getType() == Player::COMPUTER);
     this->startExplosion(pos);
+}
+
+void    GameScene::setNetworkLogic(NetworkLogic *network) {
+    this->netLog = network;
 }

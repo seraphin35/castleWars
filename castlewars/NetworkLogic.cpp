@@ -278,8 +278,31 @@ void NetworkLogic::joinRoomEventAction(int playerNr, const ExitGames::Common::JV
     //mpOutputListener->writeLine(L"");
     auto ttttt = player.getName();
     CCLOG("%s %d %s %ls %s","player ", playerNr, " ", ttttt.cstr() , " has joined the game");
-    this->lastEvent = EVENT_OPP_JOINED;
+    if (playerNr != this->playerNr) {
+        CCLOG("New opponent !");
+        this->lastEvent = EVENT_OPP_JOINED;
+    }
     //mpOutputListener->writeLine(ExitGames::Common::JString(L"player ") + playerNr + L" " + player.getName() + L" has joined the game");
+    
+    
+    //REMOVE THIS DEBUG PLOX
+    
+    /*
+    SRes::playResults *dudu = new SRes::playResults();
+    
+    dudu->cardID = SRes::ROCK_SLASHER;
+    dudu->extraTurn = true;
+    dudu->pGemMod = 1;
+    dudu->pMagMod = 2;
+    dudu->pCastleMod = 3;
+    dudu->pWallMod = 4;
+    dudu->oppGemMod = 5;
+    dudu->oppMagMod = 6;
+    dudu->oppCastleMod = 7;
+    dudu->oppWallMod = 8;
+    
+    this->sendPlayResult(dudu);
+     */
 }
 
 void NetworkLogic::leaveRoomEventAction(int playerNr, bool isInactive)
@@ -303,13 +326,18 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
     ExitGames::Common::Hashtable* event;
     
     switch (eventCode) {
-        case 1:
+        case 1: // Card played infos
             event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
             
             this->pushResultToQueue(event);
 
             this->lastEvent = EVENT_NEW_MSG;
             
+            break;
+        case 2: // start game signal
+            event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
+            bool starting = ExitGames::Common::ValueObject<bool>(event->getValue(1)).getDataCopy();
+            this->lastEvent = starting ? EVENT_START_FIRST : EVENT_START_SECOND;
             break;
     }
 }
@@ -511,6 +539,12 @@ bool NetworkLogic::isRoomExists(void)
     }
     
     return true;
+}
+
+void    NetworkLogic::sendStartSignal(bool first) {
+    ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+    
+    eventContent->put<int, bool>(1, first);
 }
 
 void NetworkLogic::sendPlayResult(SRes::playResults *results) {

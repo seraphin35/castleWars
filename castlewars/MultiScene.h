@@ -26,6 +26,7 @@ private:
     
     NetworkLogic    *netLog;
     bool            netRunning;
+    bool            connected;
     int             joinAttempt;
     
 public:
@@ -41,8 +42,10 @@ private:
     void        createMultiScene(CCSize);
     void        returnMenu();
     
+    void    createOrJoinRoom();
     void    lookForGame();
     void    leaveRoom();
+    void    startGame(bool first);
 };
 
 #endif /* defined(__castlewars__MultiScene__) */
