@@ -328,8 +328,11 @@ void    GameScene::update(float dt)
         this->startTurn();
     }
     
-    if (this->online && this->p1->isLocked()) {
-        CCLOG("Looking for online move ...");
+    netLog->run();
+    
+    if (this->online) {
+        netLog->run();
+        if (!this->p1->isLocked()) return;
         switch (this->netLog->lastEvent) {
             case EVENT_NEW_MSG:
                 this->onlinePlay();

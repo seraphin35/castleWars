@@ -282,27 +282,6 @@ void NetworkLogic::joinRoomEventAction(int playerNr, const ExitGames::Common::JV
         CCLOG("New opponent !");
         this->lastEvent = EVENT_OPP_JOINED;
     }
-    //mpOutputListener->writeLine(ExitGames::Common::JString(L"player ") + playerNr + L" " + player.getName() + L" has joined the game");
-    
-    
-    //REMOVE THIS DEBUG PLOX
-    
-    /*
-    SRes::playResults *dudu = new SRes::playResults();
-    
-    dudu->cardID = SRes::ROCK_SLASHER;
-    dudu->extraTurn = true;
-    dudu->pGemMod = 1;
-    dudu->pMagMod = 2;
-    dudu->pCastleMod = 3;
-    dudu->pWallMod = 4;
-    dudu->oppGemMod = 5;
-    dudu->oppMagMod = 6;
-    dudu->oppCastleMod = 7;
-    dudu->oppWallMod = 8;
-    
-    this->sendPlayResult(dudu);
-     */
 }
 
 void NetworkLogic::leaveRoomEventAction(int playerNr, bool isInactive)
@@ -324,8 +303,8 @@ void NetworkLogic::disconnectEventAction(int playerNr)
 void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent)
 {
     if (playerNr == this->playerNr) {
-        CCLOG("Ignoring message form mysef");
-     return;
+        CCLOG("Ignoring message from myself");
+        return;
     }
     
     ExitGames::Common::Hashtable* event;

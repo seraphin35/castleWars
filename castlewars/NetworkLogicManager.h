@@ -30,7 +30,6 @@ private:
     
 private:
     NetworkLogic    *netLog;
-    bool            init = false;
     
 public:
     NetworkLogic    *getNetLog();

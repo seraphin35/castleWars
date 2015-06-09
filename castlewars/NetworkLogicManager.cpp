@@ -9,10 +9,11 @@
 #include "NetworkLogicManager.h"
 
 NetworkLogic    *NetworkLogicManager::getNetLog() {
-    if (!this->init) {
-        this->netLog = new NetworkLogic();
-        this->init = true;
-    }
-    
-    return  this->netLog;
+     static bool done = false;
+     if (!done) {
+         this->netLog = new NetworkLogic();
+         done = true;
+     }
+     
+     return  this->netLog;
 }
