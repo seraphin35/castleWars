@@ -335,6 +335,7 @@ void    GameScene::update(float dt)
         if (!this->p1->isLocked()) return;
         switch (this->netLog->lastEvent) {
             case EVENT_NEW_MSG:
+                CCLOG("New message !");
                 this->onlinePlay();
                 break;
             default:
@@ -347,6 +348,9 @@ void    GameScene::update(float dt)
 void    GameScene::onlinePlay() {
     r = this->netLog->getResultFromQueue();
 
+    if (r.success) CCLOG("Playing card ... SUCCESS :D");
+    else CCLOG("Playing card ... FAILURE D:");
+    
     if (!r.success) return;
     
     CCArray *effects = this->applyCardEffects(p2, p1);

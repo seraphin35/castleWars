@@ -337,6 +337,7 @@ void    NetworkLogic::pushResultToQueue(ExitGames::Common::Hashtable *content) {
     SRes::playResults   results;
     
     results.cardID = static_cast<SRes::ResID>(ExitGames::Common::ValueObject<int>(content->getValue(1)).getDataCopy());
+    results.success = true;
     results.extraTurn = ExitGames::Common::ValueObject<bool>(content->getValue(2)).getDataCopy();
     results.pGemMod = ExitGames::Common::ValueObject<int>(content->getValue(3)).getDataCopy();
     results.pMagMod = ExitGames::Common::ValueObject<int>(content->getValue(4)).getDataCopy();
@@ -365,6 +366,7 @@ void    NetworkLogic::pushResultToQueue(ExitGames::Common::Hashtable *content) {
 SRes::playResults   NetworkLogic::getResultFromQueue() {
     SRes::playResults r;
     
+    CCLOG("Getting result from queue ...");
     r.success = false;
     if (!this->eventQueue.empty()) {
         r = this->eventQueue.front();
