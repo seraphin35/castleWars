@@ -24,9 +24,10 @@ private:
     int         cost;
     SRes::ptrfunc   effect;
     char        *image;
+    SRes::ResID id;
     
 public:
-    Card(SRes::ptrfunc effect, int cost, char *image);
+    Card(SRes::ResID id, SRes::ptrfunc effect, int cost, char *image);
     ~Card() {}
     
     const int getCost();
@@ -34,8 +35,10 @@ public:
     
     const char *getImage();
     //image getter here
-    
-    static SRes::playResults getCardReport(bool success, bool extraTurn,
+
+    const SRes::ResID getID();
+
+    static SRes::playResults getCardReport(bool success, bool extraTurn, SRes::ResID id,
                                      int pGemMod, int pMagMod, int pCastleMod, int pWallMod,
                                      int oppGemMod, int oppMagMod, int oppCastleMod, int oppWallMod);
     

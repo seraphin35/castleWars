@@ -357,8 +357,10 @@ void    GameScene::onlinePlay() {
     
     CCArray *effects = this->applyCardEffects(p2, p1);
     
+    CCLOG("Creating sprite with path : >%s<", SRes::getInstance().getSpritePath(r.cardID));
+    CCSprite    *cardSprite = CCSprite::create(SRes::getInstance().getSpritePath(r.cardID));
     // REPLQCE THIS ZITH IMAGE GOT FROM R
-    CCSprite    *cardSprite = SRes::getInstance().getSprite(r.cardID);
+    //CCSprite    *cardSprite = SRes::getInstance().getSprite(r.cardID);
     
     // Move the card from the right to the center of the screen
     cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));

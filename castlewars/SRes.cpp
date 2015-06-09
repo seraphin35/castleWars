@@ -15,6 +15,7 @@ void    SRes::initRessources() {
     this->engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
     this->initiateAudio();
     this->initiateSprites();
+    this->initiateSpritesPath();
     this->screenSize = cocos2d::CCDirector::sharedDirector()->getWinSize();
     done = true;
 }
@@ -72,6 +73,46 @@ void    SRes::initiateSprites() {
     this->sprites[STATS_BTN] = cocos2d::CCSprite::create("statsBtn.png");
     this->sprites[BTN_BG] = cocos2d::CCSprite::create("btnBG.png");
     this->sprites[STAR] = cocos2d::CCSprite::create("star.png");
+}
+
+void    SRes::initiateSpritesPath() {
+    this->path[AMETHYST_WAND] = "amethyst_wand.png";
+    this->path[BOTTLED_FLATULENCE] = "bottled_flatulence.png";
+    this->path[BOWMIN_GOBLIN] = "bowmin_goblin.png";
+    this->path[CLUBIN_GOBLIN] = "clubin_goblin.png";
+    this->path[EMERALD_WAND] = "emerald_wand.png";
+    this->path[FLYIN_GOBLIN] = "flyin_goblin.png";
+    this->path[FRIENDSHIP] = "friendship.png";
+    this->path[HARMONIC_ORC] = "harmonic_orc.png";
+    this->path[INSECURE_WALL] = "insecure_wall.png";
+    this->path[INSTANT_WALL] = "instant_wall.png";
+    this->path[MANA_DISEASE] = "magic_miners.png";
+    this->path[MANA_STOMPERS] = "mana_disease.png";
+    this->path[MOBBIN_GOBLIN] = "mana_stompers.png";
+    this->path[MORTAR_MOLE] = "mobbin_goblin.png";
+    this->path[PROTECTION_WARD] = "mortar_mole.png";
+    this->path[RECYCLED_RAINBOW] = "protection_ward.png";
+    this->path[ROCK_SLASHER] = "recycled_rainbow.png";
+    this->path[RUBY_WAND] = "rock_slasher.png";
+    this->path[SHEEPISH_RABBIT] = "ruby_wand.png";
+    this->path[STONE_GIANT] = "sheepish_rabbit.png";
+    this->path[STRIP_MINING] = "stone_giant.png";
+    this->path[MAGIC_MINERS] = "strip_mining.png";
+    this->path[BANNER_BLUE] = "bannerBlue.png";
+    this->path[BANNER_RED] = "bannerRed.png";
+    this->path[RETURN_BTN] = "returnBtn.png";
+    this->path[DEFEAT_BG] = "defeatBG.png";
+    this->path[LEAVE_BTN] = "leaveBtn.png";
+    this->path[QUIT_BTN] = "quitBtn.png";
+    this->path[VICTORY_BG] = "victoryBG.png";
+    this->path[GAME_BG] = "gameBG.png";
+    this->path[MENU_BG] = "menuBG.png";
+    this->path[STATS_BG] = "statsBG.png";
+    this->path[MULTI_BTN] = "multiBtn.png";
+    this->path[SOLO_BTN] = "soloBtn.png";
+    this->path[STATS_BTN] = "statsBtn.png";
+    this->path[BTN_BG] = "btnBG.png";
+    this->path[STAR] = "star.png";
 }
 
 void    SRes::playSound(SRes::SoundID id) {
@@ -165,6 +206,10 @@ cocos2d::CCSprite   *SRes::getSprite(SRes::ResID id) {
 
 cocos2d::CCSprite   *SRes::getSpriteCopy(SRes::ResID id) {
     return (cocos2d::CCSprite *) this->sprites[id]->copy();
+}
+
+char    *SRes::getSpritePath(SRes::ResID id) {
+    return this->path[id];
 }
 
 cocos2d::CCParticleExplosion    *SRes::getExplosion(cocos2d::CCPoint pos) {

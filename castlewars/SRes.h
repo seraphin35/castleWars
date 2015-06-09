@@ -117,6 +117,7 @@ private:
     void operator=(SRes const&); // Don't implement
     
     void    initiateSprites();
+    void    initiateSpritesPath();
     void    initiateAudio();
     
 public:
@@ -124,6 +125,7 @@ public:
     
     cocos2d::CCSprite    *getSprite(ResID);
     cocos2d::CCSprite    *getSpriteCopy(ResID);
+    char    *getSpritePath(ResID);
     
     void    playSound(SoundID);
     void    stopSound();
@@ -136,6 +138,7 @@ public:
     
 private:
     cocos2d::CCSprite    *sprites[37];
+    char    *path[37];
     CocosDenshion::SimpleAudioEngine    *engine;
     bool    BGMplaying;
     endGameInfos infos;
