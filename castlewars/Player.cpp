@@ -120,8 +120,8 @@ SRes::playResults    Player::play(int pos) {
 
     results.success = false;
     if (card->getCost() <= this->gems) {
-        this->addGems(-card->getCost());
         results = card->getEffect()();
+        results.pGemMod -= card->getCost();
     }
     return results;
 }

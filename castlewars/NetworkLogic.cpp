@@ -588,6 +588,25 @@ void NetworkLogic::sendPlayResult(SRes::playResults results) {
     this->sendEvent(1, eventContent);
 }
 
+void    NetworkLogic::sendDiscardResult(int gems) {
+    ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+    
+    eventContent->put<int, int>(1, 0);
+    eventContent->put<int, bool>(2, false);
+    eventContent->put<int, int>(3, gems);
+    eventContent->put<int, int>(4, 0);
+    eventContent->put<int, int>(5, 0);
+    eventContent->put<int, int>(6, 0);
+    eventContent->put<int, int>(7, 0);
+    eventContent->put<int, int>(8, 0);
+    eventContent->put<int, int>(9, 0);
+    eventContent->put<int, int>(10, 0);
+    
+    CCLOG("Sent : discard for %d", gems);
+    
+    this->sendEvent(1, eventContent);
+}
+
 void NetworkLogic::sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent)
 {
     mLoadBalancingClient.opRaiseEvent(true, eventContent, 1, code);

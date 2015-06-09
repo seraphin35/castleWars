@@ -84,9 +84,11 @@ void    GameScene::cardDiscardButton(CCObject *pSend)
     int tag = (int)pMenuItem->getTag();
     
     p1->addGems(this->p1->getCard(tag - 1)->getCost());
+    if (this->online) this->netLog->sendDiscardResult(this->p1->getCard(tag - 1)->getCost());
 
     this->popCardMenuItem(tag);
     this->addCardMenuItem();
+    
     
     this->removeChild(pMenuItem, true);
     this->endTurn();
@@ -356,7 +358,7 @@ void    GameScene::onlinePlay() {
     CCArray *effects = this->applyCardEffects(p2, p1);
     
     // REPLQCE THIS ZITH IMAGE GOT FROM R
-    CCSprite    *cardSprite = CCSprite::create(p2->getCard(0)->getImage());
+    CCSprite    *cardSprite = SRes::getInstance().getSprite(r.cardID);
     
     // Move the card from the right to the center of the screen
     cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));

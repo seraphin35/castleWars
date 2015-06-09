@@ -74,6 +74,7 @@ public:
 	bool opJoinRandomRoom(void);
 	void disconnect(void);
     void sendPlayResult(SRes::playResults results);
+    void sendDiscardResult(int gems);
     SRes::playResults   getResultFromQueue();
 	void sendEvent(void);
 
