@@ -323,10 +323,16 @@ void NetworkLogic::disconnectEventAction(int playerNr)
 
 void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent)
 {
+    if (playerNr == this->playerNr) {
+        CCLOG("Ignoring message form mysef");
+     return;
+    }
+    
     ExitGames::Common::Hashtable* event;
     
     switch (eventCode) {
         case 1: // Card played infos
+            CCLOG("play infos received !");
             event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
             
             this->pushResultToQueue(event);
@@ -334,42 +340,59 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             this->lastEvent = EVENT_NEW_MSG;
             
             break;
-        case 2: // start first signal
+        case 2: // start second signal
+            CCLOG("Received START_FIRST event");
             this->lastEvent = EVENT_START_FIRST;
             break;
-        default: // start second signal
+        case 3: // start second signal
+            CCLOG("Received START_SECOND event");
             this->lastEvent = EVENT_START_SECOND;
             break;
+        default:
+            break;
+            
     }
-    CCLOG("Custom event handled");
-
 }
 
 void    NetworkLogic::pushResultToQueue(ExitGames::Common::Hashtable *content) {
-    SRes::playResults   *results = new SRes::playResults();
+    SRes::playResults   results;
     
-    results->cardID = static_cast<SRes::ResID>(ExitGames::Common::ValueObject<int>(content->getValue(1)).getDataCopy());
-    results->extraTurn = ExitGames::Common::ValueObject<bool>(content->getValue(2)).getDataCopy();
-    results->pGemMod = ExitGames::Common::ValueObject<int>(content->getValue(3)).getDataCopy();
-    results->pMagMod = ExitGames::Common::ValueObject<int>(content->getValue(4)).getDataCopy();
-    results->pCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(5)).getDataCopy();
-    results->pWallMod = ExitGames::Common::ValueObject<int>(content->getValue(6)).getDataCopy();
-    results->oppGemMod = ExitGames::Common::ValueObject<int>(content->getValue(7)).getDataCopy();
-    results->oppMagMod = ExitGames::Common::ValueObject<int>(content->getValue(8)).getDataCopy();
-    results->oppCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(9)).getDataCopy();
-    results->oppWallMod = ExitGames::Common::ValueObject<int>(content->getValue(10)).getDataCopy();
+    results.cardID = static_cast<SRes::ResID>(ExitGames::Common::ValueObject<int>(content->getValue(1)).getDataCopy());
+    results.extraTurn = ExitGames::Common::ValueObject<bool>(content->getValue(2)).getDataCopy();
+    results.pGemMod = ExitGames::Common::ValueObject<int>(content->getValue(3)).getDataCopy();
+    results.pMagMod = ExitGames::Common::ValueObject<int>(content->getValue(4)).getDataCopy();
+    results.pCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(5)).getDataCopy();
+    results.pWallMod = ExitGames::Common::ValueObject<int>(content->getValue(6)).getDataCopy();
+    results.oppGemMod = ExitGames::Common::ValueObject<int>(content->getValue(7)).getDataCopy();
+    results.oppMagMod = ExitGames::Common::ValueObject<int>(content->getValue(8)).getDataCopy();
+    results.oppCastleMod = ExitGames::Common::ValueObject<int>(content->getValue(9)).getDataCopy();
+    results.oppWallMod = ExitGames::Common::ValueObject<int>(content->getValue(10)).getDataCopy();
     
     CCLOG("Received : %d %d %d %d %d %d %d %d %d %d",
-          results->cardID,
-          results->extraTurn,
-          results->pGemMod,
-          results->pMagMod,
-          results->pCastleMod,
-          results->pWallMod,
-          results->oppGemMod,
-          results->oppMagMod,
-          results->oppCastleMod,
-          results->oppWallMod);
+          results.cardID,
+          results.extraTurn,
+          results.pGemMod,
+          results.pMagMod,
+          results.pCastleMod,
+          results.pWallMod,
+          results.oppGemMod,
+          results.oppMagMod,
+          results.oppCastleMod,
+          results.oppWallMod);
+    
+    this->eventQueue.push(results);
+}
+
+SRes::playResults   NetworkLogic::getResultFromQueue() {
+    SRes::playResults r;
+    
+    r.success = false;
+    if (!this->eventQueue.empty()) {
+        r = this->eventQueue.front();
+        this->eventQueue.pop();
+    }
+    this->lastEvent = EVENT_NOTHING;
+    return r;
 }
 
 void NetworkLogic::connectReturn(int errorCode, const ExitGames::Common::JString& errorString)
@@ -544,38 +567,42 @@ bool NetworkLogic::isRoomExists(void)
     return true;
 }
 
+void    NetworkLogic::setLastEvent(Event e) {
+    this->lastEvent = e;
+}
+
 void    NetworkLogic::sendStartSignal(bool first) {
     ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
     
     eventContent->put<int, bool>(1, first);
 }
 
-void NetworkLogic::sendPlayResult(SRes::playResults *results) {
+void NetworkLogic::sendPlayResult(SRes::playResults results) {
     
     ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
 
-    eventContent->put<int, int>(1, results->cardID);
-    eventContent->put<int, bool>(2, results->extraTurn);
-    eventContent->put<int, int>(3, results->pGemMod);
-    eventContent->put<int, int>(4, results->pMagMod);
-    eventContent->put<int, int>(5, results->pCastleMod);
-    eventContent->put<int, int>(6, results->pWallMod);
-    eventContent->put<int, int>(7, results->oppGemMod);
-    eventContent->put<int, int>(8, results->oppMagMod);
-    eventContent->put<int, int>(9, results->oppCastleMod);
-    eventContent->put<int, int>(10, results->oppWallMod);
+    eventContent->put<int, int>(1, results.cardID);
+    eventContent->put<int, bool>(2, results.extraTurn);
+    eventContent->put<int, int>(3, results.pGemMod);
+    eventContent->put<int, int>(4, results.pMagMod);
+    eventContent->put<int, int>(5, results.pCastleMod);
+    eventContent->put<int, int>(6, results.pWallMod);
+    eventContent->put<int, int>(7, results.oppGemMod);
+    eventContent->put<int, int>(8, results.oppMagMod);
+    eventContent->put<int, int>(9, results.oppCastleMod);
+    eventContent->put<int, int>(10, results.oppWallMod);
     
     CCLOG("Sent : %d %d %d %d %d %d %d %d %d %d",
-          results->cardID,
-          results->extraTurn,
-          results->pGemMod,
-          results->pMagMod,
-          results->pCastleMod,
-          results->pWallMod,
-          results->oppGemMod,
-          results->oppMagMod,
-          results->oppCastleMod,
-          results->oppWallMod);
+          results.cardID,
+          results.extraTurn,
+          results.pGemMod,
+          results.pMagMod,
+          results.pCastleMod,
+          results.pWallMod,
+          results.oppGemMod,
+          results.oppMagMod,
+          results.oppCastleMod,
+          results.oppWallMod);
     
     this->sendEvent(1, eventContent);
 }

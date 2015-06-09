@@ -12,7 +12,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "AICore.h"
-#include "NetworkLogic.h"
+#include "NetworkLogicManager.h"
 
 using namespace cocos2d;
 
@@ -55,6 +55,7 @@ private:
     
     SRes::playResults   r;
     
+    bool            online = false;
     NetworkLogic    *netLog;
     
 public:
@@ -82,6 +83,8 @@ public:
     void startTurn();
     void endTurn();
     
+    void onlinePlay();
+    
     void computerTurn();
     void computerPlay(int, CCArray *);
     void computerDiscard(Card*, int);
@@ -106,8 +109,6 @@ public:
     void    applyOMagicEffect();
     
     void    removeGameScene();
-    
-    void    setNetworkLogic(NetworkLogic *);
 };
 
 #endif /* defined(__castlewars__GameScene__) */

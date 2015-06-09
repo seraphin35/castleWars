@@ -27,7 +27,7 @@ bool    MultiScene::init()
     
     this->createMultiScene(screenSize);
     
-    this->netLog = new NetworkLogic();
+    this->netLog = NetworkLogicManager::getInstance().getNetLog();
     this->connected = false;
     this->netRunning = false;
     this->gameStarted = false;
@@ -111,10 +111,8 @@ void MultiScene::update()
             case EVENT_OPP_JOINED:
                 this->netLog->sendEvent(2, NULL);
                 break;
-            case EVENT_OPP_CONFIRMED:
-                this->netLog->sendEvent(3, NULL);
-                break;
             case EVENT_START_FIRST:
+                this->netLog->sendEvent(3, NULL);
                 SRes::getInstance().onlinePlay = true;
                 this->startGame(true);
                 break;

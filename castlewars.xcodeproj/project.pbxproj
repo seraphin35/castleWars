@@ -43,6 +43,7 @@
 		84A3BB501B1C3FA1002A0AAF /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A3BB301B1C3FA1002A0AAF /* libPhoton-cpp_release_iphonesimulator.a */; };
 		84A3BB5B1B1C48E2002A0AAF /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84A3BB591B1C48E2002A0AAF /* NetworkLogic.cpp */; };
 		84A3BB5F1B1C4FC6002A0AAF /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84A3BB5D1B1C4FC6002A0AAF /* HelloWorldScene.cpp */; };
+		84A5EEBE1B26BA3C001A1F70 /* NetworkLogicManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84A5EEBC1B26BA3C001A1F70 /* NetworkLogicManager.cpp */; };
 		84A61BF41AE8D7DD0075F773 /* CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84A61BF31AE8D7DD0075F773 /* CPU.cpp */; };
 		84F780511AD62009006430A5 /* mainMenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780501AD62009006430A5 /* mainMenu.mp3 */; };
 		84F780531AD620E4006430A5 /* gameBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84F780521AD620E4006430A5 /* gameBGM.mp3 */; };
@@ -468,6 +469,8 @@
 		84A3BB5A1B1C48E2002A0AAF /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		84A3BB5D1B1C4FC6002A0AAF /* HelloWorldScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorldScene.cpp; sourceTree = "<group>"; };
 		84A3BB5E1B1C4FC6002A0AAF /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
+		84A5EEBC1B26BA3C001A1F70 /* NetworkLogicManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogicManager.cpp; sourceTree = "<group>"; };
+		84A5EEBD1B26BA3C001A1F70 /* NetworkLogicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogicManager.h; sourceTree = "<group>"; };
 		84A61BF21AE8D78F0075F773 /* CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPU.h; sourceTree = "<group>"; };
 		84A61BF31AE8D7DD0075F773 /* CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPU.cpp; sourceTree = "<group>"; };
 		84F780501AD62009006430A5 /* mainMenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMenu.mp3; sourceTree = "<group>"; };
@@ -2251,6 +2254,8 @@
 				AC5651321ADF8091007CD88B /* GameOverScene.h */,
 				AC27E7751AD65C040075A606 /* SRes.cpp */,
 				AC27E7741AD65BFB0075A606 /* SRes.h */,
+				84A5EEBC1B26BA3C001A1F70 /* NetworkLogicManager.cpp */,
+				84A5EEBD1B26BA3C001A1F70 /* NetworkLogicManager.h */,
 				AC47EAF51AB1680300A9EC59 /* Player.cpp */,
 				84A61BF21AE8D78F0075F773 /* CPU.h */,
 				84A61BF31AE8D7DD0075F773 /* CPU.cpp */,
@@ -2624,6 +2629,7 @@
 				AC47E9B51AB15BB400A9EC59 /* ccGLStateCache.cpp in Sources */,
 				AC47EAD31AB15BB500A9EC59 /* EditBoxImplIOS.mm in Sources */,
 				AC47E8861AB15BB300A9EC59 /* CCActionCamera.cpp in Sources */,
+				84A5EEBE1B26BA3C001A1F70 /* NetworkLogicManager.cpp in Sources */,
 				84A3BB441B1C3FA1002A0AAF /* RoomPropertiesCacher.cpp in Sources */,
 				AC47E9DC1AB15BB400A9EC59 /* CCSpriteFrameCache.cpp in Sources */,
 				AC47EA251AB15BB400A9EC59 /* CCTileMapAtlas.cpp in Sources */,

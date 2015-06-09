@@ -73,7 +73,8 @@ public:
 	bool opCreateRoom(void);
 	bool opJoinRandomRoom(void);
 	void disconnect(void);
-    void sendPlayResult(SRes::playResults *results);
+    void sendPlayResult(SRes::playResults results);
+    SRes::playResults   getResultFromQueue();
 	void sendEvent(void);
 
 	Input getLastInput(void) const;
@@ -127,6 +128,7 @@ private:
 	StateAccessor mStateAccessor;
 	Input mLastInput;
 	
+    void    setLastEvent(Event);
     void    sendStartSignal(bool first);
     void    pushResultToQueue(ExitGames::Common::Hashtable *content);
     std::queue<SRes::playResults>   eventQueue;

@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "CCDirector.h"
-#include "NetworkLogic.h"
+#include "NetworkLogicManager.h"
 
 using namespace cocos2d;
 

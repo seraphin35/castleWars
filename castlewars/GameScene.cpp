@@ -40,7 +40,10 @@ void    GameScene::cardClick(CCObject *pSend)
     CCArray    *effectsArray = NULL;
     
     r = this->p1->play(tag - 1);
-    if (r.success) effectsArray = this->applyCardEffects(p1, p2);
+    if (r.success) {
+        effectsArray = this->applyCardEffects(p1, p2);
+        if (this->online) this->netLog->sendPlayResult(r);
+    }
     else return;
     
     CCSprite    *cardSprite = CCSprite::create(p1->getCard(tag - 1)->getImage());
@@ -124,6 +127,8 @@ bool    GameScene::init()
     this->p1 = new Player("Player", Player::HUMAN);
     if (SRes::getInstance().onlinePlay) {
         this->p2 = new Player("Opponent", Player::HUMAN);
+        this->online = true;
+        this->netLog = NetworkLogicManager::getInstance().getNetLog();
     }
     else this->p2 = new Player("CPU", Player::COMPUTER);
 
@@ -322,6 +327,55 @@ void    GameScene::update(float dt)
         this->newTurn = false;
         this->startTurn();
     }
+    
+    if (this->online && this->p1->isLocked()) {
+        CCLOG("Looking for online move ...");
+        switch (this->netLog->lastEvent) {
+            case EVENT_NEW_MSG:
+                this->onlinePlay();
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+
+void    GameScene::onlinePlay() {
+    r = this->netLog->getResultFromQueue();
+
+    if (!r.success) return;
+    
+    CCArray *effects = this->applyCardEffects(p2, p1);
+    
+    // REPLQCE THIS ZITH IMAGE GOT FROM R
+    CCSprite    *cardSprite = CCSprite::create(p2->getCard(0)->getImage());
+    
+    // Move the card from the right to the center of the screen
+    cardSprite->setPosition(ccp(screenSize.width + cardSprite->getScaleX(), screenSize.height / 3 * 2));
+    cardSprite->setScale(0.65);
+    
+    this->addChild(cardSprite, 2);
+    
+    
+    CCFiniteTimeAction  *moveToScreen = CCMoveTo::create(0.5, ccp(screenSize.width / 4 * 3 + 10,
+                                                                  screenSize.height / 3 * 2));
+    CCFiniteTimeAction  *delay = CCDelayTime::create(1);
+    CCFiniteTimeAction  *moveToTop = CCMoveTo::create(0.5, ccp(screenSize.width / 2,
+                                                               screenSize.height * 2));
+    CCFiniteTimeAction *endTurn = CCCallFuncN::create(this, callfuncN_selector(GameScene::endTurn));
+    
+    
+    CCArray *actions = CCArray::createWithObject(moveToScreen);
+    actions->addObjectsFromArray(effects);
+    actions->addObject(moveToTop);
+    actions->addObject(endTurn);
+    
+    
+    CCAction    *moveCard = CCSequence::create(actions);
+    
+    cardSprite->stopAllActions();
+    cardSprite->runAction(moveCard);
 }
 
 void    GameScene::popCardMenuItem(int position) {
@@ -412,7 +466,6 @@ void    GameScene::computerPlay(int pos, CCArray *anims)
     
     cardSprite->stopAllActions();
     cardSprite->runAction(moveCard);
-    
 }
 
 void    GameScene::computerTurn()
@@ -426,6 +479,7 @@ void    GameScene::computerTurn()
     p2->discard(report.bestMovePosition);
     this->p2->draw();
 }
+
 
 CCArray    *GameScene::applyCardEffects(Player *current, Player *opp) {
     CCArray *effectArray = CCArray::create();
@@ -557,8 +611,4 @@ void    GameScene::applyOWallEffect() {
     CCPoint pos = SRes::getInstance().getPoint(SRes::CCP_WALL,
                                                this->currentPlayer->getType() == Player::COMPUTER);
     this->startExplosion(pos);
-}
-
-void    GameScene::setNetworkLogic(NetworkLogic *network) {
-    this->netLog = network;
 }
