@@ -30,6 +30,7 @@ bool    MultiScene::init()
     this->netLog = new NetworkLogic();
     this->connected = false;
     this->netRunning = false;
+    this->gameStarted = false;
     this->joinAttempt = 0;
     
     this->schedule(schedule_selector(MultiScene::update));
@@ -110,11 +111,15 @@ void MultiScene::update()
             case EVENT_OPP_JOINED:
                 this->netLog->sendEvent(2, NULL);
                 break;
+            case EVENT_OPP_CONFIRMED:
+                this->netLog->sendEvent(3, NULL);
+                break;
             case EVENT_START_FIRST:
                 SRes::getInstance().onlinePlay = true;
                 this->startGame(true);
                 break;
             case EVENT_START_SECOND:
+                SRes::getInstance().onlinePlay = true;
                 this->startGame(false);
                 break;
             default:
@@ -147,6 +152,9 @@ void    MultiScene::leaveRoom() {
 }
 
 void    MultiScene::startGame(bool first) {
+    if (this->gameStarted) return;
+
+    this->gameStarted = true;
     SRes::getInstance().onlinePlay = true;
     SRes::getInstance().playFirst = first;
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();

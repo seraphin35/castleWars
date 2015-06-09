@@ -28,6 +28,7 @@ private:
     bool            netRunning;
     bool            connected;
     int             joinAttempt;
+    bool            gameStarted;
     
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)

@@ -334,12 +334,15 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             this->lastEvent = EVENT_NEW_MSG;
             
             break;
-        case 2: // start game signal
-            event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
-            bool starting = ExitGames::Common::ValueObject<bool>(event->getValue(1)).getDataCopy();
-            this->lastEvent = starting ? EVENT_START_FIRST : EVENT_START_SECOND;
+        case 2: // start first signal
+            this->lastEvent = EVENT_START_FIRST;
+            break;
+        default: // start second signal
+            this->lastEvent = EVENT_START_SECOND;
             break;
     }
+    CCLOG("Custom event handled");
+
 }
 
 void    NetworkLogic::pushResultToQueue(ExitGames::Common::Hashtable *content) {
