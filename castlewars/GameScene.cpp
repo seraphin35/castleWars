@@ -330,7 +330,7 @@ void    GameScene::update(float dt)
         this->startTurn();
     }
     
-    netLog->run();
+    if (SRes::getInstance().onlinePlay) netLog->run();
     
     if (this->online) {
         netLog->run();
