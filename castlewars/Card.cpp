@@ -71,7 +71,7 @@ SRes::playResults Card::getCardReport(bool success, bool extraTurn, SRes::ResID 
 }
 
 SRes::playResults Card::stripMining() {
-    return getCardReport(true, false, SRes::AMETHYST_WAND,
+    return getCardReport(true, false, SRes::STRIP_MINING,
                          5, -1, 0, 10,
                          0, 0, 0, 0);
 }
